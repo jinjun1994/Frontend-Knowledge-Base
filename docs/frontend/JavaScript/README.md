@@ -1,22 +1,23 @@
 ---
-title: 基础知识
-lang: en-US
-meta:
-  - name: description
-    content: hello
-  - name: keywords
-    content: super duper SEO
+{
+author: jinjun,
+title: 基础知识,
+date: 2018/11/21,
+lang: en-US,
+meta: [{name: description,
+      content: hello},
+    {name: keywords,
+    content: super duper SEO}]
+}
 ---
-
-
-
-
 
 [[toc]]
 
 ## 闭包
 
-从
+
+
+
 
 
 
@@ -229,6 +230,12 @@ Node的console.log是另一回事，它是严格同步的，因此同样的
 
 模块化
 
+## 数组
+
+数组去重
+
+
+
 # 开发者工具devtools
 
 # 编程思想
@@ -253,3 +260,10 @@ export const isArray = _isArray;
 Linux 常用命令
 
 Windows
+
+
+
+
+
+
+

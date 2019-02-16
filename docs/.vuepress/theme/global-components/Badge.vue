@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: "badge",
   functional: true,
   props: {
     type: {

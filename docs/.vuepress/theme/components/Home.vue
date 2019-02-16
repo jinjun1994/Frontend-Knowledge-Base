@@ -45,19 +45,39 @@
       v-if="data.footer"
     >
       {{ data.footer }}
+      <readNum :idVal='path' :numStyle="numStyle" :eyeStyle="eyeStyle"></readNum>
+      
     </div>
   </main>
 </template>
 
 <script>
 import NavLink from './NavLink.vue'
+import readNum from './Valine/readNum'
 
 export default {
-  components: { NavLink },
+  components: { NavLink, readNum},
+ data () {
+    return {
+      numStyle: {
+        fontSize: '.9rem',
+        fontWeight: 'normal',
+        color: '#4e6e8e'
+      },
+      eyeStyle: {
+        fontSize: '.9rem',
+        fontWeight: 'normal',
+        color: '#4e6e8e'
+      }
+    }
+  },
 
   computed: {
     data () {
       return this.$page.frontmatter
+    },
+    path () {
+      return this.$page.path
     },
 
     actionLink () {

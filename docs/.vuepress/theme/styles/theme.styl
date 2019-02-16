@@ -3,6 +3,7 @@
 @require './arrow'
 @require './wrapper'
 @require './toc'
+@require './icon.css'
 
 html, body
   padding 0
@@ -56,7 +57,7 @@ body
 .content:not(.custom)
   @extend $wrapper
   > *:first-child
-    margin-top $navbarHeight
+    margin-top 0
   a:hover
     text-decoration underline
   p.demo

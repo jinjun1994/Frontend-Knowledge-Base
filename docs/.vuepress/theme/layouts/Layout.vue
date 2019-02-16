@@ -28,7 +28,7 @@
         slot="bottom"
       />
     </Sidebar>
-
+<toTop></toTop>
     <Home v-if="$page.frontmatter.home"/>
 
     <Page
@@ -44,6 +44,8 @@
         slot="bottom"
       />
     </Page>
+    <Valine></Valine>
+    
   </div>
 </template>
 
@@ -53,9 +55,11 @@ import Navbar from '../components/Navbar.vue'
 import Page from '../components/Page.vue'
 import Sidebar from '../components/Sidebar.vue'
 import { resolveSidebarItems } from '../util'
+import Valine from '../components/Valine/Valine'
+import toTop from '../components/toTop/totop';
 
 export default {
-  components: { Home, Page, Sidebar, Navbar },
+  components: { Home, Page, Sidebar, Navbar, Valine, toTop},
 
   data () {
     return {

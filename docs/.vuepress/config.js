@@ -1,5 +1,7 @@
 module.exports = {
-    plugins: ['@vuepress/last-updated'],
+    plugins: ['@vuepress/last-updated',
+    '@vuepress/register-components'
+  ],
     // theme: 'vuepress-theme-kim',
     title: 'Frontend Knowledge Base',
     description: '【前端学习+面试指南】 涵盖前端工程师必需的核心知识库',
@@ -13,7 +15,7 @@ module.exports = {
       lineNumbers: true // 代码块显示行号
     },
     themeConfig: {
-
+      author: 'jinjun',
       algolia: {
         apiKey: 'dd4fb1285759b32bbdbcfe5b4ea67194',
         // appId: '9AVBJQQ64T',
@@ -22,12 +24,17 @@ module.exports = {
           hitsPerPage: 10,
         }
       },
+ // valine
+ valineConfig: {
+  appId: 'IRgwPiLrib3CsiwNuIquQUnX-gzGzoHsz',
+  appKey: '7VqjT4lBkK1Ul9dtF4GKGMzA'
+},
 
 // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
 repo: 'jinjun1994/Frontend-Knowledge-Base',
 // 自定义仓库链接文字。默认从 `themeConfig.repo` 中自动推断为
 // "GitHub"/"GitLab"/"Bitbucket" 其中之一，或是 "Source"。
-repoLabel: '查看源码',
+repoLabel: 'GitHub',
 
 // 以下为可选的编辑链接选项
 
@@ -46,7 +53,7 @@ editLinkText: '帮助我们改善此页面！',
       // displayAllHeaders: true, // 默认值：false
       lastUpdated: 'Last Updated' ,// 文档更新时间：每个文件git最后提交的时间
       nav:[
-        { text: '前端算法', link: '/algorithm/' }, // 内部链接 以docs为根目录
+        { text: '计算机基础', link: '/cs/linux/linux' }, // 内部链接 以docs为根目录
         { text: '博客', link: 'https://jinjun.wiki/' }, // 外部链接
         // 下拉列表
         {
@@ -63,7 +70,8 @@ editLinkText: '帮助我们改善此页面！',
       // sidebar: 'auto',
       sidebar: {
         '/frontend/': getFrontEndSidebar('JavaScript', 'css', 'html', '浏览器', '前端框架',
-        '性能优化', 'node', '数据结构与算法', '前端工程化', '前端图形学', '微信小程序')
+        '性能优化', 'node', '数据结构与算法', '前端工程化', '前端图形学', '微信小程序'),
+        '/cs/': getCsSidebar('linux', 'nginx', 'git'),
         // '/zh/plugin/': getPluginSidebar('插件', '介绍', '官方插件'),
         // '/zh/theme/': getThemeSidebar('主题', '介绍')
       }
@@ -149,5 +157,50 @@ editLinkText: '帮助我们改善此页面！',
           'miniprogram/miniprogram',
         ]
       }
+    ]
+  }
+
+  function getCsSidebar (linux, nginx, git
+    ) {
+    return [
+      {
+        title: linux,
+        collapsable: true,
+        children: [
+          'linux/linux',
+        ]
+      },
+      {
+        title: nginx,
+        collapsable: true,
+        children: [
+          'nginx/nginx',
+        ]
+      },
+      {
+        title: git,
+        collapsable: true,
+        children: [
+          'git/git',
+          'git/1-果壳中的Git',
+          'git/2.1-Git简易指南',
+          'git/2.2-创建代码仓库',
+          'git/2.3-保存你的更改',
+          'git/2.4-查看仓库状态',
+          'git/2.5-检出以前的提交',
+          'git/2.6-回滚错误的修改',
+          'git/2.7-重写项目历史',
+          'git/3.2-保持代码同步',
+          'git/3.3-创建PullRequest',
+          'git/3.4-使用分支',
+          'git/3.5-常见工作流比较',
+          'git/4-Git图解',
+          'git/5.1-代码合并Merge还是Rebase',
+          'git/5.2-回滚命令Reset、Checkout、Revert辨析',
+          'git/5.3-Git_log高级用法',
+          'git/5.4-Git钩子',
+          'git/5.5-Git提交引用',
+        ]
+      },
     ]
   }

@@ -18,7 +18,13 @@ settimeout
 
 ## 跨浏览器开发
 
-浏览器兼容  屏幕 css html javascript
+浏览器兼容
+
+ [如何机智地回答浏览器兼容性问题](https://juejin.im/post/5b3da006e51d4518f140edb2#heading-5)
+
+
+
+  屏幕 css html javascript
 
 移动端问题
 

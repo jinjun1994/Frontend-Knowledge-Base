@@ -12,3 +12,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta
 
 ## 语义化
 
+## HTML5新特性
+
+十个方面
+

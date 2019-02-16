@@ -1,0 +1,93 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add -D @vuepress/plugin-register-components
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Calibre2\;C:\Program Files\Git\cmd;C:\Program Files\PuTTY\;C:\Program Files\TortoiseSVN\bin;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\MacType;C:\Program Files\Microsoft VS Code\bin;C:\Ruby25-x64\bin;C:\Users\jinjun\AppData\Local\Microsoft\WindowsApps;C:\Users\jinjun\AppData\Local\Programs\Python\Python36-32;C:\Users\jinjun\AppData\Local\Programs\Python\Python36-32\Scripts;C:\Users\jinjun\AppData\Local\GitHubDesktop\bin;C:\Users\jinjun\AppData\Local\Microsoft\WindowsApps;C:\tools\dart-sdk\bin;C:\Users\jinjun\AppData\Roaming\Pub\Cache\bin;C:\Users\jinjun\AppData\Roaming\npm;C:\Program Files\Docker Toolbox;C:\Users\jinjun\AppData\Local\Yarn\bin;C:\Program Files\Bandizip\
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  10.4.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, mkdir 'C:\Users\jinjun\Documents\GitHub\vue\Frontend-Knowledge-Base\docs\.vuepress\theme\node_modules\.bin'
+
+npm manifest: 
+  {
+    "_from": "@vuepress/theme-default@1.0.0-alpha.35",
+    "_id": "@vuepress/theme-default@1.0.0-alpha.35",
+    "_inBundle": false,
+    "_integrity": "sha512-VrtenQlDiUY79OsqtpL3Rv3Qd2IY+8DNsPTifv0ogvyAVtUkM6X8TVQF2RulyWDIuDZG9saAbpBwoivd02+xWw==",
+    "_location": "/@vuepress/theme-default",
+    "_phantomChildren": {},
+    "_requested": {
+      "type": "version",
+      "registry": true,
+      "raw": "@vuepress/theme-default@1.0.0-alpha.35",
+      "name": "@vuepress/theme-default",
+      "escapedName": "@vuepress%2ftheme-default",
+      "scope": "@vuepress",
+      "rawSpec": "1.0.0-alpha.35",
+      "saveSpec": null,
+      "fetchSpec": "1.0.0-alpha.35"
+    },
+    "_requiredBy": [
+      "/vuepress"
+    ],
+    "_resolved": "https://registry.npmjs.org/@vuepress/theme-default/-/theme-default-1.0.0-alpha.35.tgz",
+    "_shasum": "f24f6fe4f3ea10dceb6575e5a96b70790e7081d3",
+    "_spec": "@vuepress/theme-default@1.0.0-alpha.35",
+    "_where": "C:\\Users\\jinjun\\Documents\\GitHub\\vue\\Frontend-Knowledge-Base\\node_modules\\vuepress",
+    "author": {
+      "name": "Evan You"
+    },
+    "bugs": {
+      "url": "https://github.com/vuejs/vuepress/issues"
+    },
+    "bundleDependencies": false,
+    "dependencies": {
+      "@vuepress/plugin-active-header-links": "^1.0.0-alpha.35",
+      "@vuepress/plugin-nprogress": "^1.0.0-alpha.35",
+      "@vuepress/plugin-search": "^1.0.0-alpha.35",
+      "docsearch.js": "^2.5.2",
+      "stylus": "^0.54.5",
+      "stylus-loader": "^3.0.2"
+    },
+    "deprecated": false,
+    "description": "Default theme for VuePress",
+    "gitHead": "67955d06457b23cc0081ef034662de2efe5363e3",
+    "homepage": "https://github.com/vuejs/vuepress/packages/@vuepress/theme-default#readme",
+    "keywords": [
+      "documentation",
+      "vue",
+      "vuepress",
+      "generator"
+    ],
+    "license": "MIT",
+    "main": "index.js",
+    "maintainers": [
+      {
+        "name": "ULIVZ",
+        "email": "chl814@foxmail.com"
+      }
+    ],
+    "name": "@vuepress/theme-default",
+    "publishConfig": {
+      "access": "public"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vuejs/vuepress.git"
+    },
+    "version": "1.0.0-alpha.35"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

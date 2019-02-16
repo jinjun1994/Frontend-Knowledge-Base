@@ -1,0 +1,19 @@
+{
+  "name": "Frontend-Knowledge-Base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.0.0-alpha.35"
+  },
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "dependencies": {
+    "leancloud-storage": "^3.11.1",
+    "valine": "^1.3.4",
+    "vuepress-theme-kim": "^1.0.2",
+    "vuepress-theme-reco": "^0.2.0"
+  }
+}

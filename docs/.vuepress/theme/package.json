@@ -1,33 +1,35 @@
 {
-  "name": "@vuepress/theme-default",
-  "version": "1.0.0-alpha.35",
-  "description": "Default theme for VuePress",
-  "main": "index.js",
-  "publishConfig": {
-    "access": "public"
+  "_from": "@vuepress/theme-default@1.0.0-alpha.35",
+  "_id": "@vuepress/theme-default@1.0.0-alpha.35",
+  "_inBundle": false,
+  "_integrity": "sha512-VrtenQlDiUY79OsqtpL3Rv3Qd2IY+8DNsPTifv0ogvyAVtUkM6X8TVQF2RulyWDIuDZG9saAbpBwoivd02+xWw==",
+  "_location": "/@vuepress/theme-default",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@vuepress/theme-default@1.0.0-alpha.35",
+    "name": "@vuepress/theme-default",
+    "escapedName": "@vuepress%2ftheme-default",
+    "scope": "@vuepress",
+    "rawSpec": "1.0.0-alpha.35",
+    "saveSpec": null,
+    "fetchSpec": "1.0.0-alpha.35"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vuejs/vuepress.git"
+  "_requiredBy": [
+    "/vuepress"
+  ],
+  "_resolved": "https://registry.npmjs.org/@vuepress/theme-default/-/theme-default-1.0.0-alpha.35.tgz",
+  "_shasum": "f24f6fe4f3ea10dceb6575e5a96b70790e7081d3",
+  "_spec": "@vuepress/theme-default@1.0.0-alpha.35",
+  "_where": "C:\\Users\\jinjun\\Documents\\GitHub\\vue\\Frontend-Knowledge-Base\\node_modules\\vuepress",
+  "author": {
+    "name": "Evan You"
   },
-  "keywords": [
-    "documentation",
-    "vue",
-    "vuepress",
-    "generator"
-  ],
-  "author": "Evan You",
-  "maintainers": [
-    {
-      "name": "ULIVZ",
-      "email": "chl814@foxmail.com"
-    }
-  ],
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/vuejs/vuepress/issues"
   },
-  "homepage": "https://github.com/vuejs/vuepress/packages/@vuepress/theme-default#readme",
+  "bundleDependencies": false,
   "dependencies": {
     "@vuepress/plugin-active-header-links": "^1.0.0-alpha.35",
     "@vuepress/plugin-nprogress": "^1.0.0-alpha.35",
@@ -36,5 +38,31 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
   },
-  "gitHead": "67955d06457b23cc0081ef034662de2efe5363e3"
+  "deprecated": false,
+  "description": "Default theme for VuePress",
+  "gitHead": "67955d06457b23cc0081ef034662de2efe5363e3",
+  "homepage": "https://github.com/vuejs/vuepress/packages/@vuepress/theme-default#readme",
+  "keywords": [
+    "documentation",
+    "vue",
+    "vuepress",
+    "generator"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "ULIVZ",
+      "email": "chl814@foxmail.com"
+    }
+  ],
+  "name": "@vuepress/theme-default",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/vuepress.git"
+  },
+  "version": "1.0.0-alpha.35"
 }
