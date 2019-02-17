@@ -30,7 +30,7 @@ CSS将源文档组织为元素和文本节点树，并将其呈现在画布上(�
 
 :::
 
-
+0
 
 ## 对盒模型的认识
 
@@ -66,9 +66,13 @@ CSS假设每个元素生成一个或多个矩形框，称为元素框。
 
 ![](http://img.dubiqc.com/201902/16162258.png-sign)
 
-每个边距、边框和填充都可以使用各种特定于边的属性(如 margin-left or border-bottom)以及缩写属性(如`{padding:  }`)进行设置。轮廓没有特定于边的属性。标准盒模型如下图所示：
+每个外边距、边框和内边距都可以使用各种特定于边的属性(如 margin-left or border-bottom)以及缩写属性(如`{padding:  }`)进行设置。轮廓没有特定于边的属性。标准盒模型如下图所示：
 
 ![标准盒模型](http://img.dubiqc.com/201902/16164226.png-sign)
+
+#### margin padding border content 各区域分布如下图所示
+
+![](http://img.dubiqc.com/201902/17142641.png-sign)
 
 ::: tip
 
@@ -170,11 +174,49 @@ http://www.w3.org/TR/CSS1/#vertical-formatting
 
 **标准文档流中，竖直方向的margin不叠加，只取较大的值作为margin**(水平方向的margin是可以叠加的，即水平方向没有塌陷现象)。
 
+
+
+#### 由上可知
+
+:::tip
+
+**两个或多个毗邻的普通流中的块元素垂直方向上的 margin 会折叠**
+
+类似于普通流另有[bfc布局规则](#bfc布局规则)：属于同一个BFC的两个相邻Box的margin会发生重叠
+
+:::
+
+**1.两个或多个**
+ 说明其数量必须是大于一个，又说明，折叠是元素与元素间相互的行为，不存在 A 和 B 折叠，B 没有和 A 折叠的现象。
+
+**2.毗邻**
+ 是指没有被非空内容、padding、border 或 clear 分隔开，说明其位置关系。
+ 注意一点，在没有被分隔开的情况下，一个元素的 margin-top 会和它普通流中的第一个子元素(*非浮动元素等*)的 margin-top 相邻；             只有在一个元素的 height 是 "auto" 的情况下，它的 margin-bottom 才会和它普通流中的最后一个子元素(*非浮动元素等*)的 margin-bottom 相邻。
+
+**3.垂直方向**
+ 是指具体的方位，只有垂直方向的 margin 才会折叠，也就是说，水平方向的 margin 不会发生折叠的现象。
+
+二、那么如何使元素上下margin不折叠呢？
+
+**1.**浮动元素、inline-block 元素、绝对定位元素的 margin 不会和垂直方向上其他元素的 margin 折叠**（注意这里指的是上下相邻的元素）**
+
+**2.**创建了块级格式化上下文的元素，不和它的子元素发生 margin 折叠**（注意这里指的是创建了BFC的元素和它的子元素不会发生折叠）**
+
+触发BFC的因素是**float（除了none）、overflow（除了visible）、display（table-cell/table-caption/inline-block）、position（除了static/relative）** 等
+
+**相邻元素不发生折叠的因素是触发BFC因素的子集**，也就是说**如果我为上下相邻的元素设置了overflow:hidden，虽然触发了BFC，但是上下元素的上下margin还是会发生折叠**      
+
+创建BFC的初衷只是为了让元素本身（包括它的子元素）能够正确的计算自己的宽高。[http://www.yuiblog.com/blog/2010/05/19/css-101-block-formatting-contexts](<https://yuiblog.com/blog/2010/05/19/css-101-block-formatting-contexts/>)
+
+不发生折叠的触发因素是浮动元素、inline-block 元素、绝对定位元素，这个只是创建BFC因素的子集，但并不能说明创建了BFC的元素就不会发生折叠，因为BFC还可以用overflow:hidden来创建。相反如果父元素触发了BFC，那么他的块级子元素反而会发生折叠。
+
 ::: tip
 
 如果不在标准流，比如盒子都浮动了，那么两个盒子之间是没有margin重叠的现象的。
 
 :::
+
+
 
 ## BFC IFC GFC FFC
 
@@ -198,7 +240,11 @@ http://www.w3.org/TR/CSS1/#vertical-formatting
 
 　　BFC(Block formatting context)直译为"块级格式化上下文"。它是一个独立的渲染区域，只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。
 
-#### BFC布局规则：
+BFC 就是个为了布局计算简单，如果所有都从[初始包含块](<https://www.jianshu.com/p/ac7771ea1e9e>)计算得累死，说白了他就是个变了名字的初始包含块，是一个独立计算区域，它里面实际元素累加了多高就是多高。且普通流内元素还是根据普通流 margin 折叠原则折叠 ，只是跟初始包含块一样直接子孙元素与该框上下边界不能边距折叠，不是俩上下相邻的BFC之间不折叠。([参考](https://www.zhihu.com/question/35375980))
+
+
+
+### BFC布局规则
 
 1. 内部的Box会在垂直方向，一个接一个地放置。
 2. Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠
@@ -225,6 +271,237 @@ http://www.w3.org/TR/CSS1/#vertical-formatting
 - 网格元素（[`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display)为 `grid` 或 `inline-grid` 元素的直接子元素）
 - 多列容器（元素的 [`column-count`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-count) 或 [`column-width`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-width) 不为 `auto，包括 ``column-count` 为 `1`）
 - `column-span` 为 `all` 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（[标准变更](https://github.com/w3c/csswg-drafts/commit/a8634b96900279916bd6c505fda88dda71d8ec51)，[Chrome bug](https://bugs.chromium.org/p/chromium/issues/detail?id=709362)）。
+
+### BFC的作用及原理
+
+#### 1. 自适应两栏布局
+
+代码如下：
+
+````css
+<style>
+    body {
+        width: 300px;
+        position: relative;
+    }
+    .aside {
+        width: 100px;
+        height: 150px;
+        float: left;
+        background: #f66;
+    }
+    .main {
+        height: 200px;
+        background: #fcc;
+    }
+</style>
+<body>
+    <div class="aside"></div>
+    <div class="main"></div>
+</body>
+````
+
+以上代码效果如下：
+
+<style module="a">
+    .aside {
+    width: 100px;
+    height: 150px;
+    float: left;
+    background: #f66;
+}
+    .main {
+    height: 200px;
+    background: #fcc;
+}
+</style>
+<div :class="a.aside"></div>
+<div :class="a.main">此处可用开发者工具调试查看</div>
+
+<script>
+export default {
+  props: ['slot-key'],
+  mounted () {
+      console.log(this.a,this.b)
+  }
+}
+</script>
+
+
+​      
+
+
+
+![](http://img.dubiqc.com/201902/17145931.png-sign)
+
+根据`BFC`布局规则第3条：
+
+> 每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。（点击查看[margin box](#margin-padding-border-content-各区域分布如下图所示)）
+
+　　因此，虽然存在浮动的元素aslide，但main的左边依然会与包含块的左边相接触。
+
+　　根据`BFC`布局规则第四条：
+
+> `BFC`的区域不会与`float box`重叠。
+
+　　我们可以通过通过触发main生成`BFC`， 来实现自适应两栏布局。
+
+```css
+.main {    
+overflow: hidden;
+}
+```
+
+　　当触发main生成`BFC`后，这个新的`BFC`不会与浮动的aside重叠。因此会根据包含块的宽度，和aside的宽度，自动变窄。效果如下：此处可用开发者工具调试查看
+
+<style module="b">
+    .asideb {
+    width: 100px;
+    height: 150px;
+    float: left;
+    background: #f66;
+}
+    .mainb {
+    height: 200px;
+    background: #fcc;
+    overflow: hidden;
+}
+</style>
+<div :class="b.asideb"></div>
+<div :class="b.mainb" ></div>
+
+![](http://img.dubiqc.com/201902/17153729.png-sign)
+
+#### 2. 清除内部浮动
+
+代码：
+
+````html
+<style>
+    .par {
+        border: 5px solid #fcc;
+        width: 300px;
+    }
+ 
+    .child {
+        border: 5px solid #f66;
+        width:100px;
+        height: 100px;
+        float: left;
+    }
+</style>
+<body>
+    <div class="par">
+        <div class="child"></div>
+        <div class="child"></div>
+    </div>
+</body>
+````
+
+效果：
+
+<style module="float">
+    .par {
+        border: 5px solid #fcc;
+        width: 300px;
+    }
+    .child {
+        border: 5px solid #f66;
+        width:100px;
+        height: 100px;
+        float: left;
+    }
+</style>
+
+<div :class="float.par">
+    <div :class="float.child"></div>
+    <div :class="float.child"></div>
+</div>
+
+
+![](http://img.dubiqc.com/201902/17154859.png-sign)
+
+根据`BFC`布局规则第六条：
+
+> 计算`BFC`的高度时，浮动元素也参与计算
+
+　　为达到清除内部浮动，我们可以触发par生成`BFC`，那么par在计算高度时，par内部的浮动元素child也会参与计算。
+
+　　代码：
+
+```css
+.par { 
+    overflow: hidden;
+}
+```
+
+修改后效果：
+
+![](http://img.dubiqc.com/201902/17160610.png-sign)
+
+#### 3. 防止垂直 margin 重叠
+
+代码：
+
+````html
+<style>
+    p {
+        color: #f55;
+        background: #fcc;
+        width: 200px;
+        line-height: 100px;
+        text-align:center;
+        margin: 100px;
+    }
+</style>
+<body>
+    <p>Haha</p>
+    <p>Hehe</p>
+</body>
+````
+
+效果：
+
+
+
+![效果](http://img.dubiqc.com/201902/17160747.png-sign)
+
+两个p之间的距离为100px，发送了margin重叠。
+
+这是由于[普通流中margin重叠](# 由上可知)
+
+　　我们可以在p外面包裹一层容器，并触发该容器生成一个`BFC`。使得p与外部隔离，就不会发生margin重叠了。
+　　代码：
+
+````html
+<style>
+    .wrap {
+        overflow: hidden;   // 新bfc
+    }
+    p {
+        color: #f55;
+        background: #fcc;
+        width: 200px;
+        line-height: 100px;
+        text-align:center;
+        margin: 100px;
+    }
+</style>
+<body>
+    <p>Haha</p>
+    <div class="wrap">
+        <p>Hehe</p>
+    </div>
+</body>
+````
+
+效果：
+
+![](http://img.dubiqc.com/201902/17161224.png-sign)
+
+
+
+
 
 其实以上的几个例子都体现了，`BFC`就是页面上的一个**隔离的独立容器**，容器里面的子元素不会影响到外面的元素。反之也如此。
 
@@ -440,19 +717,12 @@ selector::pseudo-element { property: value; }
 
 
 
-<div :class="">  
-    </div>  
 
 
 
-<script>
-export default {
-  props: ['slot-key'],
-  mounted () {
- console.log(this.a)
-  }
-}
-</script>
+
+
+
 
 
 
@@ -465,13 +735,38 @@ export default {
 
 布局方式
 
+### 基于移动端的PX与REM转换兼容方案
+
+- `different size different DPR`
+- 目前的设计稿 一般是 640 750 1125，一般要先均分成100份，(兼容`vh,vm`) `750/10 = 75px (1rem = 75px)`。`div`宽是`240px*120px css`的书写改为`3.2rem * 1.6rem`。 配合响应式修改`html`根的大小。
+- 字体不建议使用rem的，`data-dpr`属性动态设置字体大小。屏幕变大放更多的文字，或者屏幕更大放更多的字。[资料介绍](https://segmentfault.com/a/1190000004358316) 
+- 神奇的`padding/margin-top`等比例缩放间距
+
+### 移动端布局
+
+- `flex`模型
+- `*` 杀伤力太大,根据具体使用什么再加什么
+- `Reset.css` 重置 `Normalize.css`修复 `Neat.css`融合
+- 移动端必须加上的
+
+````css
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+````
+
+
+
 ### reset选择
 
 reset.css(重置) 、[normalize.css](https://github.com/necolas/normalize.css)（修复）、[Neat.css](https://thx.github.io/cube/doc/neat#neatcss-)（融合）
 
 项目开始引入neat.css
 
-### reset.css
+#### reset.css
 
 为什么会有`CSS Reset`的存在呢？那是因为早期的浏览器支持和理解的CSS规范不同，导致渲染页面时效果不一致，会出现很多兼容性问题。 关于 [浏览器的默认样式](http://www.w3cfuns.com/topic-12.html) 请点击查阅！
 
@@ -506,7 +801,7 @@ address { font-style:normal }
 
 reset是革命党，normalize是改良派。reset的方针就是都tm给我脱光光，老子今天要翻牌。什么豹纹，蕾丝，美颜相机统统给我拿掉，老子读书少，都别骗我。于是，一个个屌丝心中的女神都重拾了素颜，但回到本真又能怎样？那两厘米的粉底不都是为了你？于是，在旁边的normalize看不下去了。它主张生活不必处处追求真实，有时应该睁一只眼，闭一只眼。
 
-### normalize
+#### normalize
 
 normalize.css是一个现代的，为HTML5准备的reset.css的替代品。它可以使元素的渲染在多个浏览器下都能保持一致并且符合规范。它所瞄准的，也都是些需要规范化的样式。
 
@@ -542,7 +837,7 @@ normalize 可以被分成多个独立的部分，也就是说你可以指定你�
 
 normalize的代码基于非常细致的跨浏览器的研究和系统的测试，在 <https://github.com/necolas/normalize.css> 上面提供了详细的注释，这样你就能知道每行代码做了什么，为啥它会被包含进来，以及浏览器之间的差异，还有就是更容易你自己去进行测试。
 
-### Neat.css
+#### Neat.css
 
 [Neat.css](https://thx.github.io/cube/) 是基于[normalize](https://github.com/necolas/normalize.css)的全新的 CSS Reset，兼容 IE 6+ 以及其他现代浏览器。
 
@@ -565,7 +860,7 @@ normalize的代码基于非常细致的跨浏览器的研究和系统的测试�
 
 <https://www.iconfont.cn/>
 
-### css hint css lint
+### CSS代码检测团队项目规范
 
 规范css代码书写
 
