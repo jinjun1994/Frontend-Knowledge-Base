@@ -182,7 +182,7 @@ http://www.w3.org/TR/CSS1/#vertical-formatting
 
 **两个或多个毗邻的普通流中的块元素垂直方向上的 margin 会折叠**
 
-类似于普通流另有[bfc布局规则](#bfc布局规则)：属于同一个BFC的两个相邻Box的margin会发生重叠
+类似于普通流另有[bfc布局规则](#bfc布局规则)：**属于同一个BFC的两个相邻Box的margin会发生重叠**
 
 :::
 
@@ -258,19 +258,51 @@ BFC 就是个为了布局计算简单，如果所有都从[初始包含块](<htt
 下列方式会创建[块格式化上下文](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context)：
 
 - 根元素或包含根元素的元素
+
 - 浮动元素（元素的 [`float`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/float) 不是 `none`）
+
 - 绝对定位元素（元素的 [`position`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) 为 `absolute` 或 `fixed`）
+
 - 行内块元素（元素的 [`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display) 为 `inline-block`）
+
 - 表格单元格（元素的 [`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display)为 `table-cell`，HTML表格单元格默认为该值）
+
 - 表格标题（元素的 [`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display) 为 `table-caption`，HTML表格标题默认为该值）
+
 - 匿名表格单元格元素（元素的 [`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display)为 `table、``table-row`、 `table-row-group、``table-header-group、``table-footer-group`（分别是HTML table、row、tbody、thead、tfoot的默认属性）或 `inline-table`）
+
 - [`overflow`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/overflow) 值不为 `visible` 的块元素
+
 - [`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display) 值为 `flow-root` 的元素
+
 - [`contain`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain) 值为 `layout`、`content`或 `strict` 的元素
+
 - 弹性元素（[`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display)为 `flex` 或 `inline-flex`元素的直接子元素）
+
 - 网格元素（[`display`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/display)为 `grid` 或 `inline-grid` 元素的直接子元素）
+
 - 多列容器（元素的 [`column-count`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-count) 或 [`column-width`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-width) 不为 `auto，包括 ``column-count` 为 `1`）
+
 - `column-span` 为 `all` 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（[标准变更](https://github.com/w3c/csswg-drafts/commit/a8634b96900279916bd6c505fda88dda71d8ec51)，[Chrome bug](https://bugs.chromium.org/p/chromium/issues/detail?id=709362)）。
+
+
+:::tip
+
+简记：
+
+float不为none、
+
+overflow不为hidden、
+
+display为table-cell，table-caption，inline-block中的任何一个。
+
+dispaly 为flex grid元素的子元素 
+
+Position值不为relative或static
+
+
+
+:::
 
 ### BFC的作用及原理
 
@@ -519,6 +551,10 @@ overflow: hidden;
 
 - [前端精选文摘：BFC 神奇背后的原理](https://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html)
 
+## 继承与层叠
+
+todo
+
 ## css选择器
 
 **CSS 选择器**规定了 CSS 规则会应用到哪些元素上。
@@ -698,7 +734,29 @@ selector::pseudo-element { property: value; }
 - [`::spelling-error`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::spelling-error) 
 - [`::grammar-error`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::grammar-error)   
 
+### 选择器的优先级
+
+- `!important` > 行内样式 > `#id` > `.class` > `tag` > * > 继承 > 默认
+- 选择器 **从右往左** 解析
+
+浏览器通过优先级规则，判断元素展示哪些样式。优先级通过 4 个维度指标确定，我们假定以`a、b、c、d`命名，分别代表以下含义：
+
+1. `a`表示是否使用内联样式（inline style）。如果使用，`a`为 1，否则为 0。
+2. `b`表示 ID 选择器的数量。
+3. `c`表示类选择器、属性选择器和伪类选择器数量之和。
+4. `d`表示标签（类型）选择器和伪元素选择器之和。
+
+优先级的结果并非通过以上四个值生成一个得分，而是每个值分开比较。`a、b、c、d`权重从左到右，依次减小。判断优先级时，从左到右，一一比较，直到比较出最大值，即可停止。所以，如果`b`的值不同，那么`c`和`d`不管多大，都不会对结果产生影响。比如`0，1，0，0`的优先级高于`0，0，10，10`。
+
+当出现优先级相等的情况时，最晚出现的样式规则会被采纳。如果你在样式表里写了相同的规则（无论是在该文件内部还是其它样式文件中），那么最后出现的（在文件底部的）样式优先级更高，因此会被采纳。
+
+在写样式时，我会使用较低的优先级，这样这些样式可以轻易地覆盖掉。尤其对写 UI 组件的时候更为重要，这样使用者就不需要通过非常复杂的优先级规则或使用`!important`的方式，去覆盖组件的样式了。
+
+《css权威指南》有超详细介绍
+
 ## css布局
+
+
 
 从例题实战学习css布局：假设高度默认100px ，请写出三栏布局，其中左栏、右栏各为300px，中间自适应。
 
@@ -711,11 +769,410 @@ selector::pseudo-element { property: value; }
 - 方法4：表格布局 table。虽然已经淘汰了，但也应该了解。
 - 方法5：网格布局 grid。
 
+### 方法1 和方法2
+
+**方法1、浮动：**
+
+左侧设置左浮动，右侧设置右浮动即可，中间会自动地自适应。
+
+**方法2、绝对定位：**
+
+左侧设置为绝对定位， left：0px。右侧设置为绝对定位， right：0px。中间设置为绝对定位，left 和right 都为300px，即可。中间的宽度会自适应。
+
+使用`article`标签作为容器，包裹左、中、右三个部分。
+
+方法1 和方法2 的代码如下：
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .layout {
+            margin-bottom: 150px;
+        }
+
+
+        .layout article div { /*注意，这里是设置每个小块儿的高度为100px，而不是设置大容器的高度。大容器的高度要符合响应式*/
+            height: 100px;
+        }
+
+        /* 方法一 start */
+
+        .layout.float .left {
+            float: left;
+            width: 300px;
+            background: red;
+        }
+
+        .layout.float .right {
+            float: right;
+            width: 300px;
+            background: blue;
+        }
+
+        .layout.float .center {
+            background: green;
+
+        }
+
+        /* 方法一 end */
+
+
+        /* 方法二 start */
+        .layout.absolute .left-center-right {
+            position: relative;
+        }
+
+        .layout.absolute .left {
+            position: absolute;
+            left: 0;
+            width: 300px;
+            background: red;
+        }
+
+        /* 【重要】中间的区域，左侧定位300px，右侧定位为300px，即可完成。宽度会自使用 */
+        .layout.absolute .center {
+            position: absolute;
+            left: 300px;
+            right: 300px;
+            background: green;
+        }
+
+        .layout.absolute .right {
+            position: absolute;
+            right: 0;
+            width: 300px;
+            background: blue;
+        }
+
+
+        /* 方法二 end */
+    </style>
+</head>
+
+<body>
+
+    <!-- 方法一：浮动 start -->
+    <!-- 输入 section.layout.float，即可生成  -->
+    <section class="layout float">
+        <!-- 用  article 标签包裹左、中、右三个部分 -->
+        <article class="left-right-center">
+            <!-- 输入 div.left+div.right+div.center，即可生成 -->
+            <div class="left">
+                我是 left
+            </div>
+            <div class="right">
+                我是 right
+            </div>
+            <div class="center">
+                浮动解决方案
+                我是 center
+            </div>
+
+        </article>
+
+    </section>
+    <!-- 方法一：浮动 end -->
+
+    <section class="layout absolute">
+        <article class="left-center-right">
+            <div class="left">
+                我是 left
+            </div>
+            <div class="right">
+                我是 right
+            </div>
+            <div class="center">
+                <h1>绝对定位解决方案</h1>
+                我是 center
+            </div>
+        </article>
+    </section>
+</body>
+</html>
+```
+
+注意上方代码中， className 定义和使用，非常规范。
+
+[查看效果](https://jinjun1994.github.io/example/css/float.html)
+
+### 方法3、flexbox布局
+
+将左中右所在的容器设置为`display: flex`，设置两侧的宽度后，然后让中间的`flex = 1`，即可。
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .layout article div {
+            height: 100px;
+        }
+
+        .left-center-right {
+            display: flex;
+        }
+
+        .layout.flex .left {
+            width: 300px;
+            background: red;
+        }
+
+        .layout.flex .center {
+            flex: 1;
+            background: green;
+        }
+
+        .layout.flex .right {
+            width: 300px;
+            background: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="layout flex">
+        <article class="left-center-right-">
+            <div class="left">
+                我是 left
+            </div>
+            <div class="center">
+                <h1>flex布局解决方案</h1>
+                我是 center
+            </div>
+            <div class="right">
+                我是 right
+            </div>
+
+        </article>
+    </section>
+
+</body>
+
+</html>
+```
+
+[点击查看效果](https://jinjun1994.github.io/example/css/flex.html)
 
 
 
+### 方法4、表格布局 table
+
+设置整个容器的宽度为100%，设置三个部分均为表格，然后左边的单元格为 300px，右边的单元格为 300px，即可。中间的单元格会自适应。
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .layout.table div {
+            height: 100px;
+        }
+
+        /* 重要：设置容器为表格布局，宽度为100% */
+        .layout.table .left-center-right {
+            width: 100%;
+            display: table;
+            height: 100px;
+
+        }
+
+        .layout.table .left-center-right div {
+            display: table-cell; /* 重要：设置三个模块为表格里的单元*/
+        }
+
+        .layout.table .left {
+            width: 300px;
+            background: red;
+        }
+
+        .layout.table .center {
+            background: green;
+        }
+
+        .layout.table .right {
+            width: 300px;
+            background: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="layout table">
+        <article class="left-center-right">
+            <div class="left">
+                我是 left
+            </div>
+            <div class="center">
+                <h1>表格布局解决方案</h1>
+                我是 center
+            </div>
+            <div class="right">
+                我是 right
+            </div>
+
+        </article>
+    </section>
+
+</body>
+
+</html>
+```
+
+[点击查看效果](https://jinjun1994.github.io/example/css/table.html)
+
+### 方法5、网格布局 grid
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 重要：设置容器为网格布局，宽度为100% */
+        .layout.grid .left-center-right {
+            display: grid;
+            width: 100%;
+            grid-template-rows: 100px;
+            grid-template-columns: 300px auto 300px;  /* 重要：设置网格为三列，并设置每列的宽度。即可。*/
+
+        }
+
+        .layout.grid .left {
+            background: red;
+        }
+
+        .layout.grid .center {
+            background: green;
+        }
+
+        .layout.grid .right {
+            background: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="layout grid">
+        <article class="left-center-right">
+            <div class="left">
+                我是 left
+            </div>
+            <div class="center">
+                <h1>网格布局解决方案</h1>
+                我是 center
+            </div>
+            <div class="right">
+                我是 right
+            </div>
+
+        </article>
+    </section>
+
+</body>
+
+</html>
+```
+
+[点击查看效果](https://jinjun1994.github.io/example/css/grid.html)
 
 
+
+### 延伸：五种方法的对比
+
+- 五种方法的优缺点
+- 考虑中间模块的高度问题
+- 兼容性问题：实际开发中，哪个最实用？
+
+方法1：浮动：
+
+- 优点：兼容性好。
+- 缺点：浮动会脱离标准文档流，因此要清除浮动。我们解决好这个问题即可。
+
+方法:2：绝对定位
+
+- 优点：快捷。
+- 缺点：导致子元素也脱离了标准文档流，可实用性差。
+
+方法3：flex 布局（CSS3中出现的）
+
+- 优点：解决上面两个方法的不足，flex布局比较完美。移动端基本用 flex布局。
+
+方法4：表格布局
+
+- 优点：表格布局在很多场景中很实用，兼容性非常好。因为IE8不支持 flex，此时可以尝试表格布局
+- 缺点：因为三个部分都当成了**单元格**来对待，此时，如果中间的部分变高了，其会部分也会被迫调整高度。但是，在很多场景下，我们并不需要两侧的高度增高。
+
+什么时候用 flex 布局 or 表格布局，看具体的场景。二者没有绝对的优势，也没有绝对的不足。
+
+方法5：网格布局
+
+- CSS3中引入的布局，很好用。代码量简化了很多。
+
+PS：面试提到网格布局，说明我们对新技术是有追求的。
+
+### 延伸：如果题目中去掉高度已知
+
+问题：题目中，如果去掉高度已知，我们往中间的模块里塞很多内容，让中间的模块撑开。会发生什么变化？哪个布局就不能用了？
+
+分析：其实可以这样理解，我们回去看上面的动画效果，当中间的模块变得很挤时，会发生什么效果？就是我们想要的答案。
+
+答案是：**flex 布局和表格布局可以通用**，其他三个布局都不能用了。
+
+### 页面布局的变通
+
+[![img](https://camo.githubusercontent.com/3f5f902a712386655e19ced04ab3be7d8000eadb/687474703a2f2f696d672e736d79687661652e636f6d2f32303138303330355f313933312e706e67)](https://camo.githubusercontent.com/3f5f902a712386655e19ced04ab3be7d8000eadb/687474703a2f2f696d672e736d79687661652e636f6d2f32303138303330355f313933312e706e67)
+
+`上下高度固定，中间自适应`，这个在移动端的页面中很常见。
+
+### 总结
+
+涉及到的知识点：
+
+（1）语义化掌握到位：每个区域用`section`、`article`代表容器、`div`代表块儿。如果通篇都用 div，那就是语义化没掌握好。
+
+（2）页面布局理解深刻。
+
+（3）CSS基础知识扎实。
+
+（4）思维灵活且积极上进。题目中可以通过`网格布局`来体现。
+
+（5）代码书写规范。注意命名。上面的代码中，没有一行代码是多的。
 
 
 
@@ -879,6 +1336,16 @@ normalize的代码基于非常细致的跨浏览器的研究和系统的测试�
 
 
 ## css与性能优化
+
+- 避免过度约束
+- 避免后代选择符
+- 避免链式选择符
+- 使用紧凑的语法
+- 避免不必要的命名空间
+- 避免不必要的重复
+- 最好使用表示语义的名字。一个好的类名应该是描述他是什么而不是像什么
+- 避免！important，可以选择其他选择器
+- 尽可能的精简规则，你可以合并不同类里的重复规则
 
 ## css未来
 

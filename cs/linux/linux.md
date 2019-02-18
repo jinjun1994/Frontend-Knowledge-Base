@@ -41,3 +41,10 @@ C:\Users\jinjun\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79r
 
 
 [centos/ubuntu/debian手动启用BBR的方法汇总（KVM）](centos/ubuntu/debian手动启用BBR的方法汇总（KVM）)
+
+
+
+[tmux 教程](https://wdxtub.com/2016/03/30/tmux-guide/)
+
+[Tmux使用手册](http://louiszhai.github.io/2017/09/30/tmux/)
+
