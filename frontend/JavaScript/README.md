@@ -377,7 +377,7 @@ JavaScript的数组方法包括数组原型的方法、构造函数的方法（E
 
 所有数组实例都会从 [`Array.prototype`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype) 继承属性和方法。
 
-方法可以分为访问器方法、修改器方法以及迭代方法。
+方法可以分为访问器方法、修改器方法以及迭代方法。访问器
 
  针对每一个方法我们主要了解四个方面：**作用、参数、返回值、原数组是否改变**
  **（一）. 原型上的方法**
