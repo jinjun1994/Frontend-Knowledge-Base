@@ -2,7 +2,7 @@
 {
 author: jinjun,
 title: 基础知识,
-date: 2018/11/21,
+date: 2019/02/10,
 lang: en-US,
 meta: [{name: description,
       content: hello},
@@ -145,11 +145,11 @@ myPet();
 
 对象
 
-# 异步编程全传
+## 异步编程全传
 
 各种技术方案的涌现是为了解决实践中遇到的各种问题，本文将从这个角度带你梳理并掌握异步编程的核心内容。
 
-本文首先对单线程异步的原理进行了解读，接着按照发展历程分析了JavaScript异步解决方案，详述了Callback、Promise、Generator、Async/Await的特性和使用原理。
+首先对单线程异步的原理进行解读，接着按照发展历程分析JavaScript异步解决方案，详述Callback、Promise、Generator、Async/Await的特性和使用原理。
 
 JavaScript其中一个基本的特性就是单线程：比如，浏览器无法同时运行两个事件处理程序，行更新应用状态和文档状态根本是不可能的。之所以设计成单线程的原因就是，客户端的JavaScript函数必须不能运行太长时间：否则会导致循环事件，Web浏览器无法对用户输入作出响应。这也是为什么Ajax的API都是异步的
 
@@ -230,13 +230,9 @@ Node的console.log是另一回事，它是严格同步的，因此同样的
 
 模块化
 
-## 数组
-
-数组去重
 
 
-
-# 开发者工具devtools
+## 开发者工具devtools
 
 # 编程思想
 
@@ -244,16 +240,9 @@ Node的console.log是另一回事，它是严格同步的，因此同样的
 
 中间件
 
-````javascript
-let _isArray;
-if (Array.isArray) {
-  _isArray = Array.isArray;
-} else {
-  _isArray = x => Object.prototype.toString.call(x) === '[object Array]';
-}
 
-export const isArray = _isArray;
-````
+
+
 
 # 命令行
 

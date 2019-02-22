@@ -53,7 +53,10 @@ editLinkText: '帮助我们改善此页面！',
       // displayAllHeaders: true, // 默认值：false
       lastUpdated: 'Last Updated' ,// 文档更新时间：每个文件git最后提交的时间
       nav:[
+        { text: '前端', link: '/frontend/javascript/' }, // 内部链接 以docs为根目录
         { text: '计算机基础', link: '/cs/linux/linux' }, // 内部链接 以docs为根目录
+        { text: '书籍', link: '/book/' }, // 内部链接 以docs为根目录
+        { text: '面试', link: '/interview/' }, // 内部链接 以docs为根目录
         { text: '博客', link: 'https://jinjun.wiki/' }, // 外部链接
         // 下拉列表
         {
@@ -72,6 +75,8 @@ editLinkText: '帮助我们改善此页面！',
         '/frontend/': getFrontEndSidebar('JavaScript', 'css', 'html', '浏览器', '前端框架',
         '性能优化', 'node', '数据结构与算法', '前端工程化', '前端图形学', '微信小程序'),
         '/cs/': getCsSidebar('linux', 'nginx', 'git'),
+        '/book/': getBookSidebar('书籍汇总', '读书笔记'),
+        '/interview/': getInterviewSidebar('书籍汇总', '读书笔记'),
         // '/zh/plugin/': getPluginSidebar('插件', '介绍', '官方插件'),
         // '/zh/theme/': getThemeSidebar('主题', '介绍')
       }
@@ -85,6 +90,9 @@ editLinkText: '帮助我们改善此页面！',
         collapsable: true,
         children: [
           'JavaScript/',
+          'JavaScript/array',
+          'JavaScript/object',
+          'JavaScript/dom',
         ]
       },
       {
@@ -202,5 +210,37 @@ editLinkText: '帮助我们改善此页面！',
           'git/5.5-Git提交引用',
         ]
       },
+    ]
+  }
+  function getBookSidebar (book,note
+    ) {
+    return [
+      {
+        title: book,
+        collapsable: true,
+        children: [
+          '',
+        ]
+      },
+
+      {
+        title: note,
+        collapsable: true,
+        children: [
+          '/note/dom启蒙',
+        ]
+      },
+    ]
+  }
+  function getInterviewSidebar (interview
+    ) {
+    return [
+      {
+        title: interview,
+        collapsable: true,
+        children: [
+          'interview',
+        ]
+      }
     ]
   }
