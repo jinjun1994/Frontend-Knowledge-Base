@@ -911,7 +911,7 @@ selector::pseudo-element { property: value; }
 
 将左中右所在的容器设置为`display: flex`，设置两侧的宽度后，然后让中间的`flex = 1`，即可。
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -980,7 +980,7 @@ selector::pseudo-element { property: value; }
 
 设置整个容器的宽度为100%，设置三个部分均为表格，然后左边的单元格为 300px，右边的单元格为 300px，即可。中间的单元格会自适应。
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1220,6 +1220,10 @@ html {
 ### retina1px适配
 
 由于高清屏的特性，以2倍Retina高清屏的移动设备为例，CSS中的1px是由2×2个屏幕物理像素点来渲染的，那么样式上的border:1px在Retina高清屏下会渲染成2个物理像素宽度或高度的边框，有时为了追求1px精准的还原，不得不思考其他的方法来解决这个问题。实现1px边框的方式比较多，通常可以设置元素after或before伪元素为1px内容，并使用transform：scaleY（1/devicePixelRatio）来进行单方向的缩放实现1个物理像素的边框或内容。对于字体，我们也可以设置transform：scale(.5)在浏览器中支持显示小于12px的文字。同时如果页面的内容因为使用高清屏而导致模糊，则需要使用-webkit-font-smoothing: antialiased来尝试修复。
+
+### inline 元素对齐
+
+ vertical-align: middle;
 
 ### reset选择
 

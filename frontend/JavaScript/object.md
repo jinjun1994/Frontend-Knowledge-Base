@@ -7,9 +7,11 @@ lang: ZH-CN,
 }
 ---
 
+[[toc]]
 
+## 对象方法
 
-1. ## Object.assign(target, source1, source2, ...)
+1. #### Object.assign(target, source1, source2, ...)
 
 该方法主要用于对象的合并，将源对象 source 的所有可枚举属性合并到目标对象 target 上,此方法只拷贝源对象的自身属性，不拷贝继承的属性
 
@@ -55,7 +57,7 @@ Object.assign([1, 2, 3], [4, 5]) // 把数组当作对象来处理
 // [4, 5, 3]
 ```
 
-## 2. Object.create(prototype[,propertiesObject])
+#### 2. Object.create(prototype[,propertiesObject])
 
 使用指定的原型对象及其属性去创建一个新的对象
 
@@ -75,7 +77,7 @@ var child = Object.create(parent,{
 console.log(child);
 ```
 
-## 3. Object.defineProperties(obj,props)
+#### 3. Object.defineProperties(obj,props)
 
 直接在一个对象上定义新的属性或修改现有属性，并返回该对象
 
@@ -95,7 +97,7 @@ Object.defineProperties(obj,
 console.log(obj); // {property1: true, property2: "Hello"}
 ```
 
-## 4. Object.defineProperty(obj,prop,descriptor)
+#### 4. Object.defineProperty(obj,prop,descriptor)
 
 在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象
 
@@ -115,7 +117,7 @@ Object.defineProperty(Object, 'is',
 // Invalid property descriptor.  Cannot both specify accessors and a value or writable attribute
 ```
 
-## 5. [Object.keys(obj)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) 
+#### 5. [Object.keys(obj)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
 
 返回一个由一个给定**对象**的自身可枚举属性组成的**数组**，数组中属性名的排列顺序和使用 [for...in](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in) 循环遍历该对象时返回的顺序一致 （两者的主要区别是 一个 for-in 循环还会枚举其原型链上的属性）
 
@@ -127,7 +129,7 @@ let obj = { foo: "bar", baz: 42 }, keys = Object.keys(obj);
 console.log(keys); // ["foo","baz"]
 ```
 
-## 6. Object.values()
+#### 6. Object.values()
 
 方法返回一个给定对象自己的所有可枚举属性值的数组，值的顺序与使用 for...in 循环的顺序相同 ( 区别在于 for-in 循环枚举原型链中的属性 )
 
@@ -141,7 +143,7 @@ var obj = { 0: 'a', 1: 'b', 2: 'c' };
 console.log(Object.values(obj)); // ['a', 'b', 'c']
 ```
 
-## 7. Object.entries()
+#### 7. Object.entries()
 
 返回一个给定对象自身可枚举属性的键值对数组，其排列与使用 for...in 循环遍历该对象时返回的顺序一致（区别在于 for-in 循环也枚举原型链中的属性）
 
@@ -153,7 +155,7 @@ const simuArray = { 0: 'a', 1: 'b', 2: 'c' };
 console.log(Object.entries(simuArray)); // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]
 ```
 
-## 8. hasOwnProperty()
+#### 8. hasOwnProperty()
 
 判断对象自身属性中是否具有指定的属性
 
@@ -161,7 +163,7 @@ console.log(Object.entries(simuArray)); // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] 
 obj.hasOwnProperty('name')
 ```
 
-## 9. Object.getOwnPropertyDescriptor(obj,prop)
+#### 9. Object.getOwnPropertyDescriptor(obj,prop)
 
 返回指定对象上一个自有属性对应的属性描述符。（自有属性指的是直接赋予该对象的属性，不需要从原型链上进行查找的属性）
 
@@ -174,7 +176,7 @@ arr.forEach(val => console.log(Object.getOwnPropertyDescriptor(obj,val)))
 // undefined
 ```
 
-## 10. Object.getOwnPropertyDescriptors(obj)
+#### 10. Object.getOwnPropertyDescriptors(obj)
 
 获取一个对象的所有自身属性的描述符
 
@@ -212,7 +214,7 @@ const obj = Object.create(
 );
 ```
 
-## 11. Object.getOwnPropertyNames()
+#### 11. Object.getOwnPropertyNames()
 
 返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组
 
@@ -236,23 +238,23 @@ console.log(Object.getOwnPropertyNames(obj)); // ["x", "y", "z"] 包含不可枚
 console.log(Object.keys(obj)); // ["x", "y"]      只包含可枚举属性 。
 ```
 
-## 12. Object.getOwnPropertySymbols()
+#### 12. Object.getOwnPropertySymbols()
 
 返回一个给定对象自身的所有 Symbol 属性的数组
 
-## 13. Object.getPrototypeOf()
+#### 13. Object.getPrototypeOf()
 
 返回指定对象的原型（内部[[Prototype]]属性的值，即**proto**，而非对象的prototype）
 
-## 14. isPrototypeOf()
+#### 14. isPrototypeOf()
 
 判断一个对象是否存在于另一个对象的原型链上
 
-## 15. Object.setPrototypeOf(obj,prototype)
+#### 15. Object.setPrototypeOf(obj,prototype)
 
 设置对象的原型对象
 
-## 16. Object.is()
+#### 16. Object.is()
 
 判断两个值是否相同
 
@@ -286,7 +288,7 @@ Object.is(-0, -0); // true
 Object.is(NaN, 0/0); // true
 ```
 
-## 17. Object.freeze()
+#### 17. Object.freeze()
 
 冻结一个对象，冻结指的是不能向这个对象添加新的属性，不能修改其已有属性的值，不能删除已有属性，以及不能修改该对象已有属性的可枚举性、可配置性、可写性。也就是说，这个对象永远是不可变的。该方法返回被冻结的对象
 
@@ -316,11 +318,11 @@ obj.quaxxor = 'the friendly duck';
 console.log(obj);
 ```
 
-## 18. Object.isFrozen()
+#### 18. Object.isFrozen()
 
 判断一个对象是否被冻结
 
-## 19. Object.preventExtensions()
+#### 19. Object.preventExtensions()
 
 对象不能再添加新的属性。可修改，删除现有属性，不能添加新属性
 
@@ -341,11 +343,11 @@ obj.address  = 'china';
 console.log(obj); // {name: "haha", age: 30}
 ```
 
-## 20. Object.isExtensible()
+#### 20. Object.isExtensible()
 
 判断对象是否是可扩展的，Object.preventExtensions，Object.seal 或 Object.freeze 方法都可以标记一个对象为不可扩展（non-extensible）
 
-## 21. Object.seal()
+#### 21. Object.seal()
 
 Object.seal() 方法可以让一个对象密封，并返回被密封后的对象。密封一个对象会让这个对象变的不能添加新属性，且所有已有属性会变的不可配置。属性不可配置的效果就是属性变的不可删除，以及一个数据属性不能被重新定义成为访问器属性，或者反之。但属性的值仍然可以修改。尝试删除一个密封对象的属性或者将某个密封对象的属性从数据属性转换成访问器属性，结果会静默失败或抛出TypeError 异常. 不会影响从原型链上继承的属性。但 [`__proto__`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/proto) 属性的值也会不能修改
 
@@ -388,7 +390,7 @@ Object.defineProperty(obj, "ohai", { value: 17 }); // 抛出TypeError异常
 Object.defineProperty(obj, "foo", { value: "eit" }); // 成功将原有值改变
 ```
 
-## 22. Object.isSealed()
+#### ## 22. Object.isSealed()
 
 判断一个对象是否被密封
 

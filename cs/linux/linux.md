@@ -48,3 +48,6 @@ C:\Users\jinjun\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79r
 
 [Tmux使用手册](http://louiszhai.github.io/2017/09/30/tmux/)
 
+
+
+[vi教程](http://www.runoob.com/linux/linux-vim.html)

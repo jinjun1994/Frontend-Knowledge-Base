@@ -7,7 +7,7 @@ lang: ZH-CN,
 }
 ---
 
-
+[[toc]]
 
 ## 数组的创建
 
@@ -512,19 +512,23 @@ JavaScript的数组方法包括数组原型的方法、构造函数的方法（E
     ```
 
 16. **map():**
-      作用：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组（ES5方法）
-      语法：callback[, thisArg]
-      参数说明：callback有三个参数item(当前项),index(当前项索引)，array(数组对象本身)
-      返回值：函数每次调用结果组成的数组
-      原数组是否改变：涉及callback，因此不确定，具体详情见下文中的原型方法的小结部分。
 
-    ```
+    作用：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组（ES5方法）
+
+    语法：callback[, thisArg]
+
+    参数说明：callback有三个参数item(当前项),index(当前项索引)，array(数组对象本身)
+
+    返回值：函数每次调用结果组成的数组
+
+    分类： 迭代方法
+
+    ```JavaScript
      let arr = [1, 2, 3, 4];
      let temp = arr.map((item, index, array) => {
          return item * item;
      });
      console.log(arr, temp); // [ 1, 2, 3, 4 ] [ 1, 4, 9, 16]
-     
     ```
 
 17. **forEach():**
@@ -534,14 +538,13 @@ JavaScript的数组方法包括数组原型的方法、构造函数的方法（E
       返回值：无
       原数组是否改变：涉及callback，因此不确定，具体详情见下文中的原型方法的小结部分。
 
-    ```
+    ```JavaScript
      let arr = [1, 2, 3, 4];
      let temp = arr.forEach((item, index, array) => {
          // 不会有返回值，但可在这里执行某些操作
          return item * item;
      });
      console.log(arr, temp); // [ 1, 2, 3, 4 ] undefined
-     
     ```
 
     > 注意：
@@ -562,7 +565,7 @@ JavaScript的数组方法包括数组原型的方法、构造函数的方法（E
      返回值：数组迭代后，整体的迭代结果
       原数组是否改变：涉及callback，因此不确定，具体详情见下文中的原型方法的小结部分。
 
-    ```
+    ```JavaScript
      // 数组求和
      let arr = [1, 2, 3];
      let sum = arr.reduce((prev, cur, index, array) => {
@@ -696,9 +699,12 @@ JavaScript的数组方法包括数组原型的方法、构造函数的方法（E
     ```
 
 25. **join():**
-      作用：将数组元素转化为字符串(调用每个元素的toString方法)，并使用指定的分隔符（默认为逗号）进行拼接，返回拼接后的字符串
+
+    作用：将数组元素转化为字符串(调用每个元素的toString方法)，并使用指定的分隔符（默认为逗号）进行拼接，返回拼接后的字符串
+
      语法：分隔符，默认为逗号（，）
-      返回值：拼接后的字符串
+
+    返回值：拼接后的字符串
       原数组是否改变：否
 
     ```JavaScript
