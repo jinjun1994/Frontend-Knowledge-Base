@@ -136,7 +136,7 @@ lang: ZH-CN,
 
 JavaScript的数组方法包括数组原型的方法、构造函数的方法（ES6新增部分）
 
-![](<http://img.dubiqc.com/chrome_WIlkQ23Fpm.png>)
+![](<https://img.dubiqc.com/chrome_WIlkQ23Fpm.png>)
 
 上图可知通过 Array 构造函数有 Array.from() 、Array.isArray()、Array.of()三个方法。上面已经讲过。
 
