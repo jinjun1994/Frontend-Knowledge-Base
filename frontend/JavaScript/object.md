@@ -137,14 +137,17 @@ ECMAScript 中描述了原型链的概念，并将原型链作为实现继承的
  * new2 new关键字的代码实现演示
  * @param {function} func 被new的类 (构造函数)
  */
-function new2(func) {
+function new2() {
+    // 获取参数第一项，即构造函数
+      let Context = [].shift.call(arguments)
     // 创建了一个实例对象 o，并且这个对象__proto__指向func这个类的原型对象 
-    let o = Object.create(func.prototype); 
+
+    let o = Object.create(Context.prototype); 
     // (在构造函数中this指向当前实例)让这个类作为普通函数值行 并且里面this为实例对象 
-    let k = func.call(o);
+    let result = Context.apply(o,arguments);
     // 最后再将实例对象返回 如果你在类中显示指定返回值k，
     // 注意如果返回的是引用类型则将默认返回的实例对象o替代掉
-    return typeof k === 'object' ? k : o;
+    return typeof result === 'object' ? result : o;
 }
 
 // 实验

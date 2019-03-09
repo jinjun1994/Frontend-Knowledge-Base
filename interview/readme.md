@@ -86,6 +86,8 @@ let const
 
 h5新特性
 
+## 性能优化
+
 
 
 ## HTTP
@@ -127,3 +129,9 @@ vuex原理
 路由原理
 
 vue3.0 proxy
+
+
+
+[前端小白半年准备，成功进入BAT](https://github.com/brickspert/blog/issues/16)
+
+[#面试题系列-Javascript问题 #4](https://github.com/GayeChen/blog/issues/4)

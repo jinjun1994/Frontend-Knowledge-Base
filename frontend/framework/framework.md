@@ -165,3 +165,8 @@ css 解决方案
 ## 单向数据流
 
 <https://segmentfault.com/a/1190000012861862>nexttick vue
+
+ [Vue源码详解之nextTick：MutationObserver只是浮云，microtask才是核心！](https://github.com/Ma63d/vue-analysis/issues/6)
+
+<https://github.com/vuejs/vue/blob/dev/src/core/util/next-tick.js>
+
