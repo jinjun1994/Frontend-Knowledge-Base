@@ -1828,7 +1828,7 @@ console.log(_.jion(['a','b','c'],'***'))
 }
 ```
 
-异步引入
+动态导入
 
 ```js
 // index.js
@@ -1855,6 +1855,8 @@ getComponent().then(element => {
 [全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-04%20SplitChunksPlugin%20%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/03-04/lesson)
 
 代码分割底层使用SplitChunksPlugin
+
+[`SplitChunksPlugin`](https://webpack.docschina.org/plugins/split-chunks-plugin/) 插件可以将公共的依赖模块提取到已有的 entry chunk 中，或者提取到一个新生成的 chunk。
 
 ### 更改打包文件名
 
@@ -1887,7 +1889,7 @@ function getComponent() {
  getComponent().then(element => {
  	document.body.appendChild(element);
  });
- //使用魔法注释 
+ //使用魔法注释  /* webpackChunkName:"lodash" */ 'lodash'
 ```
 
 这样打包的名字为： vendors~lodash.js
@@ -1929,7 +1931,7 @@ module.exports = {
       chunks: 'async',   // 只对异步引入代码生效 all ：都分割。同步会进入cacheGroups流程
       minSize: 30000,   //大于30kb才分割 ，同步代码往下走cacheGroups流程
       maxSize: 0,       //二次代码分割临界值，一般不配置
-      minChunks: 1,    //最小分割引入次数
+      minChunks: 1,    //最小Chunks引入次数
       maxAsyncRequests: 5,  // 最大并行请求数量
       maxInitialRequests: 3,  // 入口处最大并行请求数
       automaticNameDelimiter: '~', // 组合文件连接符
@@ -1952,3 +1954,193 @@ module.exports = {
 };
 ```
 
+完整配置阅读[split-chunks-plugin](https://webpack.js.org/plugins/split-chunks-plugin)
+
+##  Lazy Loading 懒加载，Chunk 是什么？
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-05%20Lazy%20Loading%20%E6%87%92%E5%8A%A0%E8%BD%BD%EF%BC%8CChunk%20%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/03-05/lesson)
+
+动态导入模块，导入函数执行以后才加载
+
+```js
+// idex.js
+function getComponent() {
+ 	return import(/* webpackChunkName:"lodash" */ 'lodash').then(({ default: _ }) => {
+ 		var element = document.createElement('div');
+		element.innerHTML = _.join(['Dell', 'Lee'], '-');
+ 		return element;
+ 	})
+ }
+
+
+// 等价于上面 async写法
+async function getComponent() {
+	const { default: _ } = await import(/* webpackChunkName:"lodash" */ 'lodash');
+	const element = document.createElement('div');
+	element.innerHTML = _.join(['Dell', 'Lee'], '-');
+	return element;
+}
+
+document.addEventListener('click', () =>{
+	getComponent().then(element => {
+		document.body.appendChild(element);
+	});
+})
+
+```
+
+
+
+Chunk 是什么，打包后生成 的文件，每个都是一个chunk
+
+
+
+许多框架和类库对于如何用它们自己的方式来实现（懒加载）都有自己的建议。这里有一些例子：
+
+- React: [Code Splitting and Lazy Loading](https://reacttraining.com/react-router/web/guides/code-splitting)
+- Vue: [Lazy Load in Vue using Webpack's code splitting](https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/)
+- AngularJS: [AngularJS + Webpack = lazyLoad](https://medium.com/@var_bin/angularjs-webpack-lazyload-bb7977f390dd) by [@var_bincom](https://twitter.com/var_bincom)
+
+[vue动态组件 & 异步组件](https://cn.vuejs.org/v2/guide/components-dynamic-async.html)
+
+##  打包分析，Preloading,  Prefetching
+
+### 打包分析
+
+<https://github.com/webpack/analyse>
+
+配置方法
+
+```json
+// package.json
+"dev-build": "webpack --profile --json > stats.json --config ./build/webpack.dev.js",
+```
+
+根目录会生成stats.json打包分析文件
+
+进入<http://webpack.github.io/analyse/>
+
+上次分析文件
+
+其他分析工具<https://webpack.js.org/guides/code-splitting#bundle-analysis>
+
+用的较多[webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)
+
+### 代码覆盖率
+
+ [Chrome DevTools 代码覆盖率功能详解](https://segmentfault.com/a/1190000009013738)
+
+快捷键 crtl + shift +p  输入coverage
+
+Coverage 顾名思义就是代码覆盖率的意思。Coverage 功能使用动态分析（Dynamic Analysis）法来收集代码运行时的覆盖率，让开发者能够窥探他的代码到底有多大比例在发光发热。动态分析是指在应用运行状态下收集代码执行数据的过程，换句话说，覆盖率数据就是在代码执行过程中通过标记收集到的。
+
+代码覆盖率比缓存更为重要，因为缓存第二次才会用到，提高代码覆盖率会提高首次加载时间。
+
+提高代码覆盖率我们需要加页面加载时不需要的代码动态引入，例如登录模块代码，点击登录按钮后才会用到，我们可以在用户点击时加载代码，但是如果点击时才加载登录代码，可能因为网络延迟导致卡顿，所以我们可以使用prefetch和preload。
+
+<link rel="prefetch">是一种告诉浏览器**获取一项可能被**下一页访问**所需要的资源**方式。这意味着资源将以较低优先级地获取（因为浏览器知道当前页面所需要的资源，要比我们猜测在下一页访问所需资源更重要）。这意味着prefetch的主要用途是加速下一页访问速度，而不是当前页面的速度。
+
+Preload是为当前页面服务的，它有一个 as 属性，这可以让浏览器做到很多subresource和prefetch做不到的事情：
+
+- **浏览器可以设置正确的资源优先级**，使得资源可以被正确地加载，重要的资源不再会被延迟，不再被不重要的资源阻塞。
+- 浏览器会保证请求对应正确的内容安全策略（[Content-Security-Policy](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) ）指令，不会发起非法请求。
+- 浏览器会基于资源类型发送正确的 Accept 首部。（比如获取图片时指定对“image/webp”的支持）
+- 浏览器知道资源的类型，所以可以稍后决定资源是否在后续请求中保持可重用。
+
+Preload的另外一个不同是，它有onload事件（至少在Chrome中，对另外两种 rel 取值并没作用）。
+
+Preload**不阻塞window的onload事件**，除非该资源是被一个阻塞该事件的资源请求的。
+
+将这些特性结合在一起，我们可以做到一些新的事情。
+
+加载较晚发现的资源
+
+preload最基本的使用方式是**提前加载较晚发现的资源**。虽然大部分基于标签的资源会被浏览器内部的预加载器（[preloader](http://calendar.perfplanet.com/2013/big-bad-preloader/)）提早发现，但并非所有资源都是基于标签的。有些资源是隐藏在CSS和JavaScript中的，浏览器不知道页面即将需要这些资源，而等到发现它们时已经为时已晚。所以在有些情况，这些资源延缓了首屏渲染，或是延缓了页面关键部分的加载。
+
+查看本站可以看到body结束前的三个defer脚本在页面head做了preload
+
+![](https://img.dubiqc.com/201903/11003137.png)
+
+![](https://img.dubiqc.com/201903/11003254.png)
+
+还可以配合[instant.page](https://instant.page/) ，instant.page使用*即时预加载* - 它在用户点击之前*预先*加载页面。因为鼠标悬停和点击之间有几百毫秒延迟，移动设备上，手指触摸到释放也会有延迟。
+
+或者使用 [GoogleChromeLabs/quicklink](GoogleChromeLabs/quicklink) 这个项目：它由 Google 公司著名开发者 Addy Osmani 发起，实现了：**在空闲时间预获取页面可视区域内的链接，加快后续加载速度。** 
+
+### 预取/预加载模块(prefetch/preload module)
+
+webpack v4.6.0+ 添加了预取和预加载的支持。
+
+在声明 import 时，使用下面这些内置指令，可以让 webpack 输出 "resource hint(资源提示)"，来告知浏览器：
+
+- prefetch(预取)：将来某些导航下可能需要的资源
+- preload(预加载)：当前导航下可能需要资源
+
+下面这个 prefetch 的简单示例中，有一个 `HomePage` 组件，其内部渲染一个 `LoginButton` 组件，然后在点击后按需加载 `LoginModal` 组件。
+
+**LoginButton.js**
+
+```js
+//...
+import(/* webpackPrefetch: true */ 'LoginModal');
+```
+
+这会生成 `<link rel="prefetch" href="login-modal-chunk.js">` 并追加到页面头部，指示着浏览器在闲置时间预取 `login-modal-chunk.js` 文件。
+
+> 只要父 chunk 完成加载，webpack 就会添加 prefetch hint(预取提示)。
+
+与 prefetch 指令相比，preload 指令有许多不同之处：
+
+- preload chunk 会在父 chunk 加载时，以并行方式开始加载。prefetch chunk 会在父 chunk 加载结束后开始加载。
+- preload chunk 具有中等优先级，并立即下载。prefetch chunk 在浏览器闲置时下载。
+- preload chunk 会在父 chunk 中立即请求，用于当下时刻。prefetch chunk 会用于未来的某个时刻。
+- 浏览器支持程度不同。
+
+下面这个简单的 preload 示例中，有一个 `Component`，依赖于一个较大的 library，所以应该将其分离到一个独立的 chunk 中。
+
+我们假想这里的图表组件 `ChartComponent` 组件需要依赖体积巨大的 `ChartingLibrary` 库。它会在渲染时显示一个 `LoadingIndicator(加载进度条)` 组件，然后立即按需导入 `ChartingLibrary`：
+
+**ChartComponent.js**
+
+```js
+//...
+import(/* webpackPreload: true */ 'ChartingLibrary');
+```
+
+在页面中使用 `ChartComponent` 时，在请求 ChartComponent.js 的同时，还会通过 `<link rel="preload">` 请求 charting-library-chunk。假定 page-chunk 体积很小，很快就被加载好，页面此时就会显示 `LoadingIndicator(加载进度条)` ，等到 `charting-library-chunk` 请求完成，LoadingIndicator 组件才消失。启动仅需要很少的加载时间，因为只进行单次往返，而不是两次往返。尤其是在高延迟环境下。
+
+
+
+### 代码演示
+
+```js
+// index.js
+document.addEventListener('click', () =>{
+	import(/* webpackPrefetch: true */ './click.js').then(({default: func}) => {
+		func();
+	})
+});
+```
+
+```js
+// click.js
+function handleClick() {
+	const element = document.createElement('div');
+	element.innerHTML = 'Dell Lee';
+	document.body.appendChild(element);
+}
+
+export default handleClick;
+```
+
+动态引入click.js
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-06%20%E6%89%93%E5%8C%85%E5%88%86%E6%9E%90%EF%BC%8CPreloading%2C%20%20Prefetching/03-06/lesson)
+
+[import文档包含魔法注释](https://webpack.docschina.org/api/module-methods/#import-)
+
+参考文章
+
+[Preload有什么好处](http://www.alloyteam.com/2016/05/preload-what-is-it-good-for-part1/)
+
+ [Code Splitting with Vue.js And Webpack](https://juejin.im/post/5a372d956fb9a045204c4ff1)
