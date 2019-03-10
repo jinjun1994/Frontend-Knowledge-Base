@@ -1,12 +1,20 @@
+---
+{
+author: jinjun,
+title: webpack速查,
+date: 2019/03/10,
+}
+---
+
+
+
+
+
 webpack 是一个模块打包工具
-
-
 
 模块化<https://webpack.js.org/concepts/modules>
 
 [模块化语法](https://webpack.js.org/api/module-methods)、[变量](https://webpack.js.org/api/module-variables)
-
-
 
 
 
@@ -1359,7 +1367,7 @@ npm install --save @babel/polyfill
 在业务代码最顶部引入即可
 
 ````js
-import "@babel/polyfill";
+import "@babel/polyfill";  // useBuiltIns: 'usage' 开启不需要这行
 ````
 
 这样会全部引入，非常大
@@ -1377,7 +1385,7 @@ module: {
     	targets: {
         chrome: "67",            //兼容大于chrome67
        },
-     	useBuiltIns: 'usage'    // 只打包用到的特性腻子脚本
+     	useBuiltIns: 'usage'    // 只打包用到的特性腻子脚本，配置这个不需要引入
       }]]
      }
     }   
@@ -1389,7 +1397,7 @@ module: {
 
 但是组件等库代码需要使用[babel-plugin-transform-runtime](https://babeljs.io/docs/en/babel-plugin-transform-runtime)
 
-会以闭包的形式，不会污染全局,不需要引入`import "@babel/polyfill";`
+会以闭包的形式，不会污染全局
 
 安装
 
@@ -1466,7 +1474,7 @@ module: {
 
 ```js
 // index.js
-import "@babel/polyfill";
+import "@babel/polyfill";  	// 配置 useBuiltIns: 'usage' 时不需要引入
 ```
 
 还需要安装[react转换器](https://babeljs.io/docs/en/babel-preset-react)
@@ -1505,4 +1513,442 @@ ReactDom.render(<App />, document.getElementById('root'));
 ##  Tree Shaking 概念详解
 
 [全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-01%20Tree%20Shaking%20%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3/03-01/lesson)
+
+```js
+// math.js
+export const add = (a, b) => {
+	console.log( a + b );
+}
+
+export const minus = (a, b) => {
+	console.log( a - b );
+}
+```
+
+```js
+// index.js
+// Tree Shaking 只支持 ES Module
+
+import { add } from './math.js';
+add(1, 2);
+```
+
+从math.js引入add，却同时打包了minus函数
+
+实现按需引入，webpack2.0提供了tree shaking 摇树
+
+Tree Shaking 只支持 ES Module，因为es 静态引入，commont.js为动态引入
+
+配置方法：
+
+mode: 'development'默认没有tree shaking
+
+```js
+// webpack.config.js
+   mode: 'development',
+   plugins: ...
+   ...
+	optimization: {        // 在plugins下面配置开启
+		usedExports: true  
+	}
+```
+
+```json
+// package.json
+{
+  "sideEffects": false
+}
+```
+
+ "sideEffects": false
+
+如果开启tree shaking 不导入内容的模块，例如
+
+```
+import "@babel/polyfill"  // 会在window下绑定全面变量 promise等
+```
+
+会被抖掉，
+
+需要设置 
+
+```json
+// package.json
+{
+  "sideEffects": ["@babel/polyfill"]   //这样就不会抖掉该模块，值为false，则全部开启
+}
+```
+
+一般会设置
+
+```json
+// package.json
+{
+  "sideEffects": ["*.css"]   //这样就不会抖掉该模块，值为false，则全部开启
+}
+```
+
+mode: 'development' 模式下不会实际删除代码，只加了备注需要的代码，方便调试
+
+改为mode: 'production' ，会自动启动tree shaking，甚至不需要配置  optimization
+
+但是仍需要配置 sideEffects，切换模式记得更改devtool模式
+
+[中文文档](https://webpack.docschina.org/guides/tree-shaking/)
+
+## Develoment 和 Production 模式的区分打包
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-02%20Develoment%20%E5%92%8C%20Production%20%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%86%E6%89%93%E5%8C%85/03-02/lesson)
+
+Develoment  sourcemap详细 
+
+Production   sourcemap详细  代码压缩
+
+更换mode不方便，可以创建三个个配置文件，webpack.prod.js  、webpack.dev.js以及webpack.common.js
+
+分别为生产环境配置文件、开发、以及公共配置文件
+
+安装  `npm i webpack-merge -d`
+
+```js
+// webpack.pord.js
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common.js');
+
+const prodConfig = {
+	mode: 'production',
+	devtool: 'cheap-module-source-map'
+}
+
+module.exports = merge(commonConfig, prodConfig);
+```
+
+```js
+// webpack.dev.js
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common.js');
+
+const devConfig = {
+	mode: 'development',
+	devtool: 'cheap-module-eval-source-map',
+	devServer: {
+		contentBase: './dist',
+		open: true,
+		port: 8080,
+		hot: true
+	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin()
+	],
+	optimization: {
+		usedExports: true
+	}
+}
+
+module.exports = merge(commonConfig, devConfig);
+```
+
+```js
+// webpack.common.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+	entry: {
+		main: './src/index.js'
+	},
+	module: {
+		rules: [{ 
+			test: /\.js$/, 
+			exclude: /node_modules/, 
+			loader: 'babel-loader',
+		}, {
+			test: /\.(jpg|png|gif)$/,
+			use: {
+				loader: 'url-loader',
+				options: {
+					name: '[name]_[hash].[ext]',
+					outputPath: 'images/',
+					limit: 10240
+				}
+			} 
+		}, {
+			test: /\.(eot|ttf|svg)$/,
+			use: {
+				loader: 'file-loader'
+			} 
+		}, {
+			test: /\.scss$/,
+			use: [
+				'style-loader', 
+				{
+					loader: 'css-loader',
+					options: {
+						importLoaders: 2
+					}
+				},
+				'sass-loader',
+				'postcss-loader'
+			]
+		}, {
+			test: /\.css$/,
+			use: [
+				'style-loader',
+				'css-loader',
+				'postcss-loader'
+			]
+		}]
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: 'src/index.html'
+		}), 
+		new CleanWebpackPlugin(['dist'], {
+			root: path.resolve(__dirname, '../')
+		})
+	],
+	output: {
+		filename: '[name].js',
+		path: path.resolve(__dirname, '../dist')
+	}
+}
+```
+
+修改运行命令
+
+```js
+// package.json
+{
+  "scripts": {
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.prod.js"
+  }
+}
+```
+
+
+
+##  Webpack 和 Code Splitting
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-03%20Webpack%20%E5%92%8C%20Code%20Splitting/03-03/lesson)
+
+代码分割
+
+举例
+
+安装 `npm i lodash --save`
+
+使用
+
+```js
+// index.js
+import _ from 'lodash';
+console.log(_.jion(['a','b','c'],'***'))
+// 此处省略十万行业务逻辑
+
+```
+
+![](https://img.dubiqc.com/201903/10080938.png)
+
+这样会带来一个问题 打包文件会非常大，加载时间长；第二个问题，lodash文件一般不会变，但是会一块打包
+
+解决问题：
+
+![1552177207797](C:\Users\jinjun\AppData\Roaming\Typora\typora-user-images\1552177207797.png)
+
+添加入口文件配置
+
+```js
+	entry: {
+		main: './src/index.js',
+        lodash: './src/lodash.js'
+	},
+```
+
+```js
+// index.js
+// import _ from 'lodash';  删除
+console.log(_.jion(['a','b','c'],'***'))
+// 此处省略十万行业务逻辑
+```
+
+```js
+// lodash.js
+ import _ from 'lodash'; 
+ window._=_
+```
+
+上面的方法是手动不够智能 webpack可以用插件自动分割代码
+
+恢复index.js
+
+```js
+// index.js
+import _ from 'lodash';
+console.log(_.jion(['a','b','c'],'***'))
+// 此处省略十万行业务逻辑
+
+```
+
+配置
+
+```js
+// webpack.common.js
+  optimization: {
+		splitChunks: {      //代码分割
+			chunks: 'all'
+		}
+	}
+```
+
+这样就完成了同步代码分割
+
+### 异步代码分割
+
+安装 异步引入语法转换器 `npm i babel-plugin-dynamic-import-webpack -D`
+
+配置babelrc
+
+```json
+{
+	presets: [
+		[
+			"@babel/preset-env", {
+				targets: {
+					chrome: "67",
+				},
+				useBuiltIns: 'usage'
+			}
+		],
+		"@babel/preset-react"
+	],
+	plugins: ["dynamic-import-webpack"]  // 添加
+}
+```
+
+异步引入
+
+```js
+// index.js
+function getComponent() {
+	return import('lodash').then(({ default: _ }) => {
+		var element = document.createElement('div');
+		element.innerHTML = _.join(['Dell', 'Lee'], '-');
+		return element;
+	})
+}
+
+getComponent().then(element => {
+	document.body.appendChild(element);
+});
+
+// 代码分割，和webpack无关
+// webpack中实现代码分割，两种方式
+// 1. 同步代码： 只需要在webpack.common.js中做optimization的配置即可
+// 2. 异步代码(import): 异步代码，无需做任何配置，会自动进行代码分割，放置到新的文件中
+```
+
+## SplitChunksPlugin 配置参数详解
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-04%20SplitChunksPlugin%20%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/03-04/lesson)
+
+代码分割底层使用SplitChunksPlugin
+
+### 更改打包文件名
+
+更换使用官方异步引入[语法转换器](https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import)
+
+```
+npm install --save-dev @babel/plugin-syntax-dynamic-import
+```
+
+配置
+
+```json
+{
+  "plugins": ["@babel/plugin-syntax-dynamic-import"]
+}
+```
+
+修改文件名写法
+
+```js
+ // index.js 
+function getComponent() {
+ 	return import(/* webpackChunkName:"lodash" */ 'lodash').then(({ default: _ }) => {
+ 		var element = document.createElement('div');
+		element.innerHTML = _.join(['Dell', 'Lee'], '-');
+ 		return element;
+ 	})
+ }
+
+ getComponent().then(element => {
+ 	document.body.appendChild(element);
+ });
+ //使用魔法注释 
+```
+
+这样打包的名字为： vendors~lodash.js
+
+配置[split-chunks-plugin](https://webpack.js.org/plugins/split-chunks-plugin)
+
+```js
+// webpack.common.js
+  optimization: {
+		splitChunks: {      //代码分割
+			chunks: 'all',
+            cacheGroups: {
+                vendors: false,
+                default:false
+            }
+		}
+	}
+```
+
+配置完 打包名字为 loadsh.js
+
+同步异步代码分割都会被splitChunks配置影响
+
+如果不配置会使用默认配置
+
+```JS
+splitChunks: {  }
+```
+
+等价于
+
+```JS
+// webpack.common.js
+
+module.exports = {
+  //...
+  optimization: {
+    splitChunks: {
+      chunks: 'async',   // 只对异步引入代码生效 all ：都分割。同步会进入cacheGroups流程
+      minSize: 30000,   //大于30kb才分割 ，同步代码往下走cacheGroups流程
+      maxSize: 0,       //二次代码分割临界值，一般不配置
+      minChunks: 1,    //最小分割引入次数
+      maxAsyncRequests: 5,  // 最大并行请求数量
+      maxInitialRequests: 3,  // 入口处最大并行请求数
+      automaticNameDelimiter: '~', // 组合文件连接符
+      name: true,   //cacheGroups文件名有效
+      cacheGroups: {
+        vendors: {                           // 文件组
+          test: /[\\/]node_modules[\\/]/,   // node模块
+          priority: -10，                   //组匹配优先级
+          filename: 'vendors.js',     
+        },
+        default: {                          //不属于node模块
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,       // 忽略已打包文件
+          filename: 'common.js'
+        }
+      }
+    }
+  }
+};
+```
 
