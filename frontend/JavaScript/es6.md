@@ -1061,3 +1061,11 @@ ES6:
 1. [阮一峰：ES6标准入门](https://link.juejin.im/?target=http%3A%2F%2Fes6.ruanyifeng.com)
 2. [慕课网：ES6零基础教学](https://link.juejin.im/?target=https%3A%2F%2Fcoding.imooc.com%2Fclass%2F98.html)
 3. 你不知道的JavaScript下卷
+
+
+
+# [深入理解 ES6 模块机制](https://juejin.im/entry/5a879e28f265da4e82635152)
+
+
+  
+

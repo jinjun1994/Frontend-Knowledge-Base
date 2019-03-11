@@ -15,7 +15,7 @@ git 常用命令、有哪些目录或区域 git 是怎么管理代码的，提�
 
 ![开源许可证](http://www.ruanyifeng.com/blogimg/asset/201105/free_software_licenses.png)
 
-# .5 Git 基础 - 远程仓库的使用
+#  [Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
 
 ## 远程仓库的使用
 
@@ -211,4 +211,6 @@ fatal: refusing to merge unrelated histories
 ```
 git pull --allow-unrelated-histories1
 ```
+
+git 解决奇怪bug
 

@@ -1596,6 +1596,312 @@ mode: 'development' 模式下不会实际删除代码，只加了备注需要的
 
 [中文文档](https://webpack.docschina.org/guides/tree-shaking/)
 
+
+
+## 深度tree shakiing
+
+[代码地址](https://github.com/jinjun1994/example/tree/master/webpack4/%E6%B7%B1%E5%BA%A6treeshaking)
+
+### 什么是Tree-shaking
+
+所谓Tree-shaking就是‘摇’的意思，作用是把项目中没必要的模块全部抖掉，用于在不同的模块之间消除无用的代码，可列为性能优化的范畴。
+
+Tree-shaking早期由rollup实现，后来webpack2也实现了Tree-shaking的功能，但是至今还不是很完备。至于为什么不完备，可以看一下[百度外卖的Tree-shaking原理](https://juejin.im/post/5a4dc842518825698e7279a9)
+
+### Tree-shading原理
+
+Tree-shaking的本质用于消除项目一些不必要的代码。早在编译原理中就有提到DCE(dead code eliminnation)，作用是消除不可能执行的代码，它的工作是使用编辑器判断出某些代码是不可能执行的，然后清除。
+
+Tree-shaking同样的也是消除项目中不必要的代码，但是和DCE又有略不相同。可以说是DCE的一种实现，它的主要工作是应用于模块间，在打包过程中抽出有用的部分，用于完成DCE。
+
+Tree-shaking是依赖ES6模块静态分析的，ES6 module的特点如下：
+
+1. 只能作为模块顶层的语句出现
+2. import 的模块名只能是字符串常量
+3. import binding 是 immutable的
+
+依赖关系确定，与运行时无关，静态分析。正式因为ES6 module的这些特点，才让Tree-shaking更加流行。
+
+主要特点还是依赖于ES6的静态分析，在编译时确定模块。如果是require，在运行时确定模块，那么将无法去分析模块是否可用，只有在编译时分析，才不会影响运行时的状态。
+
+### Webpack4的Tree-shaking
+
+webpack从第2版本就开始支持Tree-shaking的功能，但是至今也并不能实现的那么完美。凡是具有副作用的模块，webpack的Tree-shaking就歇菜了。
+
+#### 副作用
+
+副作用在我们项目中，也同样是频繁的出现。知道函数式编程的朋友都会知道这个名词。所谓模块(这里模块可称为一个函数)具有副作用，就是说这个模块是不纯的。这里可以引入纯函数的概念。
+
+> 对于相同的输入就有相同的输出，不依赖外部环境，也不改变外部环境。
+
+符合上述就可以称为纯函数，不符合就是不纯的，是具有副作用的，是可能对外界造成影响的。
+
+webpack自身的Tree-shaking不能分析副作用的模块。以lodash-es这个模块来举个例子
+
+```
+//test.js
+import _ from "lodash-es";
+
+const func1 = function(value){
+    return _.isArray(value);
+}
+const func2 = function(value){
+    return value=null;
+}
+
+export {
+    func1,
+    func2,
+}
+//index.js
+import {func2} from './test.js'
+func2()
+复制代码
+```
+
+上述代码在test.js中引入lodash-es,在func1中使用了loadsh，并且这里不符合纯函数的概念，它是具有副作用的。func2是一个纯函数。
+
+在index.js中只引入了func2，并且使用了func2，可见整个代码的执行是和func1是没有任何关系的。我们通过生产环境打包一下试试看(Tree-shaking只在生产环境生效)
+
+
+
+![img](https://user-gold-cdn.xitu.io/2019/2/15/168eeff584fcb43d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+ main.js 91.7KB，可见这个结果是符合我们的预期的，因为func1函数的副作用，webpack自身的Tree-shaking并没有检测到这里有没必要的模块。解决办法还是用的，webpack的插件系统是很强大的。
+
+webpack没有深度js treeshaking 没有css tree shaking，scope内分析不了， 类、函数以及模块等等， treeshaking不能shaking到函数scoop内东西， 使用插件 将scoop抓出来 使webpack tree shaking增效，
+
+
+
+### webpack-deep-scope-plugin
+
+webpack-deep-scope-plugin是一位中国同胞(学生)在Google夏令营，在导师Tobias带领下写的一个webpack插件。
+
+这个插件主要用于填充webpack自身Tree-shaking的不足，通过作用域分析来消除无用的代码。
+
+
+
+
+
+// webpack-scope-plugin  https://github.com/vincentdchan/webpack-deep-scope-analysis-plugin  https://diverse.space/2018/05/better-tree-shaking-with-scope-analysis
+
+
+
+
+
+[webpack 如何通过作用域分析消除无用代码](https://diverse.space/2018/05/better-tree-shaking-with-scope-analysis)
+
+Posted at 2018-05-25
+
+> GSoC 2018 中，我的项目就在于给 webpack 实现深作用域分析（Deep Scope Analysis），主要还是为了改进 webpack 的 tree-shaking 工作。
+
+### 前言
+
+JS 的 tree-shaking 一直是前端开发中的痛点，大家都在想尽办法减少打包的代码体积。Tree shaking 是一个帮助在不同模块之间消除无用代码的 feature。在编译原理中，我们把这项技术叫做 DCE(dead code elimination)。但是 DCE 和 tree shaking 有些许不同，按照 Tobias 的说法，tree shaking 主要应用于于模块（module）之间，用于帮助进行 DCE（webpack 的 DEC 通过 uglify 完成），rollup 的作者也曾经提到， tree shaking 是打包的过程中抽取有用的部分，别的部分像树叶一样落下，所以叫 tree shaking。
+
+[项目地址](https://github.com/vincentdchan/webpack-deep-scope-analysis-plugin)
+
+### 从前
+
+webpack 本身的 tree shaking 比较简单，主要是找一个 import 进来的变量是否在这个模块内出现过，非常简单粗暴。但是这种方式往往作用不大，因为一般人不会去 import 一个没有用到的变量。比较多的情况是可能曾经引用过，但是忘了删掉。现在的编辑器和 lint 工具都会提示你去删掉无用的变量，所以 webpack 本身的 tree shaking 功能是不够强大的。
+
+```javascript
+import { isNumber, isNull } from 'lodash-es';
+
+
+export fun1() {
+  // do nothing
+}
+
+
+export isNull(...args) {
+  return isNull(...args);
+}
+```
+
+在上面的例子中，变量 *isNumber* 并没有被引用到，所以会被消去。
+
+### 开端
+
+在今年年初，webpack 项目下面有一个 [issue](https://github.com/webpack/webpack/issues/6264) 提到了 webpack 打包了多余的代码和模块。但是这也为优化 tree-shaking 提供了一个思路，就是找到作用域之间的关系，来进行优化。
+
+![img](https://user-images.githubusercontent.com/3199950/34681428-28df7576-f49c-11e7-942d-12caa6e905b8.png)
+
+在上面的例子中，其实 *function2* 和整个 *external2* 都可以被消去，因为 *function2*并没有被 *entry* 引用到。但是目前 webpack 的机制不能做到这一点。借助于 webpack 强大的插件极致，我的插件就可以帮助 webpack 做到。
+
+### 我的插件做了什么
+
+插件包括了一个作用域分析器，可以分析一个模块里面的作用域，从此我们可以得到不同作用域之间变量的引用关系。当我们知道一个作用域是否会被使用，就可以因此而推断出这个作用域做引用的其他作用域是否也会被使用。这就是作用域分析器帮助消除无用代码的原理。
+
+### 什么是作用域
+
+下面的代码列举了 JS 中会**新建**一个作用域的代码：
+
+```javascript
+// module scope start
+
+
+// Block
+
+
+{ // <- scope start
+} // <- scope end
+
+
+// Class
+
+
+class Foo { // <- scope start
+
+
+} // <- scope end
+
+
+// If else
+
+
+if (true) { // <- scope start
+   
+} /* <- scope end */ else { // <- scope start
+  
+} // <- scope end
+
+
+// For
+
+
+for (;;) { // <- scope start
+} // <- scope end
+
+
+// Catch
+
+
+try {
+
+
+} catch (e) { // <- scope start
+
+
+} // <- scope end
+
+
+// Function
+
+
+function() { // <- scope start
+} // <- scope end
+
+
+// Scope
+
+
+switch() { // <- scope start
+} // <- scope end
+
+
+// module scope end
+```
+
+对于 ES6 模块来说，module scope 是最底层的作用域。而对于一个模块来说，**只有 class 和 function 的作用域是可以导出到其他模块的**。所以在这张需要遍历的图里面，并不是所有的作用域都可以被当作一个独立的遍历结点，像 if-else 作用域其实是归属于父作用域的。
+
+### 插件的工作原理
+
+在我们去分析作用域之间的引用关系之前，我们先需要去分析代码的作用域。代码的作用域分析建立在 AST(Abstract Syntax Tree) 之上。在这里，我借助了一个叫 [escope](https://github.com/estools/escope) 的工具。
+
+解析完之后，其实就是图的深度遍历，找到那些作用域是会被使用到了，哪些是可以消去的。
+
+![img](https://diverse.space/images/tree-shaking.png)
+
+因为这个插件可以从导出的作用域之间分析出这些导出的作用域和导入变量之间的关系，也就是说。只要知道哪些导出作用域被使用的到，那么就知道哪些导入变量被引用，那些没有被引用。
+
+另一方面，webpack 本身是可以分析出模块之间的变量引用关系的，从 webpack 我可以得知一个模块哪些导出变量是被用到的，这是 webpack 4 的新 feature。所以我的插件 tap 上了 webpack 相应的 hook，获取这个模块中会被其他模块引用的导出变量，返回给 webpack 哪些引入的变量被用到，这样 webpack 就可以根据我的插件的信息进行更完善的 tree-shaking。
+
+### Edge cases
+
+实际上，JavaScript 的分析有很多 Edge cases 会导致代码不会被消去，这里列举一些比较常见的：
+
+同时提供一个 [Demo](https://vincentdchan.github.io/webpack-deep-scope-demo/) 来给大家尝试。
+
+### 根作用域的引用
+
+```javascript
+import { isNull } from 'lodash-es';
+
+
+export function scope(...args) {
+  return isNull(...args);
+}
+
+
+console.log(scope(null));
+```
+
+在根作用域引用到的作用域不会被消除。
+
+### 给变量重新赋值 👎
+
+```javascript
+import { isNull } from 'lodash-es';
+
+
+var fun = 1;
+
+
+fun = function scope(...args) {
+  return isNull(...args);
+}
+
+
+export { fun }
+```
+
+因为缺少[数据流分析](https://en.wikipedia.org/wiki/Data-flow_analysis)，对变量重新赋值的作用域不会被消去。在上面的例子中，因为对 *fun* 变量进行了重新赋值，所以 *isNull* 无论如何都会被引入。
+
+### 纯函数调用 👍
+
+```javascript
+// copy from rambda/es/allPass.js
+import _curry1 from './internal/_curry1';
+import curryN from './curryN';
+import max from './max';
+import pluck from './pluck';
+
+
+var allPass = /*#__PURE__*/_curry1(function allPass(preds) {
+  return curryN(reduce(max, 0, pluck('length', preds)), function () {
+    var idx = 0;
+    var len = preds.length;
+    while (idx < len) {
+      if (!preds[idx].apply(this, arguments)) {
+        return false;
+      }
+      idx += 1;
+    }
+    return true;
+  });
+});
+export default allPass;
+```
+
+如果一个匿名函数被包在一个函数调用中，那么其实这个插件是无法分析的，像上面的例子。但是如果加上了 PURE 注释的话，这个插件会把这个函数调用当作一个独立的域，所以在上述的例子中，tree-shaking 是会生效的。
+
+### 实际使用的过程中应该注意什么
+
+深作用域分析原理很简单，实现起来也不复杂，但是真的要使用再实际项目的过程中，却有很多要注意的地方：
+
+**一、必须使用 ES6 的 import/export 模块机制。**
+
+其实整个深作用域分析都是基于 ES6 模块完成的，也就是说深作用域分析无法分析 CommonJS 和 AMD 等等模块规范。这个时候，就要求项目中引用的模块都遵循 ES6 的规范，比如使用 lodash-es 代替 lodash。另外就是要注意 babel-loader 和 TypeScript 的设置，是否会把代码转换到 ES5 语法，导致深作用域分析失效。
+
+**二、学会使用 PURE 注释。**
+
+由于 JS 语法的复杂程度，webpack 没有打算给 JS 实现数据流分析，所以插件是无法知道一个函数调用是否具有副作用的。所以对于一些导出模块，如果是纯的函数调用，则需要加上 `/*@__PURE__*/`注释来表明这个函数是 pure 的，这是 [Uglify](https://github.com/mishoo/UglifyJS2) 使用的方法。当然也可以使用相关的 babel 插件进行批量添加。
+
+### 总结
+
+其实我这插件的实现是归根于 ES6 中良好的 import/export 语法的设计的。相信很多前端大佬都提到，就是模块的设计一定要合理。tree shaking 再强大它也只是一个编译器的工具，如果模块设计不合理，它一样会在打包的时候引入很多无用的代码。一个合理设计的模块一定能借助 tree shaking 机制只引入它需要的代码。
+
 ## Develoment 和 Production 模式的区分打包
 
 [全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-02%20Develoment%20%E5%92%8C%20Production%20%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%86%E6%89%93%E5%8C%85/03-02/lesson)
@@ -1756,7 +2062,7 @@ console.log(_.jion(['a','b','c'],'***'))
 
 解决问题：
 
-![1552177207797](C:\Users\jinjun\AppData\Roaming\Typora\typora-user-images\1552177207797.png)
+![](https://img.dubiqc.com/201903/11153853.png-sign)
 
 添加入口文件配置
 
@@ -2067,6 +2373,42 @@ preload最基本的使用方式是**提前加载较晚发现的资源**。虽然
 
 或者使用 [GoogleChromeLabs/quicklink](GoogleChromeLabs/quicklink) 这个项目：它由 Google 公司著名开发者 Addy Osmani 发起，实现了：**在空闲时间预获取页面可视区域内的链接，加快后续加载速度。** 
 
+我已经将instant.page已发布到npm [click-prefetch](https://www.npmjs.com/package/click-prefetch)
+
+click-prefetch npm 模块使用
+
+```bash
+npm i click-prefetch
+```
+
+vue动态引入
+
+```js
+ mounted () {
+  window.addEventListener('load', () => {
+    import(
+      /* webpackPrefetch: true */
+      /* webpackChunkName:"click-prefetch"*/ 
+    'click-prefetch').then(({default: func}) => {
+		func();
+	})
+  });
+  }
+```
+
+普通引入
+
+```js
+// index.js
+import  clickPrefetch from 'click-prefetch'
+
+window.addEventListener('load', () => {
+  clickPrefetch()
+  });
+```
+
+
+
 ### 预取/预加载模块(prefetch/preload module)
 
 webpack v4.6.0+ 添加了预取和预加载的支持。
@@ -2144,3 +2486,754 @@ export default handleClick;
 [Preload有什么好处](http://www.alloyteam.com/2016/05/preload-what-is-it-good-for-part1/)
 
  [Code Splitting with Vue.js And Webpack](https://juejin.im/post/5a372d956fb9a045204c4ff1)
+
+ [异步组件](https://cn.vuejs.org/v2/guide/components-dynamic-async.html#%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6)
+
+## css文件的代码分割
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-07%20CSS%20%E6%96%87%E4%BB%B6%E7%9A%84%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2/03-07/lesson)
+
+小知识
+
+```js
+	output: {
+		filename: '[name].js',                  // 入口文件名
+		chunkFilename: '[name].chunk.js',       // chunk文件名
+		path: path.resolve(__dirname, '../dist')
+	}
+```
+
+### MiniCssExtractPlugin
+
+css分割插件
+webpack默认不打包css文件，使用css in js
+
+MiniCssExtractPlugin 暂不支持HRM因此要在生产环境中使用
+
+另外压缩css需要[Optimize CSS Assets Webpack Plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin)
+
+安装
+
+```bash
+npm install --save-dev mini-css-extract-plugin
+npm install --save-dev optimize-css-assets-webpack-plugin
+```
+
+修改生产环境配置
+
+```js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");  // 添加插件
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");//添加插件
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common.js');
+
+
+const prodConfig = {
+	mode: 'production',
+	devtool: 'cheap-module-source-map',
+	module: {
+		rules:[{
+			test: /\.scss$/,
+			use: [
+				MiniCssExtractPlugin.loader,    //修改loader
+				{
+					loader: 'css-loader',
+					options: {
+						importLoaders: 2
+					}
+				},
+				'sass-loader',
+				'postcss-loader'
+			]
+		}, {
+			test: /\.css$/,
+			use: [
+				MiniCssExtractPlugin.loader,   //修改loader
+				'css-loader',
+				'postcss-loader'
+			]
+		}]
+	},
+	optimization: {
+		minimizer: [new OptimizeCSSAssetsPlugin({})]  //实例化压缩插件
+	},
+	plugins: [
+		new MiniCssExtractPlugin({                     // 实例化插件
+			filename: '[name].css',                    //直接引入页面的css名字
+			chunkFilename: '[name].chunk.css'          //
+		})
+	]
+}
+
+module.exports = merge(commonConfig, prodConfig);
+```
+
+
+
+修改开发环境配置 ，添加cssloader配置
+
+```js
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common.js');
+
+const devConfig = {
+	mode: 'development',
+	devtool: 'cheap-module-eval-source-map',
+	devServer: {
+		contentBase: './dist',
+		open: true,
+		port: 8080,
+		hot: true
+	},
+	module: {
+		rules: [{
+			test: /\.scss$/,
+			use: [
+				'style-loader', 
+				{
+					loader: 'css-loader',
+					options: {
+						importLoaders: 2
+					}
+				},
+				'sass-loader',
+				'postcss-loader'
+			]
+		}, {
+			test: /\.css$/,
+			use: [
+				'style-loader',
+				'css-loader',
+				'postcss-loader'
+			]
+		}]
+	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin()
+	],
+}
+
+module.exports = merge(commonConfig, devConfig);
+```
+
+
+
+
+
+修改公共配置  删除css配置
+
+```js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+	entry: {
+		main: './src/index.js',
+	},
+	module: {
+		rules: [{ 
+			test: /\.js$/, 
+			exclude: /node_modules/, 
+			loader: 'babel-loader',
+		}, {
+			test: /\.(jpg|png|gif)$/,
+			use: {
+				loader: 'url-loader',
+				options: {
+					name: '[name]_[hash].[ext]',
+					outputPath: 'images/',
+					limit: 10240
+				}
+			} 
+		}, {
+			test: /\.(eot|ttf|svg)$/,
+			use: {
+				loader: 'file-loader'
+			} 
+		}]
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: 'src/index.html'
+		}), 
+		new CleanWebpackPlugin(['dist'], {
+			root: path.resolve(__dirname, '../')
+		})
+	],
+	optimization: {
+		usedExports: true,
+		splitChunks: {
+      chunks: 'all'
+    }
+	},
+	output: {
+		filename: '[name].js',
+		chunkFilename: '[name].chunk.js',
+		path: path.resolve(__dirname, '../dist')
+	}
+}
+```
+
+
+
+因为开启tree shaking，要配置package.json ，防止删除css
+
+```js
+  "sideEffects": [
+    "*.css"
+  ],
+```
+
+
+
+高级特性，查看[文档](https://webpack.js.org/plugins/mini-css-extract-plugin)
+
+ 使用预加载或内联CSS
+
+在单个文件中提取所有CSS
+
+ 媒体查询插件
+
+如果您想从提取的CSS中提取媒体查询（因此移动用户不再需要加载桌面或平板电脑特定的CSS），您应该使用以下插件之一：
+
+- [媒体查询插件](https://github.com/SassNinja/media-query-plugin)
+- [媒体查询拆分插件](https://github.com/mike-diamond/media-query-splitting-plugin)
+
+## webpack与浏览器缓存
+
+小知识：
+
+```js
+performance: false,  //关闭性能警告 ，超出200kb控制台会警告
+ cacheGroups: {
+      	vendors: {
+      		test: /[\\/]node_modules[\\/]/,
+      		priority: -10,
+      		name: 'vendors',                     //修改node模块打包文件名
+      	}
+      }
+```
+
+打包后的服务器文件会在用户浏览器生产缓存，因此要修改生产环境output，根据内容产生hash值，内容不变就不会变
+
+```js
+output: {
+		filename: '[name].[contenthash].js',
+		chunkFilename: '[name].[contenthash].js'
+	}
+```
+
+这样代码变化重新上线，用户只需要下载变更打代码部分即可
+
+老版本webpack需要额外配置
+
+```js
+	optimization: {
+		runtimeChunk: {
+			name: 'runtime'  
+		}
+    }
+```
+
+因为老版本webpack处理业务代码和库代码关系的manifest代码可能会变化，配置runtimeChunk会把这部分代码抽离出来
+
+## shimming
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-09%20Shimming%20%E7%9A%84%E4%BD%9C%E7%94%A8/03-09/lesson)
+
+垫片
+
+模块化各模块之间的变量不能互相使用，可以使用ProvidePlugin插件自动加载，而不必模块`import`或`require`它们无处不在。
+
+配置plugin
+
+```js
+const webpack = require('webpack');
+
+new webpack.ProvidePlugin({
+  identifier: 'module1',
+  // ...
+});
+```
+
+要么
+
+```js
+const webpack = require('webpack');
+new webpack.ProvidePlugin({
+  identifier: ['module1', 'property1'],
+  // ...
+});
+```
+
+无论何时`identifier`在模块中遇到自由变量，`module`都会自动加载，并`identifier`用加载的导出填充`module`（或者`property`为了支持命名导出）。
+
+> 要导入ES2015模块的默认导出，必须指定模块的默认属性。
+
+模块中的this默认为这个模块，要想改成window可以使用插件
+
+安装
+
+```
+npm i imports-loader -D
+```
+
+配置
+
+```js
+// webpack.common.js
+		rules: [{ 
+			test: /\.js$/, 
+			exclude: /node_modules/,
+			use: [{
+				loader: 'babel-loader'
+			}, {
+				loader: 'imports-loader?this=>window'   //添加loader
+			}]
+		}
+```
+
+作业
+
+阅读[文档](https://webpack.js.org/guides)
+
+## 环境变量的使用
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/03-10%20%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/03-10/lesson)
+
+使用环境变量修改
+
+可以配置环境变量使用不同配置文件
+
+```json
+// package.json
+  "scripts": {
+    "dev-build": "webpack --config ./build/webpack.common.js",
+    "dev": "webpack-dev-server --config ./build/webpack.common.js",
+    "build": "webpack --env.production --config ./build/webpack.common.js"
+  }
+```
+
+```js
+// webpack.common.js
+module.exports = (env) => {
+	if(env && env.production) {
+		return merge(commonConfig, prodConfig);
+	}else {
+		return merge(commonConfig, devConfig);
+	}
+}
+```
+
+想要消除 [开发环境](https://webpack.docschina.org/guides/development) 和 [生产环境](https://webpack.docschina.org/guides/production) 之间的 `webpack.config.js` 差异，你可能需要环境变量(environment variable)。
+
+webpack 命令行 [环境配置](https://webpack.docschina.org/api/cli/#environment-options) 的 `--env` 参数，可以允许你传入任意数量的环境变量。而在 `webpack.config.js` 中可以访问到这些环境变量。例如，`--env.production` 或 `--env.NODE_ENV=local`（`NODE_ENV` 通常约定用于定义环境类型，查看 [这里](https://dzone.com/articles/what-you-should-know-about-node-env)）。
+
+```bash
+webpack --env.NODE_ENV=local --env.production --progress
+```
+
+> 如果设置 `env` 变量，却没有赋值，`--env.production` 默认表示将 `--env.production` 设置为 `true`。还有许多其他可以使用的语法。更多详细信息，请查看 [webpack CLI](https://webpack.docschina.org/api/cli/#environment-options) 文档。
+
+对于我们的 webpack 配置，有一个必须要修改之处。通常，`module.exports` 指向配置对象。要使用 `env` 变量，你必须将 `module.exports` 转换成一个函数：
+
+**webpack.config.js**
+
+```js
+const path = require('path');
+
+module.exports = env => {
+  // Use env.<YOUR VARIABLE> here:
+  console.log('NODE_ENV: ', env.NODE_ENV); // 'local'
+  console.log('Production: ', env.production); // true
+
+  return {
+    entry: './src/index.js',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    }
+  };
+};
+```
+
+vue-cli等默认配置了环境变量
+
+```js
+// vue.config.js
+module.exports = {
+  baseUrl: process.env.NODE_ENV === 'production' ? './' : '/'
+}
+
+```
+
+## library的打包
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/04-01%20Library%E7%9A%84%E6%89%93%E5%8C%85/04-01/library)
+
+打包库步骤：
+
+创建文件夹 library
+
+初始化 npm init 
+
+创建库文件
+
+```js
+// index.js
+import * as math from './math';
+import * as string from './string';
+
+export default { math, string }
+```
+
+```js
+// math.js
+export function add(a, b) {
+	return a + b;
+}
+
+export function minus(a, b) {
+	return a - b;
+}
+
+export function multiply(a, b) {
+	return a * b;
+}
+
+export function division(a, b) {
+	return a / b;
+}
+```
+
+```js
+// string.js
+import _ from 'lodash';
+
+export function join(a, b) {
+	return _.join([a, b], ' ');
+}
+```
+
+安装webpack 
+
+```
+npm i webpack webpack-cli -D
+```
+
+创建webpack配置文件
+
+```js
+const path = require('path');
+
+module.exports = {
+	mode: 'production',
+	entry: './src/index.js',
+	externals: 'lodash',        // 见下文
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'library.js',
+		library: 'root',     // 支持scrpit引入，全局变量挂到root
+		libraryTarget: 'umd'   //支持 es commonjs等模块引入语法
+	}
+}
+```
+
+其他组合配置
+
+```js
+		library: 'library',     // 支持scrpit引入，全局变量挂到this
+		libraryTarget: 'this'   //不支持 es common.js require.js等模块引入语法
+```
+
+```js
+		library: 'library',     // 支持scrpit引入，全局变量挂到window 浏览器环境
+		libraryTarget: 'window'   //不支持 es common.js require.js等模块引入语法
+```
+
+```js
+		library: 'library',     // 支持scrpit引入，全局变量挂到global node环境
+		libraryTarget: 'global'   //不支持 es common.js require.js等模块引入语法
+```
+
+es10规范规定globalThis也可以使用
+
+### 库引用其他库怎么办
+
+例如应用了lodash配置
+
+```js
+externals: 'lodash',        
+```
+
+`externals` 配置选项提供了「从输出的 bundle 中排除依赖」的方法。相反，所创建的 bundle 依赖于那些存在于用户环境(consumer's environment)中的依赖。此功能通常对 **library 开发人员**来说是最有用的，然而也会有各种各样的应用程序用到它。
+
+> **用户(consumer)**，在这里是指，引用了「使用 webpack 打包的 library」的所有终端用户的应用程序(end user application)。
+
+### `externals`
+
+```
+string` `object` `function` `regex
+```
+
+**防止**将某些 `import` 的包(package)**打包**到 bundle 中，而是在运行时(runtime)再去从外部获取这些*扩展依赖(external dependencies)*。
+
+例如，从 CDN 引入 [jQuery](https://jquery.com/)，而不是把它打包：
+
+**index.html**
+
+```html
+<script
+  src="https://code.jquery.com/jquery-3.1.0.js"
+  integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
+  crossorigin="anonymous">
+</script>
+```
+
+**webpack.config.js**
+
+```javascript
+module.exports = {
+  //...
+  externals: {
+    jquery: 'jQuery'
+  }
+};
+```
+
+这样就剥离了那些不需要改动的依赖模块，换句话，下面展示的代码还可以正常运行：
+
+```javascript
+import $ from 'jquery';
+
+$('.my-element').animate(/* ... */);
+```
+
+具有外部依赖(external dependency)的 bundle 可以在各种模块上下文(module context)中使用，例如 [CommonJS, AMD, 全局变量和 ES2015 模块](https://webpack.docschina.org/concepts/modules)。外部 library 可能是以下任何一种形式：
+
+- **root**：可以通过一个全局变量访问 library（例如，通过 script 标签）。
+- **commonjs**：可以将 library 作为一个 CommonJS 模块访问。
+- **commonjs2**：和上面的类似，但导出的是 `module.exports.default`.
+- **amd**：类似于 `commonjs`，但使用 AMD 模块系统。
+
+可以接受各种语法……
+
+[完整配置查看文档](https://webpack.docschina.org/configuration/externals/)
+
+### 如何让别人使用库
+
+修改main为打包生的文件
+
+```JSON
+// package.json
+  "main": "./dist/library.js",
+```
+
+最后是发布
+
+查看本站[发布教程](/frontend/node/node.html#npm)
+
+##  PWA 的打包配置
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/04-02%20PWA%20%E7%9A%84%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/04-02/lesson)
+
+安装 http-server 模拟服务器
+
+```bash
+npm i http-server -D
+```
+
+修改package.json
+
+```json
+ "scripts": {
+    "start": "http-server dist",
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.prod.js"
+  },
+```
+
+打包后运行 `npm run start` 会在dist文件夹下模拟一台服务器
+
+打开127.0.0.1可以访问
+
+如果我们 按`ctrl +c`停止服务器，网页就不能访问了
+
+但是pwa即使服务器挂掉，本地页面缓存还能访问
+
+实现这种技术可以使用插件 ，底层实现是serviceworker 
+
+```
+npm i workbox-webpack-plugin -D
+```
+
+配置生产环境即可，本地开发不用pwa
+
+```js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');  // 引入插件
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common.js');
+
+const prodConfig = {
+	mode: 'production',
+	devtool: 'cheap-module-source-map',
+	module: {
+		rules:[{
+			test: /\.scss$/,
+			use: [
+				MiniCssExtractPlugin.loader, 
+				{
+					loader: 'css-loader',
+					options: {
+						importLoaders: 2
+					}
+				},
+				'sass-loader',
+				'postcss-loader'
+			]
+		}, {
+			test: /\.css$/,
+			use: [
+				MiniCssExtractPlugin.loader,
+				'css-loader',
+				'postcss-loader'
+			]
+		}]
+	},
+	optimization: {
+		minimizer: [new OptimizeCSSAssetsPlugin({})]
+	},
+	plugins: [
+		new MiniCssExtractPlugin({
+			filename: '[name].css',
+			chunkFilename: '[name].chunk.css'
+		}),
+		new WorkboxPlugin.GenerateSW({     // 实例化插件
+			clientsClaim: true,            
+			skipWaiting: true
+		})
+	],
+	output: {
+		filename: '[name].[contenthash].js',
+		chunkFilename: '[name].[contenthash].js'
+	}
+}
+
+module.exports = merge(commonConfig, prodConfig);
+```
+
+配置成功，运行npm run build打包
+
+会发现打包文件 多了service-worker 和precache-manifest
+
+ 可以理解为另类的缓存
+
+此时pwa还不能正常使用，需要在业务代码中启用
+
+```js
+if ('serviceWorker' in navigator) {
+	window.addEventListener('load', () => {
+		navigator.serviceWorker.register('/service-worker.js')
+			.then(registration => {
+				console.log('service-worker registed');
+			}).catch(error => {
+				console.log('service-worker register error');
+			})
+	})
+}
+```
+
+重新打包 
+
+启动本地服务器npm run start
+
+再关掉服务器，发现网站还能访问
+
+pwa配置还有很多可以自行查看文档
+
+本站已配置PWA，您可以关掉网络测试，依然可以访问
+
+[pwa](https://lavas.baidu.com/pwa)
+
+##  TypeScript 的打包配置
+
+[全部代码](https://github.com/jinjun1994/example/tree/master/webpack4/04-03%20TypeScript%20%E7%9A%84%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE/type-script/type-script)
+
+ts代码
+
+```typescript
+import * as _ from 'lodash';
+
+class Greeter {
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet() {
+  	return _.join(["Hello,", ' ', this.greeting], '');
+  }
+}
+
+let greeter = new Greeter("world");
+
+alert(greeter.greet());
+```
+
+
+
+安装 ts-loader typrscript
+
+```
+npm i ts-loader typescript -D
+```
+
+
+
+```js
+const path = require('path');
+
+module.exports = {
+	mode: 'production',
+	entry: './src/index.tsx',   //ts文件入口
+	module: {
+		rules: [{
+			test: /\.tsx?$/,
+			use: 'ts-loader',      // 配置loader
+			exclude: /node_modules/    // 引入文件来自node模块不处理
+		}]
+	},
+	output: {
+		filename: 'bundle.js',
+		path: path.resolve(__dirname, 'dist')
+	}
+}
+```
+
+tsconfig.json
+
+```json
+{
+	"compilerOpitons": {
+		"outDir": "./dist",  //输出目录
+		"module": "es6",     //模块引入方式
+		"target": "es5",    // 转为什么形式
+		"allowJs": true,    // 允许引入js模块文件
+	}
+}
+```
+
+识别loadsh方法错误调用还需要安装
+
+```
+npm i @type/lodash -D
+```
+
+引入相应库都有安装type工具
+
+<https://github.com/DefinitelyTyped/DefinitelyTyped>
+
+使用工具[搜索](https://microsoft.github.io/TypeSearch/)
