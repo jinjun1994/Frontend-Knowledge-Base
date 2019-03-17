@@ -64,15 +64,15 @@ CSS假设每个元素生成一个或多个矩形框，称为元素框。
 
 下图显示了一个示例。默认情况下，颜色或平铺图像的内容背景应用于内边距。外边距总是透明的，允许任何父元素的背景都是可见的。内边距不能有负的长度，但是边距可以。我们将在后面探讨负外边距的影响。
 
-![](http://img.dubiqc.com/201902/16162258.png-sign)
+![](https://img.dubiqc.com/201902/16162258.png-sign)
 
 每个外边距、边框和内边距都可以使用各种特定于边的属性(如 margin-left or border-bottom)以及缩写属性(如`{padding:  }`)进行设置。轮廓没有特定于边的属性。标准盒模型如下图所示：
 
-![标准盒模型](http://img.dubiqc.com/201902/16164226.png-sign)
+![标准盒模型](https://img.dubiqc.com/201902/16164226.png-sign)
 
 #### margin padding border content 各区域分布如下图所示
 
-![](http://img.dubiqc.com/201902/17142641.png-sign)
+![](https://img.dubiqc.com/201902/17142641.png-sign)
 
 ::: tip
 
@@ -364,7 +364,7 @@ export default {
 
 
 
-![](http://img.dubiqc.com/201902/17145931.png-sign)
+![](https://img.dubiqc.com/201902/17145931.png-sign)
 
 根据`BFC`布局规则第3条：
 
@@ -402,7 +402,7 @@ overflow: hidden;
 <div :class="b.asideb"></div>
 <div :class="b.mainb" ></div>
 
-![](http://img.dubiqc.com/201902/17153729.png-sign)
+![](https://img.dubiqc.com/201902/17153729.png-sign)
 
 #### 2. 清除内部浮动
 
@@ -451,7 +451,7 @@ overflow: hidden;
 </div>
 
 
-![](http://img.dubiqc.com/201902/17154859.png-sign)
+![](https://img.dubiqc.com/201902/17154859.png-sign)
 
 根据`BFC`布局规则第六条：
 
@@ -469,7 +469,7 @@ overflow: hidden;
 
 修改后效果：
 
-![](http://img.dubiqc.com/201902/17160610.png-sign)
+![](https://img.dubiqc.com/201902/17160610.png-sign)
 
 #### 3. 防止垂直 margin 重叠
 
@@ -496,7 +496,7 @@ overflow: hidden;
 
 
 
-![效果](http://img.dubiqc.com/201902/17160747.png-sign)
+![效果](https://img.dubiqc.com/201902/17160747.png-sign)
 
 两个p之间的距离为100px，发送了margin重叠。
 
@@ -529,7 +529,7 @@ overflow: hidden;
 
 效果：
 
-![](http://img.dubiqc.com/201902/17161224.png-sign)
+![](https://img.dubiqc.com/201902/17161224.png-sign)
 
 
 
@@ -911,7 +911,7 @@ selector::pseudo-element { property: value; }
 
 将左中右所在的容器设置为`display: flex`，设置两侧的宽度后，然后让中间的`flex = 1`，即可。
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -980,7 +980,7 @@ selector::pseudo-element { property: value; }
 
 设置整个容器的宽度为100%，设置三个部分均为表格，然后左边的单元格为 300px，右边的单元格为 300px，即可。中间的单元格会自适应。
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1220,6 +1220,10 @@ html {
 ### retina1px适配
 
 由于高清屏的特性，以2倍Retina高清屏的移动设备为例，CSS中的1px是由2×2个屏幕物理像素点来渲染的，那么样式上的border:1px在Retina高清屏下会渲染成2个物理像素宽度或高度的边框，有时为了追求1px精准的还原，不得不思考其他的方法来解决这个问题。实现1px边框的方式比较多，通常可以设置元素after或before伪元素为1px内容，并使用transform：scaleY（1/devicePixelRatio）来进行单方向的缩放实现1个物理像素的边框或内容。对于字体，我们也可以设置transform：scale(.5)在浏览器中支持显示小于12px的文字。同时如果页面的内容因为使用高清屏而导致模糊，则需要使用-webkit-font-smoothing: antialiased来尝试修复。
+
+### inline 元素对齐
+
+ vertical-align: middle;
 
 ### reset选择
 

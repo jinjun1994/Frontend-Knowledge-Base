@@ -1,4 +1,12 @@
-## css 
+---
+{
+title: 面试
+}
+---
+
+
+
+## css
 
 选择器
 
@@ -24,7 +32,7 @@ retina1px适配
 
 ## JavaScript
 
-数据类型、基础类型与引用类型、类型转换、表达式、运算符优先级、函数、递归、深浅拷贝、声明前置等
+数据类型、基础类型与引用类型、类型检测、类型转换、表达式、运算符优先级、函数、递归、深浅拷贝、声明前置等
 
 数组操作
 
@@ -74,6 +82,14 @@ let const
 
  内存泄露   
 
+## HTML
+
+h5新特性
+
+## 性能优化
+
+
+
 ## HTTP
 
 跨域
@@ -113,3 +129,9 @@ vuex原理
 路由原理
 
 vue3.0 proxy
+
+
+
+[前端小白半年准备，成功进入BAT](https://github.com/brickspert/blog/issues/16)
+
+[#面试题系列-Javascript问题 #4](https://github.com/GayeChen/blog/issues/4)

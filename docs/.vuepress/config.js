@@ -1,14 +1,66 @@
+
 module.exports = {
+  locales: {
+    // 键名是该语言所属的子路径
+    // 作为特例，默认语言可以使用 '/' 作为其路径。
+    '/': {
+      lang: 'zh-CN', // 将会被设置为 <html> 的 lang 属性
+      // title: 'VuePress',
+      // description: 'Vue-powered Static Site Generator'
+    }
+  },
+
     plugins: ['@vuepress/last-updated',
-    '@vuepress/register-components'
+    '@vuepress/register-components',
+    [ 
+      '@vuepress/google-analytics',
+      {
+        'ga': 'UA-86835802-1' // UA-00000000-0
+      }
+    ],
+    ['@vuepress/pwa', {
+            serviceWorker: true,
+            updatePopup: true,
+            updatePopup: {
+              message: "发现新内容可用",
+              buttonText: "刷新"
+            }
+          }]
   ],
     // theme: 'vuepress-theme-kim',
     title: 'Frontend Knowledge Base',
     description: '【前端学习+面试指南】 涵盖前端工程师必需的核心知识库',
-    evergreen:true,
+
+    configureWebpack: (config, isServer) => {
+      if (!isServer) {
+        // 修改客户端的 webpack 配置
+      
+      //   const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+      //   userConfig = {
+      //     optimization: {
+      //       minimizer: [new UglifyJsPlugin({
+      //         parallel: true
+      //       })],
+      //     },
+      //   };
+      // return userConfig
+      }
+
+    },
+
+
+    evergreen: true,
     // 注入到当前页面的 HTML <head> 中的标签
     head: [
       ['link', { rel: 'icon', href: '/knowledge-base.png' }], // 增加一个自定义的 favicon(网页标签的图标)
+      ['link', { rel: 'manifest', href: '/manifest.json' }],
+      ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+      ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+      ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+      // ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
+      // ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
+      // ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
+      ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
     ],
     base: '/Frontend-Knowledge-Base/', // 这是部署到github相关的配置 下面会讲
     markdown: {
@@ -53,22 +105,22 @@ editLinkText: '帮助我们改善此页面！',
       // displayAllHeaders: true, // 默认值：false
       lastUpdated: 'Last Updated' ,// 文档更新时间：每个文件git最后提交的时间
       nav:[
-        { text: '前端', link: '/frontend/javascript/' }, // 内部链接 以docs为根目录
+        { text: '前端', link: '/frontend/JavaScript/' }, // 内部链接 以docs为根目录
         { text: '计算机基础', link: '/cs/linux/linux' }, // 内部链接 以docs为根目录
         { text: '书籍', link: '/book/' }, // 内部链接 以docs为根目录
         { text: '面试', link: '/interview/' }, // 内部链接 以docs为根目录
         { text: '博客', link: 'https://jinjun.wiki/' }, // 外部链接
         // 下拉列表
-        {
-          text: 'GitHub',
-          items: [
-            { text: 'GitHub地址', link: 'https://github.com/jinjun1994' },
-            {
-              text: '算法仓库',
-              link: 'https://github.com/jinjun19942'
-            }
-          ]
-        }        
+        // {
+        //   text: 'GitHub',
+        //   items: [
+        //     { text: 'GitHub地址', link: 'https://github.com/jinjun1994' },
+        //     {
+        //       text: '算法仓库',
+        //       link: 'https://github.com/jinjun19942'
+        //     }
+        //   ]
+        // }        
       ],
       // sidebar: 'auto',
       sidebar: {
@@ -76,7 +128,7 @@ editLinkText: '帮助我们改善此页面！',
         '性能优化', 'node', '数据结构与算法', '前端工程化', '前端图形学', '微信小程序'),
         '/cs/': getCsSidebar('linux', 'nginx', 'git'),
         '/book/': getBookSidebar('书籍汇总', '读书笔记'),
-        '/interview/': getInterviewSidebar('书籍汇总', '读书笔记'),
+        '/interview/': getInterviewSidebar('面试', '面试题汇总'),
         // '/zh/plugin/': getPluginSidebar('插件', '介绍', '官方插件'),
         // '/zh/theme/': getThemeSidebar('主题', '介绍')
       }
@@ -93,6 +145,12 @@ editLinkText: '帮助我们改善此页面！',
           'JavaScript/array',
           'JavaScript/object',
           'JavaScript/dom',
+          'JavaScript/closure',
+          'JavaScript/async',
+          'JavaScript/promise',
+          'JavaScript/event',
+          'JavaScript/es6',
+          'JavaScript/es7-10',
         ]
       },
       {
@@ -149,6 +207,7 @@ editLinkText: '帮助我们改善此页面！',
         collapsable: true,
         children: [
           'frontend-engineering/frontend-engineering',
+          'frontend-engineering/webpack'
         ]
       },
       {
@@ -227,7 +286,7 @@ editLinkText: '帮助我们改善此页面！',
         title: note,
         collapsable: true,
         children: [
-          '/note/dom启蒙',
+          'note/dom启蒙',
         ]
       },
     ]
@@ -239,7 +298,10 @@ editLinkText: '帮助我们改善此页面！',
         title: interview,
         collapsable: true,
         children: [
-          'interview',
+          '',
+          'interview-1.md',
+          'questions',
+          'juejin'
         ]
       }
     ]

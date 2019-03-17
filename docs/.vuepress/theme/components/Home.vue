@@ -7,6 +7,7 @@
         alt="hero"
       >
 
+
       <h1 id="main-title">{{ data.heroText || $title || 'Hello' }}</h1>
 
       <p class="description">
@@ -17,10 +18,13 @@
         class="action"
         v-if="data.actionText && data.actionLink"
       >
-        <NavLink
+      <particle-effect-button v-bind='particle'>
+         <NavLink
           class="action-button"
           :item="actionLink"
         />
+        </particle-effect-button>
+       
       </p>
     </header>
 
@@ -68,11 +72,50 @@ export default {
         fontSize: '.9rem',
         fontWeight: 'normal',
         color: '#4e6e8e'
+      },
+      particle:{
+       hidden:true,
+       color: '#3eaf7c'
+       
       }
     }
   },
+  methods: {
+   color(){
+   return Math.random()>0.5 ?'#3eaf7c' : '#3eeeee'
+    },
+  },
+  mounted(){
+     
+
+    setTimeout(()=>{
+ this.particle.hidden=!this.particle.hidden
+    },0)
+
+
+
+//     setInterval(()=>{
+//  this.particle.hidden=!this.particle.hidden
+//     },4000)
+
+ 
+    
+   
+  //  let a = document.querySelector('#app')
+  //  a.addEventListener('click',()=>{
+  //           // console.log(this)
+  //           console.log(this.particle)
+  //      this.particle.hidden=!this.particle.hidden
+  
+  //  })
+  },
+  beforeDestroy(){
+     
+
+  },
 
   computed: {
+
     data () {
       return this.$page.frontmatter
     },
@@ -90,12 +133,14 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .home
   padding $navbarHeight 2rem 0
   max-width 960px
   margin 0px auto
   display block
+
+  line-height :1.5em
   .hero
     text-align center
     img
@@ -124,6 +169,8 @@ export default {
       border-bottom 1px solid darken($accentColor, 10%)
       &:hover
         background-color lighten($accentColor, 10%)
+        text-decoration none
+    
   .features
     border-top 1px solid $borderColor
     padding 1.2rem 0

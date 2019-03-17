@@ -128,7 +128,7 @@ html 不依赖 js 的设计可能已经跟不上前端发展步伐了，也许 j
 
 
 
-## 生命周期
+##  生命周期
 
 ## scort
 
@@ -143,6 +143,10 @@ html 不依赖 js 的设计可能已经跟不上前端发展步伐了，也许 j
 [## 不吹不黑聊聊前端框架](https://juejin.im/entry/5a064a716fb9a045117099ad)
 
 css 解决方案
+
+
+
+
 
 <https://juejin.im/post/5b39e63ae51d4562aa017c81#heading-5>
 
@@ -163,4 +167,10 @@ css 解决方案
 ## [深入理解Proxy 及 使用Proxy实现vue数据双向绑定](https://www.cnblogs.com/tugenhua0707/p/10306793.html)
 
 ## 单向数据流
+
+<https://segmentfault.com/a/1190000012861862>nexttick vue
+
+ [Vue源码详解之nextTick：MutationObserver只是浮云，microtask才是核心！](https://github.com/Ma63d/vue-analysis/issues/6)
+
+<https://github.com/vuejs/vue/blob/dev/src/core/util/next-tick.js>
 

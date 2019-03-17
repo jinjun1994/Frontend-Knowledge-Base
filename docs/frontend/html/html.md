@@ -16,3 +16,5 @@ https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta
 
 十个方面
 
+ [viewport 详解](https://www.jianshu.com/p/5f7d2c89ae7b)
+

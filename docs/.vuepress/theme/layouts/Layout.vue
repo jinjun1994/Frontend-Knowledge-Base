@@ -5,6 +5,7 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
+  
     <Navbar
       v-if="shouldShowNavbar"
       @toggle-sidebar="toggleSidebar"
@@ -56,10 +57,12 @@ import Page from '../components/Page.vue'
 import Sidebar from '../components/Sidebar.vue'
 import { resolveSidebarItems } from '../util'
 import Valine from '../components/Valine/Valine'
-import toTop from '../components/toTop/totop';
+import toTop from '../components/toTop/totop'
+
 
 export default {
-  components: { Home, Page, Sidebar, Navbar, Valine, toTop},
+  components: { Home, Page, Sidebar, Navbar, Valine, toTop,
+  },
 
   data () {
     return {
@@ -120,6 +123,17 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false
     })
+
+
+    import(
+      /* webpackPrefetch: true */
+      /* webpackChunkName:"click-prefetch"*/ 
+    'click-prefetch').then(({default:clickPrefetch})=>{
+      clickPrefetch()
+    })
+
+ 
+
   },
 
   methods: {
