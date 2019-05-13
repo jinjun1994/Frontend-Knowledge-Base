@@ -4,9 +4,29 @@
 
 [如何正确的学习Node.js](https://www.bookstack.cn/read/How-to-learn-node-correctly/README.md)
 
+nodejs.dev
+
+赵坤 node.js调试指南
+
+普灵 深入浅出node.js 第二版
+
+了不起的node
+
+
+
+node.js in action
+
 ## FM node学习笔记
 
 ## node.js in action
 
-非阻塞 i/o
+
+
+
+
+### 非阻塞 i/o
+
+ **I/O**（英语：**I**nput/**O**utput），即**输入/输出**，通常指数据在[内部存储器](https://zh.wikipedia.org/wiki/内部存储器)和外部存储器或其他周边设备之间的输入和输出。
+
+## 基础知识
 
