@@ -15,6 +15,24 @@ lang: ZH-CN,
 - 继承
 - 多态
 
+
+
+
+
+#### Mixin
+
+#### [是什么概念?](https://www.zhihu.com/question/20778853)
+
+就是编译的时候把一段代码复制到另一个地方的意思。
+
+
+
+##### 多重继承  
+
+[React Mixins入门指南](https://segmentfault.com/a/1190000008814336)
+
+[9102，作为前端必须知道 hook 怎么玩了](https://juejin.im/post/5d00a67cf265da1b8a4f156f)
+
 ## 对象创建
 
 ### 方式一：字面量
