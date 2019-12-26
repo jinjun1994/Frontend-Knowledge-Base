@@ -4,6 +4,10 @@
 
 [如何正确的学习Node.js](https://www.bookstack.cn/read/How-to-learn-node-correctly/README.md)
 
+
+
+[一篇文章构建你的 NodeJS 知识体系](https://juejin.im/post/5c4c0ee8f265da61117aa527)
+
 nodejs.dev
 
 赵坤 node.js调试指南
