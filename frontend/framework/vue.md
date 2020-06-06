@@ -8,3 +8,6 @@
 
 data（）函数只是在初始化的时候会运行一次。所以总是空。而我们异步过来的数据，需要watch他 才能得到。
 
+[如何在Vue.js中的组件之间传递数据](https://javascriptweekly.com/link/82944/web) 
+
+[构建大型Vue.js项目的10个良好实践](https://javascriptweekly.com/link/79459/web) 

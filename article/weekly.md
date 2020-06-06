@@ -22,3 +22,4 @@ https://dev.to/sandipmavani/47-newsletters-for-developers-and-programmers-3g6d
 
 http://azu.github.io/Meta-Weekly/
 
+https://wweb.dev/weekly

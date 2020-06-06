@@ -151,7 +151,7 @@ webpack官方使用指南<https://webpack.js.org/guides/getting-started>
 
 ### 浅析webpack打包输出内容
 
-![](https://img.dubiqc.com/201903/09075642.png)
+![](https://img.amazingtm.com/201903/09075642.png)
 
 打包输出信息：
 
@@ -284,7 +284,7 @@ root.append(img1)
 
 浏览器打开index.html可以看见图片出现了
 
-![](https://img.dubiqc.com/201903/09090735.png-sign)
+![](https://img.amazingtm.com/201903/09090735.png-sign)
 
 开发vue时会引入vue文件如下
 
@@ -479,7 +479,7 @@ path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
     },
 ````
 
-![](https://img.dubiqc.com/201903/09095118.png-sign)
+![](https://img.amazingtm.com/201903/09095118.png-sign)
 
 阅读[file-loader文档](https://webpack.js.org/loaders/file-loader) [中文](https://www.webpackjs.com/loaders/file-loader/)
 
@@ -869,7 +869,7 @@ module.exports = {
 
 打包打开html控制台会报错
 
-![](https://img.dubiqc.com/201903/10013350.png)
+![](https://img.amazingtm.com/201903/10013350.png)
 
 开启sourceMap
 
@@ -883,7 +883,7 @@ module.exports = {
 
 打包打开html报错如下
 
-![](https://img.dubiqc.com/201903/10014041.png)
+![](https://img.amazingtm.com/201903/10014041.png)
 
 sourceMap 他是一个映射关系，目标代码和源代码的映射，他知道dist目录下main.js文件 96行，实际上对应src目录下index.js第一行
 
@@ -901,7 +901,7 @@ module.exports = {
 
 配置sourceMap实际上配置devtool
 
-![](https://img.dubiqc.com/201903/10014833.png-sign)
+![](https://img.amazingtm.com/201903/10014833.png-sign)
 
 ### 品质说明(quality)
 
@@ -1165,7 +1165,7 @@ div:nth-of-type(odd) {
 
 效果,点击生成div，偶数为黄色
 
-![](https://img.dubiqc.com/201903/10041005.png-sign)
+![](https://img.amazingtm.com/201903/10041005.png-sign)
 
 然而当我们修改css代码
 
@@ -1260,7 +1260,7 @@ function number() {
 export default number;
 ````
 
-![](https://img.dubiqc.com/201903/10043101.png-sign)
+![](https://img.amazingtm.com/201903/10043101.png-sign)
 
 当我们点击第一个div数字会+1
 
@@ -2056,13 +2056,13 @@ console.log(_.jion(['a','b','c'],'***'))
 
 ```
 
-![](https://img.dubiqc.com/201903/10080938.png)
+![](https://img.amazingtm.com/201903/10080938.png)
 
 这样会带来一个问题 打包文件会非常大，加载时间长；第二个问题，lodash文件一般不会变，但是会一块打包
 
 解决问题：
 
-![](https://img.dubiqc.com/201903/11153853.png-sign)
+![](https://img.amazingtm.com/201903/11153853.png-sign)
 
 添加入口文件配置
 
@@ -2365,9 +2365,9 @@ preload最基本的使用方式是**提前加载较晚发现的资源**。虽然
 
 查看本站可以看到body结束前的三个defer脚本在页面head做了preload
 
-![](https://img.dubiqc.com/201903/11003137.png)
+![](https://img.amazingtm.com/201903/11003137.png)
 
-![](https://img.dubiqc.com/201903/11003254.png)
+![](https://img.amazingtm.com/201903/11003254.png)
 
 还可以配合[instant.page](https://instant.page/) ，instant.page使用*即时预加载* - 它在用户点击之前*预先*加载页面。因为鼠标悬停和点击之间有几百毫秒延迟，移动设备上，手指触摸到释放也会有延迟。
 
