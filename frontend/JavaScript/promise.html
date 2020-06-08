@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>手写promise | Frontend Knowledge Base</title>
+    <meta name="description" content="【前端学习+面试指南】 涵盖前端工程师必需的核心知识库">
+    <link rel="icon" href="/Frontend-Knowledge-Base/knowledge-base.png">
+  <link rel="manifest" href="/Frontend-Knowledge-Base/manifest.json">
+  <meta name="theme-color" content="#3eaf7c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/Frontend-Knowledge-Base/assets/css/0.styles.512f36c0.css" as="style"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/app.be30c89b.js" as="script"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/4.d5d74749.js" as="script"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/49.4607fb6a.js" as="script"><link rel="preload" href="/Frontend-Knowledge-Base/assets/js/9.1a9c75bd.js" as="script"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/10.14beec70.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/11.1baa7ffd.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/12.b25e3f14.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/13.5e243a3b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/14.8c43e0ed.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/15.8b7ce3ce.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/16.8ab4ae66.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/17.fe99a1e3.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/18.3313bd50.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/19.de937db9.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/20.1836cb3d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/21.65652483.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/22.fb27e07b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/23.47c1ae4c.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/24.232a53b1.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/25.c6a72e25.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/26.0a0a2701.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/27.0fdc9a1a.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/28.e889eaeb.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/29.46bd6339.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/30.7fef7b22.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/31.6d22a163.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/32.91863d2b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/33.38e661a7.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/34.95d36277.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/35.4dcca28e.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/36.eff9b2db.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/37.83295d49.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/38.9dc5afb4.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/39.8d439768.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/40.ee0861ee.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/41.88810310.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/42.fc9b11e7.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/43.6c927e3a.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/44.f886a111.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/45.80ab5dac.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/46.3e9e3e75.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/47.0eda127c.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/48.44c82d8d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/5.2bf069a5.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/50.9f0623b6.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/51.f796f30a.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/52.14bba200.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/53.ffdc0ead.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/54.0a659db0.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/55.5742c9fa.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/56.65596741.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/57.307a563b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/58.fae9ed04.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/59.aa64338b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/6.90c6bd27.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/60.8ed25f8b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/61.f7b0fdbd.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/62.8a215a5b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/63.60ac3ff9.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/64.df85119c.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/65.f263abd9.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/66.c9dc87d6.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/67.6152f8ea.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/68.f8f9f63b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/69.236ffdcc.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/7.567f554d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/70.a508e7e0.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/71.a7032d11.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/72.a6250581.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/73.1a604c5b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/74.fa6d0d2d.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/75.2839c2d3.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/76.786f0d39.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/77.6a25f56b.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/78.776f55f5.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/79.b69d3416.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/8.23699700.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/80.8a98d0eb.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/81.d9a21bed.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/82.6ac5eff6.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/83.f2c7eacb.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/click-prefetch.507fe4e7.js"><link rel="prefetch" href="/Frontend-Knowledge-Base/assets/js/vendors~docsearch.1829cd5d.js">
+    <link rel="stylesheet" href="/Frontend-Knowledge-Base/assets/css/0.styles.512f36c0.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Frontend-Knowledge-Base/" class="home-link router-link-active"><!----> <span class="site-name">Frontend Knowledge Base</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/" class="nav-link router-link-active">前端</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/cs/linux/linux.html" class="nav-link">计算机基础</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/book/" class="nav-link">书籍</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/interview/" class="nav-link">面试</a></div><div class="nav-item"><a href="https://jinjun.wiki/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/jinjun1994/Frontend-Knowledge-Base" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/" class="nav-link router-link-active">前端</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/cs/linux/linux.html" class="nav-link">计算机基础</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/book/" class="nav-link">书籍</a></div><div class="nav-item"><a href="/Frontend-Knowledge-Base/interview/" class="nav-link">面试</a></div><div class="nav-item"><a href="https://jinjun.wiki/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/jinjun1994/Frontend-Knowledge-Base" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group first collapsable"><p class="sidebar-heading open"><span>JavaScript</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/" class="sidebar-link">基础知识</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/array.html" class="sidebar-link">数组</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/object.html" class="sidebar-link">对象、类和继承</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/dom.html" class="sidebar-link">DOM</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/closure.html" class="sidebar-link">闭包的前世今生</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/async.html" class="sidebar-link">异步编程全传</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html" class="active sidebar-link">手写promise</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#本文适用的读者" class="sidebar-link">本文适用的读者</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#promise标准解读" class="sidebar-link">Promise标准解读</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#一步一步实现一个promise" class="sidebar-link">一步一步实现一个Promise</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#构造函数" class="sidebar-link">构造函数</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#then方法" class="sidebar-link">then方法</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#下面我们首先处理简单的情况，值的穿透" class="sidebar-link">下面我们首先处理简单的情况，值的穿透</a></li></ul></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#测试" class="sidebar-link">测试</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#关于promise的其它问题" class="sidebar-link">关于Promise的其它问题</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#promise的性能问题" class="sidebar-link">Promise的性能问题</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#如何停止一个promise链？" class="sidebar-link">如何停止一个Promise链？</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#promise链上返回的最后一个promise出错了怎么办？" class="sidebar-link">Promise链上返回的最后一个Promise出错了怎么办？</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#angular里的-q跟其它promise的交互" class="sidebar-link">Angular里的$q跟其它Promise的交互</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#出错时，是用throw-new-error-还是用return-promise-reject-new-error-呢？" class="sidebar-link">出错时，是用throw new Error()还是用return Promise.reject(new Error())呢？</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#最佳实践" class="sidebar-link">最佳实践</a></li><li class="sidebar-sub-header"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/promise.html#promise相关的convenience-method的实现" class="sidebar-link">Promise相关的convenience method的实现</a></li></ul></li></ul></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/event.html" class="sidebar-link">事件</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/es6.html" class="sidebar-link">/frontend/JavaScript/es6.html</a></li><li><a href="/Frontend-Knowledge-Base/frontend/JavaScript/es7-10.html" class="sidebar-link">/frontend/JavaScript/es7-10.html</a></li></ul></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>css</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>html</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>浏览器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端框架</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>性能优化</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>数据结构与算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端工程化</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端图形学</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable"><p class="sidebar-heading"><span>微信小程序</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <div class="back-to-ceiling" style="right:1rem;bottom:3rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;background-color:rgba(231, 234, 241,.5);display:none;" data-v-7efdea1b data-v-7efdea1b><i class="iconfont icon-rocket" data-v-7efdea1b></i></div> <main class="page"> <div class="page-none"></div> <div class="page-title"><h1>手写promise</h1> <hr> <div class="pageInfo" data-v-3a11415e><i class="icon-author iconfont" data-v-3a11415e><span data-v-3a11415e>jinjun</span></i> <i class="icon-time iconfont" data-v-3a11415e><span data-v-3a11415e>2018/10/1</span></i> <span id="/frontend/JavaScript/promise.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-ea098484 data-v-3a11415e><i class="icon-eye" style="font-size:.9rem;font-weight:normal;color:#999;" data-v-ea098484></i> <a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;" data-v-ea098484></a></span></div></div> <div class="content default"><p></p><div class="table-of-contents"><ul><li><a href="#本文适用的读者">本文适用的读者</a></li><li><a href="#promise标准解读">Promise标准解读</a></li><li><a href="#一步一步实现一个promise">一步一步实现一个Promise</a><ul><li><a href="#构造函数">构造函数</a></li><li><a href="#then-方法">then方法</a></li><li><a href="#下面我们首先处理简单的情况，值的穿透">下面我们首先处理简单的情况，值的穿透</a></li></ul></li><li><a href="#测试">测试</a></li><li><a href="#关于promise的其它问题">关于Promise的其它问题</a><ul><li><a href="#promise的性能问题">Promise的性能问题</a></li><li><a href="#如何停止一个promise链？">如何停止一个Promise链？</a></li><li><a href="#promise链上返回的最后一个promise出错了怎么办？">Promise链上返回的最后一个Promise出错了怎么办？</a></li><li><a href="#angular里的-q跟其它promise的交互">Angular里的$q跟其它Promise的交互</a></li><li><a href="#出错时，是用throw-new-error-还是用return-promise-reject-new-error-呢？">出错时，是用throw new Error()还是用return Promise.reject(new Error())呢？</a></li><li><a href="#最佳实践">最佳实践</a></li><li><a href="#promise相关的convenience-method的实现">Promise相关的convenience method的实现</a></li></ul></li></ul></div><p></p> <p>本文转自<a href="https://github.com/xieranmaya/blog/issues/3" target="_blank" rel="noopener noreferrer">https://github.com/xieranmaya/blog/issues/3<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="本文适用的读者"><a href="#本文适用的读者" aria-hidden="true" class="header-anchor">#</a> 本文适用的读者</h2> <p>本文写给有一定Promise使用经验的人，如果你还没有使用过Promise，这篇文章可能不适合你，建议先<a href="http://www.html5rocks.com/zh/tutorials/es6/promises/" target="_blank" rel="noopener noreferrer">了解Promise的使用<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="promise标准解读"><a href="#promise标准解读" aria-hidden="true" class="header-anchor">#</a> Promise标准解读</h2> <ol><li><p>只有一个<code>then</code>方法，没有<code>catch</code>，<code>race</code>，<code>all</code>等方法，甚至没有构造函数</p> <p>Promise标准中仅指定了Promise对象的<code>then</code>方法的行为，其它一切我们常见的方法/函数都并没有指定，包括<code>catch</code>，<code>race</code>，<code>all</code>等常用方法，甚至也没有指定该如何构造出一个Promise对象，另外then也没有一般实现中（Q, $q等）所支持的第三个参数，一般称onProgress</p></li> <li><p><code>then</code>方法返回一个新的Promise</p> <p>Promise的<code>then</code>方法返回一个新的Promise，而不是返回this，此处在下文会有更多解释</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>promise2 = promise1.then(alert)
+promise2 != promise1 // true
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>不同Promise的实现需要可以相互调用(interoperable)</p></li> <li><p>Promise的初始状态为pending，它可以由此状态转换为fulfilled（本文为了一致把此状态叫做resolved）或者rejected，一旦状态确定，就不可以再次转换为其它状态，状态确定的过程称为settle</p></li> <li><p><a href="https://promisesaplus.com/" target="_blank" rel="noopener noreferrer">更具体的标准见这里<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></li></ol> <h2 id="一步一步实现一个promise"><a href="#一步一步实现一个promise" aria-hidden="true" class="header-anchor">#</a> 一步一步实现一个Promise</h2> <p>下面我们就来一步一步实现一个Promise</p> <h3 id="构造函数"><a href="#构造函数" aria-hidden="true" class="header-anchor">#</a> 构造函数</h3> <p>因为标准并没有指定如何构造一个Promise对象，所以我们同样以目前一般Promise实现中通用的方法来构造一个Promise对象，也是ES6原生Promise里所使用的方式，即：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// Promise构造函数接收一个executor函数，executor函数执行完同步或异步操作后，调用它的两个参数resolve和reject
+var promise = new Promise(function(resolve, reject) {
+  /*
+    如果操作成功，调用resolve并传入value
+    如果操作失败，调用reject并传入reason
+  */
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><p>我们先实现构造函数的框架如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>function Promise(executor) {
+  var self = this
+  self.status = 'pending' // Promise当前的状态
+  self.data = undefined  // Promise的值
+  self.onResolvedCallback = [] // Promise resolve时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+  self.onRejectedCallback = [] // Promise reject时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+
+  executor(resolve, reject) // 执行executor并传入相应的参数
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p>上面的代码基本实现了Promise构造函数的主体，但目前还有两个问题：</p> <ol><li><p>我们给executor函数传了两个参数：resolve和reject，这两个参数目前还没有定义</p></li> <li><p>executor有可能会出错（throw），类似下面这样，而如果executor出错，Promise应该被其throw出的值reject：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(function(resolve, reject) {
+  throw 2
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li></ol> <p>所以我们需要在构造函数里定义resolve和reject这两个函数：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>function Promise(executor) {
+  var self = this
+  self.status = 'pending' // Promise当前的状态
+  self.data = undefined  // Promise的值
+  self.onResolvedCallback = [] // Promise resolve时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+  self.onRejectedCallback = [] // Promise reject时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+
+  function resolve(value) {
+    // TODO
+  }
+
+  function reject(reason) {
+    // TODO
+  }
+
+  try { // 考虑到执行executor的过程中有可能出错，所以我们用try/catch块给包起来，并且在出错后以catch到的值reject掉这个Promise
+    executor(resolve, reject) // 执行executor
+  } catch(e) {
+    reject(e)
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><p>有人可能会问，resolve和reject这两个函数能不能<strong>不定义在构造函数里</strong>呢？考虑到我们在executor函数里是以<code>resolve(value)</code>，<code>reject(reason)</code>的形式调用的这两个函数，而不是以<code>resolve.call(promise, value)</code>，<code>reject.call(promise, reason)</code>这种形式调用的，所以这两个函数在调用时的内部也必然有一个隐含的this，也就是说，要么这两个函数是经过bind后传给了executor，要么它们定义在构造函数的内部，使用self来访问所属的Promise对象。所以如果我们想把这两个函数定义在构造函数的外部，确实是可以这么写的：</p> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// TODO</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// TODO</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">Promise</span><span class="token punctuation">(</span>executor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token function">executor</span><span class="token punctuation">(</span>resolve<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">,</span> reject<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    reject<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><p>但是众所周知，bind也会返回一个新的函数，这么一来还是相当于每个Promise对象都有一对属于自己的<code>resolve</code>和<code>reject</code>函数，就跟写在构造函数内部没什么区别了，所以我们就直接把这两个函数定义在构造函数里面了。不过话说回来，如果浏览器对bind的所优化，使用后一种形式应该可以提升一下内存使用效率。</p> <p><strong>另外我们这里的实现并没有考虑隐藏this上的变量，这使得这个Promise的状态可以在executor函数外部被改变，在一个靠谱的实现里，构造出的Promise对象的状态和最终结果应当是无法从外部更改的。</strong></p> <p>接下来，我们实现<code>resolve</code>和<code>reject</code>这两个函数</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>function Promise(executor) {
+  // ...
+
+  function resolve(value) {
+    if (self.status === 'pending') {
+      self.status = 'resolved'
+      self.data = value
+      for(var i = 0; i &lt; self.onResolvedCallback.length; i++) {
+        self.onResolvedCallback[i](value)
+      }
+    }
+  }
+
+  function reject(reason) {
+    if (self.status === 'pending') {
+      self.status = 'rejected'
+      self.data = reason
+      for(var i = 0; i &lt; self.onRejectedCallback.length; i++) {
+        self.onRejectedCallback[i](reason)
+      }
+    }
+  }
+
+  // ...
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br></div></div><p>基本上就是在判断状态为pending之后把状态改为相应的值，并把对应的value和reason存在self的data属性上面，之后执行相应的回调函数，逻辑很简单，这里就不多解释了。</p> <h3 id="then方法"><a href="#then方法" aria-hidden="true" class="header-anchor">#</a> <code>then</code>方法</h3> <p>Promise对象有一个then方法，用来注册在这个Promise状态确定后的回调，很明显，then方法需要写在原型链上。then方法会返回一个Promise，关于这一点，Promise/A+标准并没有要求返回的这个Promise是一个新的对象，但在Promise/A标准中，明确规定了then要返回一个新的对象，目前的Promise实现中then几乎都是返回一个新的Promise(<a href="https://promisesaplus.com/differences-from-promises-a#point-5" target="_blank" rel="noopener noreferrer">详情<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>)对象，所以在我们的实现中，也让then返回一个新的Promise对象。</p> <p>关于这一点，我认为标准中是有一点矛盾的：</p> <p><a href="https://promisesaplus.com/#point-49" target="_blank" rel="noopener noreferrer">标准中说<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>，如果<code>promise2 = promise1.then(onResolved, onRejected)</code>里的onResolved/onRejected返回一个Promise，则promise2直接取这个Promise的状态和值为己用，但考虑如下代码：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>promise2 = promise1.then(function foo(value) {
+  return Promise.reject(3)
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>此处如果<code>foo</code>运行了，则promise1的状态必然已经确定且为<code>resolved</code>，如果then返回了this（即<code>promise2 === promise1</code>），说明promise2和promise1是同一个对象，而此时promise1/2的状态已经确定，没有办法再取<code>Promise.reject(3)</code>的状态和结果为己用，因为Promise的状态确定后就不可再转换为其它状态。</p> <p>另外每个Promise对象都可以在其上多次调用then方法，而每次调用then返回的Promise的状态取决于那一次调用then时传入参数的返回值，所以then不能返回this，因为then每次返回的Promise的结果都有可能不同。</p> <p>下面我们来实现then方法：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// then方法接收两个参数，onResolved，onRejected，分别为Promise成功或失败后的回调
+Promise.prototype.then = function(onResolved, onRejected) {
+  var self = this
+  var promise2
+
+  // 根据标准，如果then的参数不是function，则我们需要忽略它，此处以如下方式处理
+  onResolved = typeof onResolved === 'function' ? onResolved : function(v) {}
+  onRejected = typeof onRejected === 'function' ? onRejected : function(r) {}
+
+  if (self.status === 'resolved') {
+    return promise2 = new Promise(function(resolve, reject) {
+
+    })
+  }
+
+  if (self.status === 'rejected') {
+    return promise2 = new Promise(function(resolve, reject) {
+
+    })
+  }
+
+  if (self.status === 'pending') {
+    return promise2 = new Promise(function(resolve, reject) {
+
+    })
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><p>Promise总共有三种可能的状态，我们分三个if块来处理，在里面分别都返回一个new Promise。</p> <p>根据标准，我们知道，对于如下代码，promise2的值取决于then里面函数的返回值：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>promise2 = promise1.then(function(value) {
+  return 4
+}, function(reason) {
+  throw new Error('sth went wrong')
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>如果promise1被resolve了，promise2的将被<code>4</code> resolve，如果promise1被reject了，promise2将被<code>new Error('sth went wrong')</code> reject，更多复杂的情况不再详述。</p> <p>所以，我们需要在then里面执行onResolved或者onRejected，并根据返回值(标准中记为x)来确定promise2的结果，并且，如果onResolved/onRejected返回的是一个Promise，promise2将直接取这个Promise的结果：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Promise.prototype.then = function(onResolved, onRejected) {
+  var self = this
+  var promise2
+
+  // 根据标准，如果then的参数不是function，则我们需要忽略它，此处以如下方式处理
+  onResolved = typeof onResolved === 'function' ? onResolved : function(value) {}
+  onRejected = typeof onRejected === 'function' ? onRejected : function(reason) {}
+
+  if (self.status === 'resolved') {
+    // 如果promise1(此处即为this/self)的状态已经确定并且是resolved，我们调用onResolved
+    // 因为考虑到有可能throw，所以我们将其包在try/catch块里
+    return promise2 = new Promise(function(resolve, reject) {
+      try {
+        var x = onResolved(self.data)
+        if (x instanceof Promise) { // 如果onResolved的返回值是一个Promise对象，直接取它的结果做为promise2的结果
+          x.then(resolve, reject)
+        }
+        resolve(x) // 否则，以它的返回值做为promise2的结果
+      } catch (e) {
+        reject(e) // 如果出错，以捕获到的错误做为promise2的结果
+      }
+    })
+  }
+
+  // 此处与前一个if块的逻辑几乎相同，区别在于所调用的是onRejected函数，就不再做过多解释
+  if (self.status === 'rejected') {
+    return promise2 = new Promise(function(resolve, reject) {
+      try {
+        var x = onRejected(self.data)
+        if (x instanceof Promise) {
+          x.then(resolve, reject)
+        }
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
+
+  if (self.status === 'pending') {
+  // 如果当前的Promise还处于pending状态，我们并不能确定调用onResolved还是onRejected，
+  // 只能等到Promise的状态确定后，才能确实如何处理。
+  // 所以我们需要把我们的**两种情况**的处理逻辑做为callback放入promise1(此处即this/self)的回调数组里
+  // 逻辑本身跟第一个if块内的几乎一致，此处不做过多解释
+    return promise2 = new Promise(function(resolve, reject) {
+      self.onResolvedCallback.push(function(value) {
+        try {
+          var x = onResolved(self.data)
+          if (x instanceof Promise) {
+            x.then(resolve, reject)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      })
+
+      self.onRejectedCallback.push(function(reason) {
+        try {
+          var x = onRejected(self.data)
+          if (x instanceof Promise) {
+            x.then(resolve, reject)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      })
+    })
+  }
+}
+
+// 为了下文方便，我们顺便实现一个catch方法
+Promise.prototype.catch = function(onRejected) {
+  return this.then(null, onRejected)
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br></div></div><p>至此，我们基本实现了Promise标准中所涉及到的内容，但还有几个问题：</p> <ol><li><p>不同的Promise实现之间需要无缝的可交互，即Q的Promise，ES6的Promise，和我们实现的Promise之间以及其它的Promise实现，应该并且是有必要无缝相互调用的，比如：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 此处用MyPromise来代表我们实现的Promise
+new MyPromise(function(resolve, reject) { // 我们实现的Promise
+  setTimeout(function() {
+    resolve(42)
+  }, 2000)
+}).then(function() {
+  return new Promise.reject(2) // ES6的Promise
+}).then(function() {
+  return Q.all([ // Q的Promise
+    new MyPromise(resolve=&gt;resolve(8)), // 我们实现的Promise
+    new Promise.resolve(9), // ES6的Promise
+    Q.resolve(9) // Q的Promise
+  ])
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>我们前面实现的代码并没有处理这样的逻辑，我们只判断了onResolved/onRejected的返回值是否为我们实现的Promise的实例，并没有做任何其它的判断，所以上面这样的代码目前是没有办法在我们的Promise里正确运行的。</p></li> <li><p>下面这样的代码目前也是没办法处理的：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(resolve=&gt;resolve(8))
+  .then()
+  .then()
+  .then(function foo(value) {
+    alert(value)
+  })
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>正确的行为应该是alert出8，而如果拿我们的Promise，运行上述代码，将会alert出undefined。这种行为称为穿透，即8这个值会穿透两个then(说Promise更为准确)到达最后一个then里的foo函数里，成为它的实参，最终将会alert出8。</p></li></ol> <h3 id="下面我们首先处理简单的情况，值的穿透"><a href="#下面我们首先处理简单的情况，值的穿透" aria-hidden="true" class="header-anchor">#</a> 下面我们首先处理简单的情况，值的穿透</h3> <h4 id="promise值的穿透"><a href="#promise值的穿透" aria-hidden="true" class="header-anchor">#</a> Promise值的穿透</h4> <p>通过观察，会发现我们希望下面这段代码</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(resolve=&gt;resolve(8))
+  .then()
+  .catch()
+  .then(function(value) {
+    alert(value)
+  })
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>跟下面这段代码的行为是一样的</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(resolve=&gt;resolve(8))
+  .then(function(value){
+    return value
+  })
+  .catch(function(reason){
+    throw reason
+  })
+  .then(function(value) {
+    alert(value)
+  })
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>所以如果想要把then的实参留空且让值可以穿透到后面，意味着then的两个参数的默认值分别为<code>function(value) {return value}</code>，<code>function(reason) {throw reason}</code>。
+所以我们只需要把then里判断<code>onResolved</code>和<code>onRejected</code>的部分改成如下即可：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>onResolved = typeof onResolved === 'function' ? onResolved : function(value) {return value}
+onRejected = typeof onRejected === 'function' ? onRejected : function(reason) {throw reason}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p><strong>于是Promise神奇的值的穿透也没有那么黑魔法，只不过是then默认参数就是把值往后传或者抛</strong></p> <h4 id="不同promise的交互"><a href="#不同promise的交互" aria-hidden="true" class="header-anchor">#</a> 不同Promise的交互</h4> <p>关于不同Promise间的交互，其实标准里是有<a href="https://promisesaplus.com/#point-46" target="_blank" rel="noopener noreferrer">说明<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>的，其中详细指定了如何通过then的实参返回的值来决定promise2的状态，我们只需要按照标准把标准的内容转成代码即可。</p> <p>这里简单解释一下标准：</p> <p>即我们要把onResolved/onRejected的返回值，x，当成一个可能是Promise的对象，也即标准里所说的thenable，并以最保险的方式调用x上的then方法，如果大家都按照标准实现，那么不同的Promise之间就可以交互了。而标准为了保险起见，即使x返回了一个带有then属性但并不遵循Promise标准的对象（比如说这个x把它then里的两个参数都调用了，同步或者异步调用（PS，原则上then的两个参数需要异步调用，下文会讲到），或者是出错后又调用了它们，或者then根本不是一个函数），也能尽可能正确处理。</p> <p>关于为何需要不同的Promise实现能够相互交互，我想原因应该是显然的，Promise并不是JS一早就有的标准，不同第三方的实现之间是并不相互知晓的，如果你使用的某一个库中封装了一个Promise实现，想象一下如果它不能跟你自己使用的Promise实现交互的场景。。。</p> <p>建议各位对照着标准阅读以下代码，因为标准对此说明的非常详细，所以你应该能够在任意一个Promise实现中找到类似的代码：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>/*
+resolvePromise函数即为根据x的值来决定promise2的状态的函数
+也即标准中的[Promise Resolution Procedure](https://promisesaplus.com/#point-47)
+x为`promise2 = promise1.then(onResolved, onRejected)`里`onResolved/onRejected`的返回值
+`resolve`和`reject`实际上是`promise2`的`executor`的两个实参，因为很难挂在其它的地方，所以一并传进来。
+相信各位一定可以对照标准把标准转换成代码，这里就只标出代码在标准中对应的位置，只在必要的地方做一些解释
+*/
+function resolvePromise(promise2, x, resolve, reject) {
+  var then
+  var thenCalledOrThrow = false
+
+  if (promise2 === x) { // 对应标准2.3.1节
+    return reject(new TypeError('Chaining cycle detected for promise!'))
+  }
+
+  if (x instanceof Promise) { // 对应标准2.3.2节
+    // 如果x的状态还没有确定，那么它是有可能被一个thenable决定最终状态和值的
+    // 所以这里需要做一下处理，而不能一概的以为它会被一个“正常”的值resolve
+    if (x.status === 'pending') {
+      x.then(function(value) {
+        resolvePromise(promise2, value, resolve, reject)
+      }, reject)
+    } else { // 但如果这个Promise的状态已经确定了，那么它肯定有一个“正常”的值，而不是一个thenable，所以这里直接取它的状态
+      x.then(resolve, reject)
+    }
+    return
+  }
+
+  if ((x !== null) &amp;&amp; ((typeof x === 'object') || (typeof x === 'function'))) { // 2.3.3
+    try {
+
+      // 2.3.3.1 因为x.then有可能是一个getter，这种情况下多次读取就有可能产生副作用
+      // 即要判断它的类型，又要调用它，这就是两次读取
+      then = x.then 
+      if (typeof then === 'function') { // 2.3.3.3
+        then.call(x, function rs(y) { // 2.3.3.3.1
+          if (thenCalledOrThrow) return // 2.3.3.3.3 即这三处谁选执行就以谁的结果为准
+          thenCalledOrThrow = true
+          return resolvePromise(promise2, y, resolve, reject) // 2.3.3.3.1
+        }, function rj(r) { // 2.3.3.3.2
+          if (thenCalledOrThrow) return // 2.3.3.3.3 即这三处谁选执行就以谁的结果为准
+          thenCalledOrThrow = true
+          return reject(r)
+        })
+      } else { // 2.3.3.4
+        resolve(x)
+      }
+    } catch (e) { // 2.3.3.2
+      if (thenCalledOrThrow) return // 2.3.3.3.3 即这三处谁选执行就以谁的结果为准
+      thenCalledOrThrow = true
+      return reject(e)
+    }
+  } else { // 2.3.4
+    resolve(x)
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br></div></div><p>然后我们使用这个函数的调用替换then里几处判断x是否为Promise对象的位置即可，见下方完整代码。</p> <p>最后，我们刚刚说到，原则上，<code>promise.then(onResolved, onRejected)</code>里的这两相函数需要异步调用，关于这一点，标准里也有<a href="https://promisesaplus.com/#point-67" target="_blank" rel="noopener noreferrer">说明<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>：</p> <blockquote><p>In practice, this requirement ensures that onFulfilled and onRejected execute asynchronously, after the event loop turn in which then is called, and with a fresh stack.</p></blockquote> <p>所以我们需要对我们的代码做一点变动，即在四个地方加上setTimeout(fn, 0)，这点会在完整的代码中注释，请各位自行发现。</p> <p>事实上，即使你不参照标准，最终你在自测试时也会发现如果then的参数不以异步的方式调用，有些情况下Promise会不按预期的方式行为，通过不断的自测，最终你必然会让then的参数异步执行，让executor函数立即执行。本人在一开始实现Promise时就没有参照标准，而是自己凭经验测试，最终发现的这个问题。</p> <p>至此，我们就实现了一个的Promise，完整代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>try {
+  module.exports = Promise
+} catch (e) {}
+
+function Promise(executor) {
+  var self = this
+
+  self.status = 'pending'
+  self.onResolvedCallback = []
+  self.onRejectedCallback = []
+
+  function resolve(value) {
+    if (value instanceof Promise) {
+      return value.then(resolve, reject)
+    }
+    setTimeout(function() { // 异步执行所有的回调函数
+      if (self.status === 'pending') {
+        self.status = 'resolved'
+        self.data = value
+        for (var i = 0; i &lt; self.onResolvedCallback.length; i++) {
+          self.onResolvedCallback[i](value)
+        }
+      }
+    })
+  }
+
+  function reject(reason) {
+    setTimeout(function() { // 异步执行所有的回调函数
+      if (self.status === 'pending') {
+        self.status = 'rejected'
+        self.data = reason
+        for (var i = 0; i &lt; self.onRejectedCallback.length; i++) {
+          self.onRejectedCallback[i](reason)
+        }
+      }
+    })
+  }
+
+  try {
+    executor(resolve, reject)
+  } catch (reason) {
+    reject(reason)
+  }
+}
+
+function resolvePromise(promise2, x, resolve, reject) {
+  var then
+  var thenCalledOrThrow = false
+
+  if (promise2 === x) {
+    return reject(new TypeError('Chaining cycle detected for promise!'))
+  }
+
+  if (x instanceof Promise) {
+    if (x.status === 'pending') { //because x could resolved by a Promise Object
+      x.then(function(v) {
+        resolvePromise(promise2, v, resolve, reject)
+      }, reject)
+    } else { //but if it is resolved, it will never resolved by a Promise Object but a static value;
+      x.then(resolve, reject)
+    }
+    return
+  }
+
+  if ((x !== null) &amp;&amp; ((typeof x === 'object') || (typeof x === 'function'))) {
+    try {
+      then = x.then //because x.then could be a getter
+      if (typeof then === 'function') {
+        then.call(x, function rs(y) {
+          if (thenCalledOrThrow) return
+          thenCalledOrThrow = true
+          return resolvePromise(promise2, y, resolve, reject)
+        }, function rj(r) {
+          if (thenCalledOrThrow) return
+          thenCalledOrThrow = true
+          return reject(r)
+        })
+      } else {
+        resolve(x)
+      }
+    } catch (e) {
+      if (thenCalledOrThrow) return
+      thenCalledOrThrow = true
+      return reject(e)
+    }
+  } else {
+    resolve(x)
+  }
+}
+
+Promise.prototype.then = function(onResolved, onRejected) {
+  var self = this
+  var promise2
+  onResolved = typeof onResolved === 'function' ? onResolved : function(v) {
+    return v
+  }
+  onRejected = typeof onRejected === 'function' ? onRejected : function(r) {
+    throw r
+  }
+
+  if (self.status === 'resolved') {
+    return promise2 = new Promise(function(resolve, reject) {
+      setTimeout(function() { // 异步执行onResolved
+        try {
+          var x = onResolved(self.data)
+          resolvePromise(promise2, x, resolve, reject)
+        } catch (reason) {
+          reject(reason)
+        }
+      })
+    })
+  }
+
+  if (self.status === 'rejected') {
+    return promise2 = new Promise(function(resolve, reject) {
+      setTimeout(function() { // 异步执行onRejected
+        try {
+          var x = onRejected(self.data)
+          resolvePromise(promise2, x, resolve, reject)
+        } catch (reason) {
+          reject(reason)
+        }
+      })
+    })
+  }
+
+  if (self.status === 'pending') {
+    // 这里之所以没有异步执行，是因为这些函数必然会被resolve或reject调用，而resolve或reject函数里的内容已是异步执行，构造函数里的定义
+    return promise2 = new Promise(function(resolve, reject) {
+      self.onResolvedCallback.push(function(value) {
+        try {
+          var x = onResolved(value)
+          resolvePromise(promise2, x, resolve, reject)
+        } catch (r) {
+          reject(r)
+        }
+      })
+
+      self.onRejectedCallback.push(function(reason) {
+          try {
+            var x = onRejected(reason)
+            resolvePromise(promise2, x, resolve, reject)
+          } catch (r) {
+            reject(r)
+          }
+        })
+    })
+  }
+}
+
+Promise.prototype.catch = function(onRejected) {
+  return this.then(null, onRejected)
+}
+
+Promise.deferred = Promise.defer = function() {
+  var dfd = {}
+  dfd.promise = new Promise(function(resolve, reject) {
+    dfd.resolve = resolve
+    dfd.reject = reject
+  })
+  return dfd
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br></div></div><h2 id="测试"><a href="#测试" aria-hidden="true" class="header-anchor">#</a> 测试</h2> <p>如何确定我们实现的Promise符合标准呢？Promise有一个配套的<a href="https://github.com/promises-aplus/promises-tests" target="_blank" rel="noopener noreferrer">测试脚本<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>，只需要我们在一个CommonJS的模块中暴露一个deferred方法（即exports.deferred方法），就可以了，代码见上述代码的最后。然后执行如下代码即可执行测试：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>npm i -g promises-aplus-tests
+promises-aplus-tests Promise.js
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h2 id="关于promise的其它问题"><a href="#关于promise的其它问题" aria-hidden="true" class="header-anchor">#</a> 关于Promise的其它问题</h2> <h3 id="promise的性能问题"><a href="#promise的性能问题" aria-hidden="true" class="header-anchor">#</a> Promise的性能问题</h3> <p>可能各位看官会觉得奇怪，Promise能有什么性能问题呢？并没有大量的计算啊，几乎都是处理逻辑的代码。</p> <p>理论上说，不能叫做“性能问题”，而只是有可能出现的延迟问题。什么意思呢，记得刚刚我们说需要把4块代码包在setTimeout里吧，先考虑如下代码：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>var start = +new Date()
+function foo() {
+  setTimeout(function() {
+    console.log('setTimeout')
+    if((+new Date) - start &lt; 1000) {
+      foo()
+    }
+  })
+}
+foo()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>运行上面的代码，会打印出多少次'setTimeout'呢，各位可以自己试一下，不出意外的话，应该是250次左右，我刚刚运行了一次，是241次。这说明，上述代码中两次setTimeout运行的时间间隔约是4ms（另外，setInterval也是一样的），实事上，这正是浏览器两次Event Loop之间的时间间隔，相关标准各位可以自行查阅。另外，在Node中，这个时间间隔跟浏览器不一样，经过我的测试，是1ms。</p> <p>单单一个4ms的延迟可能在一般的web应用中并不会有什么问题，但是考虑极端情况，我们有20个Promise链式调用，加上代码运行的时间，那么这个链式调用的第一行代码跟最后一行代码的运行很可能会超过100ms，如果这之间没有对UI有任何更新的话，虽然本质上没有什么性能问题，但可能会造成一定的卡顿或者闪烁，虽然在web应用中这种情形并不常见，但是在Node应用中，确实是有可能出现这样的case的，所以一个能够应用于生产环境的实现有必要把这个延迟消除掉。在Node中，我们可以调用process.nextTick或者setImmediate（<a href="https://link.zhihu.com/?target=https%3A//github.com/kriskowal/q/blob/v1/q.js%23L101" target="_blank" rel="noopener noreferrer">Q就是这么做的<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>），在浏览器中具体如何做，已经超出了本文的讨论范围，总的来说，就是我们需要实现一个函数，行为跟setTimeout一样，但它需要异步且尽早的调用所有已经加入队列的函数，<a href="http://www.bluejava.com/4NS/Speed-up-your-Websites-with-a-Faster-setTimeout-using-soon" target="_blank" rel="noopener noreferrer">这里<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>有一个实现。</p> <h3 id="如何停止一个promise链？"><a href="#如何停止一个promise链？" aria-hidden="true" class="header-anchor">#</a> 如何停止一个Promise链？</h3> <p>在一些场景下，我们可能会遇到一个较长的Promise链式调用，在某一步中出现的错误让我们完全没有必要去运行链式调用后面所有的代码，类似下面这样（此处略去了then/catch里的函数）：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(function(resolve, reject) {
+  resolve(42)
+})
+  .then(function(value) {
+    // &quot;Big ERROR!!!&quot;
+  })
+  .catch()
+  .then()
+  .then()
+  .catch()
+  .then()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>假设这个<code>Big ERROR!!!</code>的出现让我们完全没有必要运行后面所有的代码了，但链式调用的后面即有catch，也有then，无论我们是<code>return</code>还是<code>throw</code>，都不可避免的会进入某一个<code>catch</code>或<code>then</code>里面，那有没有办法让这个链式调用在<code>Big ERROR!!!</code>的后面就停掉，完全不去执行链式调用后面所有回调函数呢？</p> <p>一开始遇到这个问题的时候我也百思不得其解，在网上搜遍了也没有结果，有人说可以在每个catch里面判断Error的类型，如果自己处理不了就接着throw，也有些其它办法，但总是要对现有代码进行一些改动并且所有的地方都要遵循这些约定，甚是麻烦。</p> <p>然而当我从一个实现者的角度看问题时，确实找到了答案，就是在发生<code>Big ERROR</code>后return一个Promise，但这个Promise的executor函数什么也不做，这就意味着这个Promise将永远处于<code>pending</code>状态，由于then返回的Promise会直接取这个永远处于<code>pending</code>状态的Promise的状态，于是返回的这个Promise也将一直处于<code>pending</code>状态，后面的代码也就一直不会执行了，具体代码如下：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(function(resolve, reject) {
+  resolve(42)
+})
+  .then(function(value) {
+    // &quot;Big ERROR!!!&quot;
+    return new Promise(function(){})
+  })
+  .catch()
+  .then()
+  .then()
+  .catch()
+  .then()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p>这种方式看起来有些山寨，它也确实解决了问题。但它引入的一个新问题就是链式调用后面的所有回调函数都无法被垃圾回收器回收（在一个靠谱的实现里，Promise应该在执行完所有回调后删除对所有回调函数的引用以让它们能被回收，在前文的实现里，为了减少复杂度，并没有做这种处理），但如果我们不使用匿名函数，而是使用函数定义或者函数变量的话，在需要多次执行的Promise链中，这些函数也都只有一份在内存中，不被回收也是可以接受的。</p> <p>我们可以将返回一个什么也不做的Promise封装成一个有语义的函数，以增加代码的可读性：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Promise.cancel = Promise.stop = function() {
+  return new Promise(function(){})
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>然后我们就可以这么使用了：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(function(resolve, reject) {
+  resolve(42)
+})
+  .then(function(value) {
+    // &quot;Big ERROR!!!&quot;
+    return Promise.stop()
+  })
+  .catch()
+  .then()
+  .then()
+  .catch()
+  .then()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p>看起来是不是有语义的多？</p> <h3 id="promise链上返回的最后一个promise出错了怎么办？"><a href="#promise链上返回的最后一个promise出错了怎么办？" aria-hidden="true" class="header-anchor">#</a> Promise链上返回的最后一个Promise出错了怎么办？</h3> <p>考虑如下代码：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(function(resolve) {
+  resolve(42)
+})
+  .then(function(value) {
+    alter(value)
+  })
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>乍一看好像没什么问题，但运行这段代码的话你会发现什么现象也不会发生，既不会alert出42，也不会在控制台报错，怎么回事呢。细看最后一行，<code>alert</code>被打成了<code>alter</code>，那为什么控制台也没有报错呢，因为<code>alter</code>所在的函数是被包在<code>try/catch</code>块里的，<code>alter</code>这个变量找不到就直接抛错了，这个错就正好成了then返回的Promise的rejection reason。</p> <p>也就是说，在Promise链的最后一个then里出现的错误，非常难以发现，有文章指出，可以在所有的Promise链的最后都加上一个catch，这样出错后就能被捕获到，这种方法确实是可行的，但是首先在每个地方都加上几乎相同的代码，违背了DRY原则，其次也相当的繁琐。另外，最后一个catch依然返回一个Promise，除非你能保证这个catch里的函数不再出错，否则问题依然存在。在Q中有一个方法叫done，把这个方法链到Promise链的最后，它就能够捕获前面未处理的错误，这其实跟在每个链后面加上catch没有太大的区别，只是由框架来做了这件事，相当于它提供了一个不会出错的catch链，我们可以这么实现done方法：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Promise.prototype.done = function(){
+  return this.catch(function(e) { // 此处一定要确保这个函数不能再出错
+    console.error(e)
+  })
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>可是，能不能在不加catch或者done的情况下，也能够让开发者发现Promise链最后的错误呢？答案依然是肯定的。</p> <p>我们可以在一个Promise被reject的时候检查这个Promise的onRejectedCallback数组，如果它为空，则说明它的错误将没有函数处理，这个时候，我们需要把错误输出到控制台，让开发者可以发现。以下为具体实现：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>function reject(reason) {
+  setTimeout(function() {
+    if (self.status === 'pending') {
+      self.status = 'rejected'
+      self.data = reason
+      if (self.onRejectedCallback.length === 0) {
+        console.error(reason)
+      }
+      for (var i = 0; i &lt; self.rejectedFn.length; i++) {
+        self.rejectedFn[i](reason)
+      }
+    }
+  })
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>上面的代码对于以下的Promise链也能处理的很好：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>new Promise(function(){ // promise1
+  reject(3)
+})
+  .then() // returns promise2
+  .then() // returns promise3
+  .then() // returns promise4
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>看起来，promise1，2，3，4都没有处理函数，那是不是会在控制台把这个错误输出4次呢，并不会，实际上，promise1，2，3都隐式的有处理函数，就是then的默认参数，各位应该还记得then的默认参数最终是被push到了Promise的callback数组里。只有promise4是真的没有任何callback，因为压根就没有调用它的then方法。</p> <p>事实上，Bluebird和ES6 Promise都做了类似的处理，在Promise被reject但又没有callback时，把错误输出到控制台。</p> <p>Q使用了done方法来达成类似的目的，$q在最新的版本中也加入了类似的功能。</p> <h3 id="angular里的-q跟其它promise的交互"><a href="#angular里的-q跟其它promise的交互" aria-hidden="true" class="header-anchor">#</a> Angular里的$q跟其它Promise的交互</h3> <p>一般来说，我们不会在Angular里使用其它的Promise，因为Angular已经集成了$q，但有些时候我们在Angular里需要用到其它的库（比如LeanCloud的JS SDK），而这些库或是封装了ES6的Promise，或者是自己实现了Promise，这时如果你在Angular里使用这些库，就有可能发现视图跟Model不同步。究其原因，是因为$q已经集成了Angular的digest loop机制，在Promise被resolve或reject时触发digest，而其它的Promise显然是不会集成的，所以如果你运行下面这样的代码，视图是不会同步的：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>app.controller(function($scope) {
+  Promise.resolve(42).then(function(value) {
+    $scope.value = value
+  })
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>Promise结束时并不会触发digest，所以视图没有同步。$q上正好有个when方法，它可以把其它的Promise转换成$q的Promise（有些Promise实现中提供了Promise.cast函数，用于将一个thenable转换为它的Promise），问题就解决了：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>app.controller(function($scope, $q) {
+  $q.when(Promise.resolve(42)).then(function(value) {
+    $scope.value = value
+  })
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>当然也有其它的解决方案比如在其它Promise的链的最后加一个digest，类似下面这样:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>Promise.prototype.$digest = function() {
+  $rootScope.$digest()
+  return this
+}
+// 然后这么使用
+OtherPromise
+  .resolve(42)
+  .then(function(value) {
+    $scope.value = value
+  })
+  .$digest()
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>因为使用场景并不多，此处不做深入讨论。</p> <h3 id="出错时，是用throw-new-error-还是用return-promise-reject-new-error-呢？"><a href="#出错时，是用throw-new-error-还是用return-promise-reject-new-error-呢？" aria-hidden="true" class="header-anchor">#</a> 出错时，是用throw new Error()还是用return Promise.reject(new Error())呢？</h3> <p>这里我觉得主要从性能和编码的舒适度角度考虑：</p> <p>性能方面，<code>throw new Error()</code>会使代码进入<code>catch</code>块里的逻辑（还记得我们把所有的回调都包在try/catch里了吧），传说<code>throw</code>用多了会影响性能，因为一但<code>throw</code>，代码就有可能跳到不可预知的位置。</p> <p>但考虑到<code>onResolved/onRejected</code>函数是直接被包在Promise实现里的<code>try</code>里，出错后就直接进入了这个<code>try</code>对应 的<code>catch</code>块，代码的跳跃“幅度”相对较小，我认为这里的性能损失可以忽略不记。有机会可以测试一下。</p> <p>而使用<code>Promise.reject(new Error())</code>，则需要构造一个新的Promise对象（里面包含2个数组，4个函数：<code>resolve/reject</code>，<code>onResolved/onRejected</code>），也会花费一定的时间和内存。</p> <p>而从编码舒适度的角度考虑，出错用<code>throw</code>，正常时用<code>return</code>，可以比较明显的区分出错与正常，<code>throw</code>和<code>return</code>又同为关键字，用来处理对应的情况也显得比较对称(-_-)。另外在一般的编辑器里，<code>Promise.reject</code>不会被高亮成与<code>throw</code>和<code>return</code>一样的颜色。最后，如果开发者又不喜欢构造出一个<code>Error</code>对象的话，<code>Error</code>的高亮也没有了。</p> <p>综上，我觉得在Promise里发现显式的错误后，用<code>throw</code>抛出错误会比较好，而不是显式的构造一个被reject的Promise对象。</p> <h3 id="最佳实践"><a href="#最佳实践" aria-hidden="true" class="header-anchor">#</a> 最佳实践</h3> <p>这里不免再啰嗦两句最佳实践</p> <ol><li><p>一是不要把Promise写成嵌套结构，至于怎么改进，这里就不多说了</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 错误的写法
+promise1.then(function(value) {
+  promise1.then(function(value) {
+    promise1.then(function(value) {
+
+    })
+  })
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>二是链式Promise要返回一个Promise，而不只是构造一个Promise</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 错误的写法
+Promise.resolve(1).then(function(){
+  Promise.resolve(2)
+}).then(function(){
+  Promise.resolve(3)
+})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li></ol> <h3 id="promise相关的convenience-method的实现"><a href="#promise相关的convenience-method的实现" aria-hidden="true" class="header-anchor">#</a> Promise相关的convenience method的实现</h3> <p>请到<a href="https://github.com/xieranmaya/Promise3" target="_blank" rel="noopener noreferrer">这里<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>查看<code>Promise.race</code>, <code>Promise.all</code>, <code>Promise.resolve</code>, <code>Promise.reject</code>等方法的具体实现，这里就不具体解释了，总的来说，只要then的实现是没有问题的，其它所有的方法都可以非常方便的依赖then来实现。</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/jinjun1994/Frontend-Knowledge-Base/edit/master/frontend/JavaScript/promise.md" target="_blank" rel="noopener noreferrer">帮助我们改善此页面！</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2019/3/17 下午3:49:35</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/Frontend-Knowledge-Base/frontend/JavaScript/async.html" class="prev">
+          异步编程全传
+        </a></span> <span class="next"><a href="/Frontend-Knowledge-Base/frontend/JavaScript/event.html">
+          事件
+        </a>
+        →
+      </span></p></div> </main> <div class="page"><section class="page-edit"><h3 style="display:;"><a href="javascript:;"></a>
+      评 论：
+    </h3> <div id="vcomments"></div></section></div></div><div class="global-ui"><!----></div></div>
+    <script src="/Frontend-Knowledge-Base/assets/js/app.be30c89b.js" defer></script><script src="/Frontend-Knowledge-Base/assets/js/4.d5d74749.js" defer></script><script src="/Frontend-Knowledge-Base/assets/js/49.4607fb6a.js" defer></script><script src="/Frontend-Knowledge-Base/assets/js/9.1a9c75bd.js" defer></script>
+  </body>
+</html>
