@@ -65,11 +65,11 @@ lang: ZH-CN,
 let a =Object.create(null)
 ````
 
-![](https://img.dubiqc.com/201903/08043358.png-sign)
+![](https://img.amazingtm.com/201903/08043358.png-sign)
 
 ## 原型与原型链
 
-![](https://img.dubiqc.com/201903/08043745.png-sign)
+![](https://img.amazingtm.com/201903/08043745.png-sign)
 
 ###  原型
 
@@ -91,7 +91,7 @@ let a =Object.create(null)
 
 ### 原型、构造函数、实例三者之间的关系
 
-![](https://img.dubiqc.com/201903/08050808.png-sign)
+![](https://img.amazingtm.com/201903/08050808.png-sign)
 
 - 1、构造函数通过 new 生成实例
 - 2、构造函数也是函数，构造函数的`prototype`指向原型。（所有的函数有`prototype`属性，但实例没有 `prototype`属性）
@@ -105,7 +105,7 @@ ECMAScript 中描述了原型链的概念，并将原型链作为实现继承的
 
 [instanceof原理详见](/frontend/JavaScript/#instanceof) 
 
-![](https://img.dubiqc.com/201903/08053219.png-sign)
+![](https://img.amazingtm.com/201903/08053219.png-sign)
 
 `instanceof`的**作用**：用于判断**实例**属于哪个**构造函数**。
 

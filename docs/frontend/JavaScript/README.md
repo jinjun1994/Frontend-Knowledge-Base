@@ -138,7 +138,7 @@ alert( arr instanceof Object ); // true
 
 下图展示了 `rabbit instanceof Animal` 的执行过程中，`Animal.prototype` 是如何参与比较的：
 
-![](https://img.dubiqc.com/201903/07113616.png)
+![](https://img.amazingtm.com/201903/07113616.png)
 
 这里还要提到一个方法 [objA.isPrototypeOf(objB)](https://developer.mozilla.org/zh/docs/Web/JavaScript/Reference/Global_Objects/object/isPrototypeOf)，如果 `objA` 处在 `objB` 的原型链中，调用结果为 `true`。所以，`obj instanceof Class` 也可以被视作为是调用 `Class.prototype.isPrototypeOf(obj)`。
 

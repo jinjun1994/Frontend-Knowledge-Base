@@ -105,7 +105,7 @@ module.exports = {
 ## 二、监控你的面板 ：速度测量插件 [speed-measure-webpack-plugin](https://www.npmjs.com/package/speed-measure-webpack-plugin)
 
 这个插件非常重要 
-  ![](https://img.dubiqc.com/201903/12065359.png-sign)
+  ![](https://img.amazingtm.com/201903/12065359.png-sign)
 
 ## Install
 
@@ -181,7 +181,7 @@ module.exports = {
 
 ## 四、开启打包进度 [progress-bar-webpack-plugin](https://www.npmjs.com/package/progress-bar-webpack-plugin)
 
-![](https://img.dubiqc.com/201903/13170029.png)
+![](https://img.amazingtm.com/201903/13170029.png)
 
 ### Installation
 
@@ -213,11 +213,11 @@ Webpack dev服务器的CLI仪表板
 
 使用webpack时，特别是对于开发服务器，您可能习惯于看到如下内容：
 
-![](https://img.dubiqc.com/201903/13165951.png-sign)
+![](https://img.amazingtm.com/201903/13165951.png-sign)
 
 这很酷，但它主要是噪音和滚动，而不是超级有用。这个插件改变了这一点。现在当你运行你的开发服务器时，你基本上在NASA工作：
 
-![](https://img.dubiqc.com/201903/13170007.png-sign)
+![](https://img.amazingtm.com/201903/13170007.png-sign)
 
 ### 安装
 
