@@ -874,3 +874,8 @@ OtherPromise
 ### Promise相关的convenience method的实现
 
 请到[这里](https://github.com/xieranmaya/Promise3)查看`Promise.race`, `Promise.all`, `Promise.resolve`, `Promise.reject`等方法的具体实现，这里就不具体解释了，总的来说，只要then的实现是没有问题的，其它所有的方法都可以非常方便的依赖then来实现。
+
+
+
+
+[45道Promise面试题](https://juejin.im/post/5e58c618e51d4526ed66b5cf)

@@ -11,3 +11,5 @@ data（）函数只是在初始化的时候会运行一次。所以总是空。�
 [如何在Vue.js中的组件之间传递数据](https://javascriptweekly.com/link/82944/web) 
 
 [构建大型Vue.js项目的10个良好实践](https://javascriptweekly.com/link/79459/web) 
+
+https://hkc452.github.io/slamdunk-the-vue3/main/vue/reactivity/effect.html vue3源码解读
