@@ -726,15 +726,297 @@ Promise 进行的动作要多一些，这自然意味着它也会稍慢一些。
 Promise 稍慢一些，但是作为交换，你得到的是大量内建的可信任性、对 Zalgo 的避免以及
 可组合性。可能局限性实际上并不是它们的真实表现，而是你缺少发现其好处的眼光呢。
 
+### promise 扩展
+
+ES6 promise 的实现是强大的，但与任何软件一样，会有缺点。在一些第三方promise 实践中可提供两种扩展功能，promise 取消和进度跟踪。
+#### promise 取消（Promise Canceling ）
+
+往往一个 promise 会在进行中，但我们不再关心结果。"取消 "一个 promise 的能力，在这种情况下会很有用。一些第三方承诺库如Bluebird提供了这样的功能，甚至ECMAScript在最终被撤销之前也计划提供这样的功能（https://github.com/tc39/proposal-cancelable-promises）。一旦 promise 的封装功能正在进行，就没有办法阻止这个过程的完成。
+仍然有可能实现一个临时的实现，它是原始设计的摹本。
+这样的实现利用了 "cancel token"，这个概念在Kevin Smith的设计中得到了充实。草图（https://github.com/zenparsing/es-cancel-token）。cancel token 提供了一个接口，通过这个接口来取消一个 promise，以及一个 promise 钩子，用它来触发取消行为和评估取消状态。
+
+CancelToken 类的基本实现可能如下所示。
+```javascript
+class CancelToken {
+ constructor(cancelFn) {
+ this.promise = new Promise((resolve, reject) => {
+ cancelFn(resolve);
+ });
+ }
+}
+```
+这个类包装了一个 promise，将 resolve 方法暴露给一个 cancelFn 参数。然后，外部实体将能够为构造函数提供一个函数，允许该实体精确控制何时取消 token。
+[下面是完整示例](https://jinjun1994.github.io/example/js/cancleToken.html)
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="start">Start</button>
+    <button id="cancel">Cancel</button>
+    <script>
+      class CancelToken {
+        constructor(cancelFn) {
+          this.promise = new Promise((resolve, reject) => {
+            cancelFn(() => {
+              setTimeout(console.log, 0, "delay cancelled");
+              resolve();
+            });
+          });
+        }
+      }
+      const startButton = document.querySelector("#start");
+      const cancelButton = document.querySelector("#cancel");
+      function cancellableDelayedResolve(delay) {
+        setTimeout(console.log, 0, "set delay");
+        return new Promise((resolve, reject) => {
+          const id = setTimeout(() => {
+            setTimeout(console.log, 0, "delayed resolve");
+            resolve();
+          }, delay);
+          const cancelToken = new CancelToken((cancelCallback) =>
+            cancelButton.addEventListener("click", cancelCallback)
+          );
+          cancelToken.promise.then(() => clearTimeout(id));
+        });
+      }
+      startButton.addEventListener("click", () =>
+        cancellableDelayedResolve(5000)
+      );
+    </script>
+  </body>
+</html>
+```
+点击开始按钮，执行 cancellableDelayedResolve 延迟5秒，5秒后 resolve ，核心是下面几行，
+```javascript
+ const cancelToken = new CancelToken((cancelCallback) =>
+            cancelButton.addEventListener("click", cancelCallback)
+          );
+ constructor(cancelFn) {
+          this.promise = new Promise((resolve, reject) => {
+            cancelFn(() => {
+              setTimeout(console.log, 0, "delay cancelled");
+              resolve();
+            });
+          });
+        }
+```
+创建 CancelToken 实例，将 cancelFn 函数传入构造函数，构造函数包装一个 promise ，将 resolve 作为参数函数传入 cancelFn， 再执行 cancelFn ，将 resolve 绑定到取消按钮 click 事件中。
+点击取消按钮，便会解决这个 promise ，触发 ` cancelToken.promise.then(() => clearTimeout(id)); `
+
+#### promise 进度通知（Promise Progress Notifications ）
+一个进行中的承诺可能有几个离散的 "阶段"，在实际解决之前，它将通过这些阶段。在某些情况下，允许程序观察一个承诺是否达到这些检查点是很有用的。ECMAScript 6的承诺不支持这个概念，但仍然可以通过扩展一个承诺来模拟这种行为。
+一个潜在的实现是用一个notify()方法来扩展Promise类，如下所示
+```javascript
+class TrackablePromise extends Promise {
+ constructor(executor) {
+  const notifyHandlers = [];
+ 
+  super((resolve, reject) => {
+ 
+  return executor(resolve, reject, (status) => {
+    notifyHandlers.map((handler) => handler(status));
+   }) ;
+ });
+ this.notifyHandlers = notifyHandlers; 
+ }
+ 
+ notify(notifyHandler) {
+ this.notifyHandlers.push(notifyHandler);
+ return this;
+ }
+}
+```
+TrackablePromise就可以在执行器中使用notify()函数。如下所示。
+```javascript
+let p = new TrackablePromise((resolve, reject, notify) => {
+ function countdown(x) {
+ if (x > 0) {
+ 
+notify(`${20 * x}% remaining`);
+ setTimeout(() => countdown(x - 1), 1000);
+ } else {
+ resolve();
+ }
+ }
+ countdown(5);
+}); 
+p.notify((x) => setTimeout(console.log, 0, 'progress:', x));
+p.then(() => setTimeout(console.log, 0, 'completed'));
+// (after 1s) 80% remaining
+// (after 2s) 60% remaining
+// (after 3s) 40% remaining
+// (after 4s) 20% remaining
+// (after 5s) completed 
+```
+这个notify()方法被设计成可以通过返回自身来实现连锁化，并且处理程序的执行将在每次通知的基础上得到保留，如这里所示。
+```javascript
+p.notify((x) => setTimeout(console.log, 0, 'a:', x))
+.notify((x) => setTimeout(console.log, 0, 'b:', x));
+p.then(() => setTimeout(console.log, 0, 'completed'));
+// (after 1s) a: 80% remaining
+// (after 1s) b: 80% remaining
+// (after 2s) a: 60% remaining
+// (after 2s) b: 60% remaining
+// (after 3s) a: 40% remaining
+// (after 3s) b: 40% remaining
+// (after 4s) a: 20% remaining
+// (after 4s) b: 20% remaining
+// (after 5s) completed 
+```
+ES6 promise 不具备取消或通知功能的主要原因之一是，它大大复杂了 promise 链和组合。目前还不完全清楚在以下情况下会发生什么： 取消或通知发生在有其他 promise 依赖的 promise 中。如 promise 链中。反问一下，当Promise.all()里面的 promise 取消，或者 promise 链里面的前一个 promise 发出通知的时候，什么是合理的行为？
+
 ## 生成器+promise
 
 回调函数一节我们提到回调的顺序性问题，同步的大脑难以理解异步逻辑，Promise 链也开始提供（尽管并不完美）以顺序的方式表达异步流的一个更好的方法，这有助于我们的大脑更好地计划和维护异步 JavaScript 代码。这个问题的一种更好的解决方案生成器+promise
 
+### Promise
+Promise 对象是一个代理对象（代理一个值），被代理的值在Promise对象创建时可能是未知的。它允许你为异步操作的成功和失败分别绑定相应的处理方法（handlers）。 这让异步方法可以像同步方法那样返回值，但并不是立即返回最终执行结果，而是一个能代表未来出现的结果的promise对象
+常用场景
+如果遇到接口的调用参数依赖于上一个接口的返回值，我们一般会这么写promise。
 
+```javascript
+function getApi(params) {
+  return new Promise((resolve) => {
+    // 模拟ajax
+    setTimeout(() => {
+      resolve('api result: ' + params)
+    }, 1000)
+  })
+}
+getApi('start').then((res) => {
+  getApi(res).then((res) => {
+    getApi(res).then((res) => {
+      console.log('finish', res)
+    })
+  })
+})
+```
+promise的出现让异步方法可以像同步方法那样返回值，但是并没有解决回调地狱的问题，如上面的场景，接下来就该Generator出场了。
+
+### Generator
+es6新增了一种声明方式，function *
+
+function* 这种声明方式(function关键字后跟一个星号）会定义一个生成器函数(generator function)，它返回一个  Generator  对象。
+生成器函数在执行时能暂停，后面又能从暂停处继续执行。
+
+调用一个生成器函数并不会马上执行它里面的语句，而是返回一个这个生成器的迭代器 （ iterator）对象。当这个迭代器的 next() 方法被首次（后续）调用时，其内的语句会执行到第一个（后续）出现yield的位置为止，yield后紧跟迭代器要返回的值。或者如果用的是yield*（多了个星号），则表示将执行权移交给另一个生成器函数（当前生成器暂停执行）。
+
+next()方法返回一个对象，这个对象包含两个属性：value 和 done，value 属性表示本次 yield 表达式的返回值，done 属性为布尔类型，表示生成器后续是否还有yield语句，即生成器函数是否已经执行完毕并返回。
+
+调用 next()方法时，如果传入了参数，那么这个参数会传给上一条执行的 yield语句左边的变量,第一次调用next()方法传入的参数会被直接丢弃。
+
+运用生成器我们就可以这样去改造上面的例子：
+用生成器函数包裹我们需要处理的语句，在yield后面跟我们需要处理的promise函数，next()后会执行到下一个yield位置然后暂停当前生成器的执行，至于恢复的时机就是这个promise执行完成(fulfilled/rejected)的时候，这时再调用next()，继续执行生成器接下来的语句，这里我们再实现一个自动运行生成器的方法。
+
+```javascript
+function getApi(params) {
+  return new Promise((resolve) => {
+    // 模拟ajax
+    setTimeout(() => {
+      resolve('api result: ' + params)
+    }, 1000)
+  })
+}
+function* gen(stage0) {
+  console.log(stage0)
+  let stage1 = yield getApi('startParams')
+  console.log('stage1', stage1)
+  let stage2 = yield getApi(stage1)
+  console.log('stage2', stage2)
+  let stage3 = yield getApi(stage2)
+  console.log('stage3', stage3)
+  return 'all Done!!'
+}
+function run(generator, v) {
+  let { value, done } = generator.next(v)
+  if (!done) {
+    value.then((res) => {
+      run(generator, res)
+    })
+  } else {
+    console.log(value)
+  }
+}
+run(gen('start'))
+```
+## async/await
+es2017的新语法，对上面例子的改造就变成了
+
+```javascript
+function getApi(params) {
+  return new Promise((resolve) => {
+    // 模拟ajax
+    setTimeout(() => {
+      resolve('api result: ' + params)
+    }, 1000)
+  })
+}
+async function getAllApi() {
+  let stage1 = await getApi('startParams')
+  console.log('stage1', stage1)
+  let stage2 = await getApi(stage1)
+  console.log('stage2', stage2)
+  let stage3 = await getApi(stage2)
+  console.log('stage3', stage3)
+  return 'all Done!!'
+}
+getAllApi()
+```
+所以说async/await就是generator + promise的语法糖，还自带auto run的buff
+
+### Async/Await 并发请求
+```javascript
+function getApi(params) {
+  return new Promise((resolve) => {
+    // 模拟ajax
+    setTimeout(() => {
+      resolve('api result: ' + params)
+    }, 1000)
+  })
+}
+async function getApi1() {
+  let stage1 = await getApi('startParams')
+  console.log('stage1', 1)
+}
+async function getApi2() {
+  let stage2 = await getApi(2)
+  console.log('stage2', stage2)
+}
+async function getApi3() {
+  let stage3 = await getApi(3)
+  console.log('stage3', stage3)
+}
+function getAllApi(){
+  getApi1()
+  getApi2()
+  getApi3()
+}
+getAllApi()
+```
+async/await 可以说是异步终极解决方案了。
+
+(1) async/await 函数相对于 Promise，优势体现在：
+
+处理 then 的调用链，能够更清晰准确的写出代码
+并且也能优雅地解决回调地狱问题。
+当然 async/await 函数也存在一些缺点，因为 await 将异步代码改造成了同步代码，如果多个异步代码没有依赖性却使用了 await 会导致性能上的降低，代码没有依赖性的话，完全可以使用 Promise.all 的方式。
+
+(2) async/await 函数对 Generator 函数的改进，体现在以下三点：
+
+内置执行器。 Generator 函数的执行必须靠执行器，所以才有了 co 函数库，而 async 函数自带执行器。也就是说，async 函数的执行，与普通函数一模一样，只要一行。
+
+更广的适用性。 co 函数库约定，yield 命令后面只能是 Thunk 函数或 Promise 对象，而 async 函数的 await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）。
+
+更好的语义。 async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。
 
 ## rxjs
 
-
+待补充
 
 
 
@@ -765,7 +1047,9 @@ obj.foo = 'bar';
 Node的console.log是另一回事，它是严格同步的，因此同样的
 代码输出的却为{}。
 
-
+参考文献：
+《你不知道的 JavaScript》
+《JavaScript 高级程序设计》第四版
 
 [JavaScript 运行机制详解：再谈Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
 
@@ -780,3 +1064,7 @@ Node的console.log是另一回事，它是严格同步的，因此同样的
 [setImmediate API demo](http://jphpsf.github.io/setImmediate-shim-demo/)
 
 [从源码看 Promise 概念与实现](https://segmentfault.com/a/1190000015171823)
+[generator，promise 与 async/await 的关系](https://segmentfault.com/a/1190000022270916)
+
+https://rxmarbles.com/#takeWhile
+[详解前端异步编程的六种方案](https://www.infoq.cn/article/zwowtega7KjC4Ad-trp4)
